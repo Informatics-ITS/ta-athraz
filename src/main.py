@@ -31,13 +31,14 @@ if __name__ == "__main__":
             name = s["name"]
             method = s.get("method", "run")
             delay = s.get("delay", 0)
+            args = s.get("args", [])
 
             if name in scenario_map:
                 scenario_instance = scenario_map[name]()
                 run_method = getattr(scenario_instance, method, None)
                 if run_method:
                     logger.info(f"Running method {method} on {name}")
-                    err = run_method()
+                    err = run_method(*args)
                     if err:
                         logger.error(f"Error running method {method} on {name}: {err}")
                 else:

@@ -4,6 +4,8 @@ scenarios:
   - name: "chrome_scenario"
     method: "browse"
     delay: 2
+    args: ["www.python.org"]
   - name: "word_scenario"
     method: "write"
     delay: 2
+    args: ["haloooo, tes satu dua tiga!"]
