@@ -1,4 +1,5 @@
 execution_mode: random
+repeat: true
 scenarios:
   - name: "chrome_scenario"
     method: "browse"
