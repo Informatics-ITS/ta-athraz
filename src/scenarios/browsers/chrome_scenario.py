@@ -1,47 +1,28 @@
 import time
 import random
-from utils.autoit_dll import AutoItDLL
 from configs.logger import logger
+from scenarios.base.browser_scenario import BrowserScenario
 
-class ChromeScenario:
+class ChromeScenario(BrowserScenario):
     def __init__(self):
-        self.dll = AutoItDLL().dll
+        super().__init__()
         self.window_info = "[TITLE:New Tab - Google Chrome; CLASS:Chrome_WidgetWin_1]"
-    
+
     def run(self):
         logger.info("Running Google Chrome")
         if not self.dll.AU3_Run("C:\\Program Files\\Google\Chrome\\Application\\chrome.exe", "", 1):
             return "could not run Google Chrome"
         
-        time.sleep(2)
-        logger.info("Checking existing Google Chrome window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Getting Google Chrome window handle")
-            handle = self.dll.AU3_WinGetHandle(self.window_info, "")
-            if not handle:
-                return "could not get window handle"
-            else:
-                self.window_info = "[HANDLE:%s]" % f"{handle:08X}" 
-            logger.info("Activating Google Chrome window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Microsoft Window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Google Chrome"
-        else:
-            return "Google Chrome window didn't exist"
-
-        return None
-    
-    def browse(self, text = ""):
+    def browse(self, url = ""):
         err = self.run()
         if err:
             return err
             
-        if text == "":
-            text = "ayam geprek"
+        if url == "":
+            url = "www.python.org"
             
         time.sleep(2)
-        for letter in text:
+        for letter in url:
             logger.info("Checking if Google Chrome window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
                 break

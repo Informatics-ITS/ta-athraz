@@ -1,11 +1,11 @@
 import time
 import random
-from utils.autoit_dll import AutoItDLL
 from configs.logger import logger
+from scenarios.base.native_app_scenario import NativeAppScenario
 
-class WordScenario:
+class WordScenario(NativeAppScenario):
     def __init__(self):
-        self.dll = AutoItDLL().dll
+        super().__init__()
         self.window_info = "[CLASS:OpusApp]"
         
     def run(self):
@@ -24,7 +24,7 @@ class WordScenario:
                 self.window_info = "[HANDLE:%s]" % f"{handle:08X}" 
             logger.info("Activating Microsoft Word window")
             self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Microsoft Window to be active")
+            logger.info("Waiting Microsoft Word window to be active")
             if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
                 return "could not activate Microsoft Word"
         else:
