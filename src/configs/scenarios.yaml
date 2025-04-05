@@ -1,11 +1,19 @@
 execution_mode: random
-repeat: true
+# repeat: true
 scenarios:
-  - name: "chrome_scenario"
-    method: "browse"
-    delay: 2
-    args: ["www.python.org"]
-  - name: "word_scenario"
-    method: "write"
-    delay: 2
-    args: ["haloooo, tes satu dua tiga!"]
+  # - name: "chrome_scenario"
+  #   method: "browse"
+  #   delay: 2
+  #   args: ["www.python.org"]
+  # - name: "word_scenario"
+  #   method: "write"
+  #   delay: 2
+  #   args: ["haloooo, tes satu dua tiga!"]
+  # - name: "firefox_scenario"
+  #   method: "browse"
+  #   delay: 2
+  #   args: ["www.python.org"]
+  - name: "google_form_scenario"
+    browser: "firefox_scenario"
+    method: "fill"
+    args: ["https://forms.gle/RzbGX9WemsK4z72v6", ["short answer", "paragraph answer"]]
