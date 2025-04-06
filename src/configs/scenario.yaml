@@ -1,0 +1,47 @@
+execution_mode: "random"
+# repeat: "true"
+scenario:
+  - name: "Google Chrome"
+    methods:
+    - method: "create_window"
+      delay: 2
+    - method: "browse"
+      delay: 2
+      args:
+        url: "www.python.org"
+  - name: "Microsoft Word"
+    methods:
+    - method: "run"
+      delay: 2
+    - method: "write"
+      delay: 2
+      args:
+        text: "haloooo, tes satu dua tiga!"
+  - name: "Mozilla Firefox"
+    methods:
+    - method: "create_window"
+      delay: 2
+    - method: "browse"
+      delay: 2
+      args:
+        url: "www.python.org"
+  - name: "Google Forms"
+    browser: "Mozilla Firefox"
+    methods:
+    - method: "fill"
+      delay: 2
+      args:
+        url: "https://forms.gle/1wCpoSWBjQqVvtVv5"
+        answers: ["short answer", "lorem ipsum", "paragraph answer"]
+  - name: "Google Forms"
+    browser: "Mozilla Firefox"
+    methods:
+    - method: "create"
+      delay: 2
+      args:
+        title: "Form Testing"
+        description: "form ini digunakan untuk testing"
+        questions:
+          - ["Short answer", "question 1", true]
+          - ["Paragraph", "question 2", true]
+          - ["Short answer", "question 3", false]

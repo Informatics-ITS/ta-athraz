@@ -2,14 +2,19 @@ import time
 import random
 import pyperclip
 from configs.logger import logger
-from scenarios.base.browser_app_scenario import BrowserAppScenario
+from activities.apps.browser_apps.base import BrowserApp
 
-class GoogleFormScenario(BrowserAppScenario):        
+class GoogleForms(BrowserApp):        
     def fill(self, url, answers):
         if not url.startswith("https://forms.gle/") and not url.startswith("https://https://docs.google.com/forms/"):
-            return "Invalid Google Form URL"
+            return "Invalid Google Forms URL"
         
-        logger.info("Browsing Google Form URL")
+        logger.info("Creating new browser window")
+        err = self.browser.create_window()
+        if err:
+            return err
+        
+        logger.info("Browsing Google Forms URL")
         err = self.browser.browse(url)
         if err:
             return err
@@ -19,12 +24,12 @@ class GoogleFormScenario(BrowserAppScenario):
         for answer in answers:
             logger.info("Checking if browser window is active")
             if not self.dll.AU3_WinActive(self.browser.window_info, ""):
-                return "browser window is inactive while moving to Google Form questions"
+                return "browser window is inactive while moving to Google Forms questions"
             
             if first:
-                logger.info("Moving to Google Form question")
+                logger.info("Moving to Google Forms question")
                 if not self.dll.AU3_Send("{TAB}{TAB}{TAB}", 0):
-                    return "could not send tab key to move to Google Form question"
+                    return "could not send tab key to move to Google Forms question"
                 first = False
             else:
                 logger.info("Moving to next question")
@@ -33,70 +38,76 @@ class GoogleFormScenario(BrowserAppScenario):
 
             time.sleep(random.uniform(1, 3))
             
-            logger.info("Sending answer to Google Form")
+            logger.info("Sending answer to Google Forms")
             for letter in answer:
                 logger.info("Checking if browser window is active")
                 if not self.dll.AU3_WinActive(self.browser.window_info, ""):
-                    return "browser window is inactive while filling Google Form answers"
+                    return "browser window is inactive while filling Google Forms answers"
 
-                logger.info("Sending answer letter to Google Form window")
+                logger.info("Sending answer letter to Google Forms window")
                 if not self.dll.AU3_Send(letter, 1):
-                    return f"could not send {letter} to Google Form"
+                    return f"could not send {letter} to Google Forms"
                 rand = random.uniform(0.05, 0.15)
                 time.sleep(rand)
                 
         time.sleep(2)
-        logger.info("Submitting Google Form")
+        logger.info("Submitting Google Forms")
         if not self.dll.AU3_Send("{TAB}{ENTER}", 0):
-            return "could not send keys to submit Google Form"
+            return "could not send keys to submit Google Forms"
                 
         return None
     
-    def create(self, title, description, questions):        
-        logger.info("Browsing Google Form create")
-        err = self.browser.browse("https://forms.google.com/create")
+    def create(self, title, description, questions):
+        logger.info("Creating new browser window")
+        err = self.browser.create_window()
         if err:
             return err
         
+        logger.info("Browsing Google Forms create")
+        err = self.browser.browse("https://forms.google.com/create")
+        if err:
+            return err
+
         time.sleep(6)
-        logger.info("Moving to Google Form title")
+        logger.info("Moving to Google Forms title")
         for _ in range(10):
             time.sleep(0.5)
             if not self.dll.AU3_Send("{TAB}", 0):
-                return "could not send tab key to move to Google Form title"
+                return "could not send tab key to move to Google Forms title"
         
         time.sleep(1)
-        logger.info("Filling Google Form title")
+        logger.info("Filling Google Forms title")
         if not self.dll.AU3_Send("^a{BACKSPACE}", 0):
-            return "could not send keys to delete template Google Form title"
+            return "could not send keys to delete template Google Forms title"
         for letter in title:
             logger.info("Checking if browser window is active")
+            print("window info:", self.browser.window_info)
             if not self.dll.AU3_WinActive(self.browser.window_info, ""):
-                return "browser window is inactive while filling Google Form title"
+                return "browser window is inactive while filling Google Forms title"
 
-            logger.info("Sending title letter to Google Form window")
+            logger.info("Sending title letter to Google Forms window")
             if not self.dll.AU3_Send(letter, 1):
-                return f"could not send {letter} to Google Form"
+                return f"could not send {letter} to Google Forms"
             rand = random.uniform(0.05, 0.1)
             time.sleep(rand)
             
         time.sleep(2)
-        logger.info("Moving to Google Form description")
+        logger.info("Moving to Google Forms description")
         for _ in range(2):
             time.sleep(0.5)
             if not self.dll.AU3_Send("{TAB}", 0):
-                return "could not send tab key to move to Google Form description"
+                return "could not send tab key to move to Google Forms description"
         
         time.sleep(1)
-        logger.info("Filling Google Form description")
+        logger.info("Filling Google Forms description")
         for letter in description:
             logger.info("Checking if browser window is active")
             if not self.dll.AU3_WinActive(self.browser.window_info, ""):
-                return "browser window is inactive while filling Google Form description"
+                return "browser window is inactive while filling Google Forms description"
 
-            logger.info("Sending description letter to Google Form window")
+            logger.info("Sending description letter to Google Forms window")
             if not self.dll.AU3_Send(letter, 1):
-                return f"could not send {letter} to Google Form"
+                return f"could not send {letter} to Google Forms"
             rand = random.uniform(0.05, 0.1)
             time.sleep(rand)
             
@@ -108,7 +119,7 @@ class GoogleFormScenario(BrowserAppScenario):
             for _ in range(count-1):
                 logger.info("Checking if browser window is active")
                 if not self.dll.AU3_WinActive(self.browser.window_info, ""):
-                    return "browser window is inactive while adding Google Form question box"
+                    return "browser window is inactive while adding Google Forms question box"
                 
                 logger.info("Moving to question box button")
                 if first:
@@ -137,9 +148,9 @@ class GoogleFormScenario(BrowserAppScenario):
                 if not self.dll.AU3_WinActive(self.browser.window_info, ""):
                     return "browser window is inactive while filling question title"
 
-                logger.info("Sending question title letter to Google Form window")
+                logger.info("Sending question title letter to Google Forms window")
                 if not self.dll.AU3_Send(letter, 1):
-                    return f"could not send {letter} to Google Form"
+                    return f"could not send {letter} to Google Forms"
                 rand = random.uniform(0.05, 0.15)
                 time.sleep(rand)
                 

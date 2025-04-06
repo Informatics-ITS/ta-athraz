@@ -1,17 +1,19 @@
 import time
 import random
 from configs.logger import logger
-from scenarios.base.native_app_scenario import NativeAppScenario
+from activities.apps.native_apps.base import NativeApp
 
-class WordScenario(NativeAppScenario):
+class MicrosoftWord(NativeApp):
     def __init__(self):
         super().__init__()
         self.window_info = "[CLASS:OpusApp]"
         
     def run(self):
         logger.info("Running Microsoft Word")
-        if not self.dll.AU3_Run("C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "", 1):
+        if not self.dll.AU3_Run("C:\\Downloads\\cover letter.docx", "", 1):
             return "could not run Microsoft Word"
+        # if not self.dll.AU3_Run('C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE "C:\\Users\\ASUS\\Downloads\\cover letter.docx"', "", 1):
+        #     return "could not run Microsoft Word"
 
         time.sleep(2)
         logger.info("Checking existing Microsoft Word window")

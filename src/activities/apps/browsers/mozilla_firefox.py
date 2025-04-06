@@ -1,17 +1,17 @@
 import time
 import random
 from configs.logger import logger
-from scenarios.base.browser_scenario import BrowserScenario
+from activities.apps.browsers.base import Browser
 
-class FirefoxScenario(BrowserScenario):
+class MozillaFirefox(Browser):
     def __init__(self):
         super().__init__()
         self.window_info = "[CLASS:MozillaWindowClass]"
     
-    def run(self):
-        logger.info("Running Mozilla Firefox")
+    def create_window(self):
+        logger.info("Creating new Mozilla Firefox window")
         if not self.dll.AU3_Run("C:\\Users\\ASUS\\AppData\\Local\\Mozilla Firefox\\firefox.exe", "", 1):
-            return "could not run Mozilla Firefox"
+            return "could not run firefox.exe"
         
         time.sleep(2)
         logger.info("Checking existing Mozilla Firefox window")
@@ -32,24 +32,17 @@ class FirefoxScenario(BrowserScenario):
 
         return None
     
-    def browse(self, url = ""):
+    def browse(self, url = "www.python.org"):
         logger.info("Checking existing Mozilla Firefox window")
-        if not self.dll.AU3_WinExists(self.window_info, ""):
-            err = self.run()
-            if err:
-                return err
-        else:    
+        if self.dll.AU3_WinExists(self.window_info, ""):
             logger.info("Activating Mozilla Firefox window")
             self.dll.AU3_WinActivate(self.window_info, "")
             logger.info("Waiting Mozilla Firefox window to be active")
             if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Mozilla Firefox"
-            logger.info("Createing new Mozilla Firefox tab")
-            self.dll.AU3_Send("^t", 0)
-            
-        if url == "":
-            url = "www.python.org"
-            
+                return "could not activate Mozilla Firefox window"
+        else:
+            return "Mozilla Firefox window didn't exist"
+
         time.sleep(2)
         for letter in url:
             logger.info("Checking if Mozilla Firefox window is active")
