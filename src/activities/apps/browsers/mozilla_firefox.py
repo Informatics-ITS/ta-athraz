@@ -78,7 +78,7 @@ class MozillaFirefox(Browser):
         return None
     
     def scroll(self, direction = "down", clicks = 10, scroll_delay = 0.05):
-        if direction != "up" or direction != "down":
+        if direction != "up" and direction != "down":
             return "invalid scroll direction"
         
         logger.info("Checking existing Mozilla Firefox window")
