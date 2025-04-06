@@ -18,6 +18,8 @@ activity_map = {
     "Microsoft Word": MicrosoftWord,
 }
 
+activity_instances = {}
+
 if __name__ == "__main__":
     config = load_config()
 
@@ -34,37 +36,38 @@ if __name__ == "__main__":
             browser = s.get("browser", None)
             methods = s.get("methods", [])
 
+            if name not in activity_instances:
+                if browser:
+                    if browser not in activity_instances:
+                        activity_instances[browser] = activity_map[browser]()
+                    activity_instances[name] = activity_map[name](activity_instances[browser])
+                else:
+                    activity_instances[name] = activity_map[name]()
+
+            activity_instance = activity_instances[name]
+
             for m in methods:
                 method = m.get("method")
                 delay = m.get("delay", 0)
                 args = m.get("args", {})
 
-                if name in activity_map:
-                    if browser:
-                        browser_instance = activity_map[browser]()
-                        activity_instance = activity_map[name](browser_instance)
-                    else:
-                        activity_instance = activity_map[name]()
+                run_method = getattr(activity_instance, method, None)
+                if run_method:
+                    logger.info(f"Running method '{method}' on activity '{name}' with args: {args}")
+                    try:
+                        if isinstance(args, dict):
+                            err = run_method(**args)
+                        elif isinstance(args, list):
+                            err = run_method(*args)
+                        else:
+                            err = run_method()
 
-                    run_method = getattr(activity_instance, method, None)
-                    if run_method:
-                        logger.info(f"Running method '{method}' on activity '{name}' with args: {args}")
-                        try:
-                            if isinstance(args, dict):
-                                err = run_method(**args)
-                            elif isinstance(args, list):
-                                err = run_method(*args)
-                            else:
-                                err = run_method()
-
-                            if err:
-                                logger.error(f"Error running method {method} on {name}: {err}")
-                        except Exception as e:
-                            logger.error(f"Exception while running {method} on {name}: {e}")
-                    else:
-                        logger.error(f"Method '{method}' not found on '{name}'")
+                        if err:
+                            logger.error(f"Error running method {method} on {name}: {err}")
+                    except Exception as e:
+                        logger.error(f"Exception while running {method} on {name}: {e}")
                 else:
-                    logger.error(f"Activity '{name}' not found in activity map")
+                    logger.error(f"Method '{method}' not found on '{name}'")
 
                 time.sleep(delay)
 
