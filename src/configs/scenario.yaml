@@ -5,43 +5,65 @@ scenario:
     methods:
     - method: "create_window"
       delay: 2
+    - method: "create_tab"
+      delay: 2
     - method: "browse"
       delay: 2
       args:
         url: "www.python.org"
-  - name: "Microsoft Word"
-    methods:
-    - method: "run"
-      delay: 2
-    - method: "write"
+    - method: "scroll"
       delay: 2
       args:
-        text: "haloooo, tes satu dua tiga!"
+        direction: "down"
+        clicks: 30
+        scroll_delay: 0.03
   - name: "Mozilla Firefox"
     methods:
     - method: "create_window"
       delay: 2
+    - method: "create_tab"
+      delay: 2
     - method: "browse"
       delay: 2
       args:
         url: "www.python.org"
-  - name: "Google Forms"
-    browser: "Mozilla Firefox"
-    methods:
-    - method: "fill"
+    - method: "scroll"
+      delay: 0.5
+      args:
+        direction: "down"
+        clicks: 30
+        scroll_delay: 0.07
+    - method: "scroll"
       delay: 2
       args:
-        url: "https://forms.gle/1wCpoSWBjQqVvtVv5"
-        answers: ["short answer", "lorem ipsum", "paragraph answer"]
-  - name: "Google Forms"
-    browser: "Mozilla Firefox"
-    methods:
-    - method: "create"
-      delay: 2
-      args:
-        title: "Form Testing"
-        description: "form ini digunakan untuk testing"
-        questions:
-          - ["Short answer", "question 1", true]
-          - ["Paragraph", "question 2", true]
-          - ["Short answer", "question 3", false]
+        direction: "up"
+        clicks: 15
+        scroll_delay: 0.05
+  # - name: "Microsoft Word"
+  #   methods:
+  #   - method: "run"
+  #     delay: 2
+  #   - method: "write"
+  #     delay: 2
+  #     args:
+  #       text: "haloooo, tes satu dua tiga!"
+  # - name: "Google Forms"
+  #   browser: "Mozilla Firefox"
+  #   methods:
+  #   - method: "fill"
+  #     delay: 2
+  #     args:
+  #       url: "https://forms.gle/1wCpoSWBjQqVvtVv5"
+  #       answers: ["short answer", "lorem ipsum", "paragraph answer"]
+  # - name: "Google Forms"
+  #   browser: "Mozilla Firefox"
+  #   methods:
+  #   - method: "create"
+  #     delay: 2
+  #     args:
+  #       title: "Form Testing"
+  #       description: "form ini digunakan untuk testing"
+  #       questions:
+  #         - ["Short answer", "question 1", true]
+  #         - ["Paragraph", "question 2", true]
+  #         - ["Short answer", "question 3", false]

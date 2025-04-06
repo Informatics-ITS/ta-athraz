@@ -81,7 +81,6 @@ class GoogleForms(BrowserApp):
             return "could not send keys to delete template Google Forms title"
         for letter in title:
             logger.info("Checking if browser window is active")
-            print("window info:", self.browser.window_info)
             if not self.dll.AU3_WinActive(self.browser.window_info, ""):
                 return "browser window is inactive while filling Google Forms title"
 

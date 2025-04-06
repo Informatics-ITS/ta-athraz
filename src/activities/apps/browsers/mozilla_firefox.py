@@ -32,6 +32,21 @@ class MozillaFirefox(Browser):
 
         return None
     
+    def create_tab(self):
+        logger.info("Checking existing Mozilla Firefox window")
+        if self.dll.AU3_WinExists(self.window_info, ""):
+            logger.info("Activating Mozilla Firefox window")
+            self.dll.AU3_WinActivate(self.window_info, "")
+            logger.info("Waiting Mozilla Firefox window to be active")
+            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
+                return "could not activate Mozilla Firefox"
+            logger.info("Createing new Mozilla Firefox tab")
+            self.dll.AU3_Send("^t", 0)
+        else:
+            return "could not find existing Mozilla Firefox window"
+
+        return None
+    
     def browse(self, url = "www.python.org"):
         logger.info("Checking existing Mozilla Firefox window")
         if self.dll.AU3_WinExists(self.window_info, ""):
@@ -60,4 +75,31 @@ class MozillaFirefox(Browser):
         if not self.dll.AU3_Send("{ENTER}", 0):
             return "could not send Enter key"
             
+        return None
+    
+    def scroll(self, direction = "down", clicks = 10, scroll_delay = 0.05):
+        if direction != "up" or direction != "down":
+            return "invalid scroll direction"
+        
+        logger.info("Checking existing Mozilla Firefox window")
+        if self.dll.AU3_WinExists(self.window_info, ""):
+            logger.info("Activating Mozilla Firefox window")
+            self.dll.AU3_WinActivate(self.window_info, "")
+            logger.info("Waiting Mozilla Firefox window to be active")
+            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
+                return "could not activate Mozilla Firefox window"
+        else:
+            return "Mozilla Firefox window didn't exist"
+
+        time.sleep(2)
+        for _ in range(clicks):
+            logger.info("Checking if Mozilla Firefox window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                break
+            
+            logger.info("Scrolling Mouse wheel")
+            time.sleep(scroll_delay)
+            if not self.dll.AU3_MouseWheel(direction, 1):
+                return "Cannot scroll mouse wheel"
+        
         return None

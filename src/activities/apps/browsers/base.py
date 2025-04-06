@@ -10,5 +10,13 @@ class Browser(ABC):
         pass
     
     @abstractmethod
+    def create_tab(self):
+        pass
+    
+    @abstractmethod
     def browse(self, url: str):
+        pass
+    
+    @abstractmethod
+    def scroll(self, direction: str, clicks: int, scroll_delay: float):
         pass
