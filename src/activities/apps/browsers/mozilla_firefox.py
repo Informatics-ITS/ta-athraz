@@ -7,6 +7,19 @@ class MozillaFirefox(Browser):
     def __init__(self):
         super().__init__()
         self.window_info = "[CLASS:MozillaWindowClass]"
+        
+    def _check_existing_window(self):
+        logger.info("Checking existing Mozilla Firefox window")
+        if self.dll.AU3_WinExists(self.window_info, ""):
+            logger.info("Activating Mozilla Firefox window")
+            self.dll.AU3_WinActivate(self.window_info, "")
+            logger.info("Waiting Mozilla Firefox window to be active")
+            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
+                return "could not activate Mozilla Firefox window"
+        else:
+            return "Mozilla Firefox window didn't exist"
+
+        return None
     
     def create_window(self):
         logger.info("Creating new Mozilla Firefox window")
@@ -33,30 +46,21 @@ class MozillaFirefox(Browser):
         return None
     
     def create_tab(self):
-        logger.info("Checking existing Mozilla Firefox window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Activating Mozilla Firefox window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Mozilla Firefox window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Mozilla Firefox"
-            logger.info("Createing new Mozilla Firefox tab")
-            self.dll.AU3_Send("^t", 0)
-        else:
-            return "could not find existing Mozilla Firefox window"
+        err = self._check_existing_window()
+        if err:
+            return err
+
+        logger.info("Creating new Mozilla Firefox tab")
+        if not self.dll.AU3_Send("^t", 0):
+            return "Could not send keys to create new tab"
 
         return None
+
     
     def browse(self, url = "www.python.org"):
-        logger.info("Checking existing Mozilla Firefox window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Activating Mozilla Firefox window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Mozilla Firefox window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Mozilla Firefox window"
-        else:
-            return "Mozilla Firefox window didn't exist"
+        err = self._check_existing_window()
+        if err:
+            return err
 
         time.sleep(2)
         for letter in url:
@@ -81,15 +85,9 @@ class MozillaFirefox(Browser):
         if direction != "up" and direction != "down":
             return "invalid scroll direction"
         
-        logger.info("Checking existing Mozilla Firefox window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Activating Mozilla Firefox window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Mozilla Firefox window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Mozilla Firefox window"
-        else:
-            return "Mozilla Firefox window didn't exist"
+        err = self._check_existing_window()
+        if err:
+            return err
 
         time.sleep(2)
         for _ in range(clicks):

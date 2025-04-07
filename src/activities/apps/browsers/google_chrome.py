@@ -7,6 +7,19 @@ class GoogleChrome(Browser):
     def __init__(self):
         super().__init__()
         self.window_info = "[TITLE:New Tab - Google Chrome; CLASS:Chrome_WidgetWin_1]"
+        
+    def _check_existing_window(self):
+        logger.info("Checking existing Google Chrome window")
+        if self.dll.AU3_WinExists(self.window_info, ""):
+            logger.info("Activating Google Chrome window")
+            self.dll.AU3_WinActivate(self.window_info, "")
+            logger.info("Waiting Google Chrome window to be active")
+            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
+                return "could not activate Google Chrome window"
+        else:
+            return "Google Chrome window didn't exist"
+        
+        return None
 
     def create_window(self):
         logger.info("Creating new Google Chrome window")
@@ -33,30 +46,20 @@ class GoogleChrome(Browser):
         return None
     
     def create_tab(self):
-        logger.info("Checking existing Google Chrome window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Activating Google Chrome window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Google Chrome window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Google Chrome"
-            logger.info("Createing new Google Chrome tab")
-            self.dll.AU3_Send("^t", 0)
-        else:
-            return "could not find existing Google Chrome window"
+        err = self._check_existing_window()
+        if err:
+            return err
+
+        logger.info("Creating new Google Chrome tab")
+        if not self.dll.AU3_Send("^t", 0):
+            return "Could not send keys to create new tab"
 
         return None
 
     def browse(self, url = "www.python.org"):
-        logger.info("Checking existing Google Chrome window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Activating Google Chrome window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Google Chrome window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Google Chrome window"
-        else:
-            return "Google Chrome window didn't exist"
+        err = self._check_existing_window()
+        if err:
+            return err
 
         time.sleep(2)
         for letter in url:
@@ -81,15 +84,9 @@ class GoogleChrome(Browser):
         if direction != "up" and direction != "down":
             return "invalid scroll direction"
         
-        logger.info("Checking existing Google Chrome window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Activating Google Chrome window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Google Chrome window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Google Chrome window"
-        else:
-            return "Google Chrome window didn't exist"
+        err = self._check_existing_window()
+        if err:
+            return err
 
         time.sleep(2)
         for _ in range(clicks):

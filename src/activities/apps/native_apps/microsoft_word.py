@@ -8,6 +8,19 @@ class MicrosoftWord(NativeApp):
         super().__init__()
         self.window_info = "[CLASS:OpusApp]"
         
+    def _check_existing_window(self):
+        logger.info("Checking existing Microsoft Word window")
+        if self.dll.AU3_WinExists(self.window_info, ""):
+            logger.info("Activating Microsoft Word window")
+            self.dll.AU3_WinActivate(self.window_info, "")
+            logger.info("Waiting Microsoft Word window to be active")
+            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
+                return "could not activate Microsoft Word window"
+        else:
+            return "Microsoft Word window didn't exist"
+        
+        return None
+        
     def create(self):
         logger.info("Running Microsoft Word")
         if not self.dll.AU3_Run("C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "", 1):
@@ -65,15 +78,9 @@ class MicrosoftWord(NativeApp):
         return None
     
     def write(self, text = ""):
-        logger.info("Checking existing Microsoft Word window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Activating Microsoft Word window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Microsoft Word window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Microsoft Word window"
-        else:
-            return "Microsoft Word window didn't exist"
+        err = self._check_existing_window()
+        if err:
+            return err
             
         if text == "":
             text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ultricies cursus sagittis."
@@ -100,15 +107,9 @@ class MicrosoftWord(NativeApp):
         if direction != "up" and direction != "down":
             return "invalid scroll direction"
         
-        logger.info("Checking existing Microsoft Word window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Activating Microsoft Word window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Microsoft Word window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Microsoft Word window"
-        else:
-            return "Microsoft Word window didn't exist"
+        err = self._check_existing_window()
+        if err:
+            return err
 
         time.sleep(2)
         for _ in range(clicks):
@@ -124,15 +125,9 @@ class MicrosoftWord(NativeApp):
         return None
     
     def save(self):
-        logger.info("Checking existing Microsoft Word window")
-        if self.dll.AU3_WinExists(self.window_info, ""):
-            logger.info("Activating Microsoft Word window")
-            self.dll.AU3_WinActivate(self.window_info, "")
-            logger.info("Waiting Microsoft Word window to be active")
-            if not self.dll.AU3_WinWaitActive(self.window_info, "", 10):
-                return "could not activate Microsoft Word window"
-        else:
-            return "Microsoft Word window didn't exist"
+        err = self._check_existing_window()
+        if err:
+            return err
         
         logger.info("Saving docx file")
         if not self.dll.AU3_Send("^s", 0):
