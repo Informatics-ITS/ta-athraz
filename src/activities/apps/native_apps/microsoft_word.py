@@ -1,5 +1,6 @@
 import time
 import random
+import os
 from configs.logger import logger
 from activities.apps.native_apps.base import NativeApp
 
@@ -53,6 +54,12 @@ class MicrosoftWord(NativeApp):
     def open(self, path):
         if not path:
             return "path must be provided"
+        
+        if not os.path.exists(path):
+            return f"file path '{path}' does not exist"
+        
+        if not os.path.isfile(path):
+            return f"path '{path}' is not a file"
         
         logger.info("Opening docx file")
         if not self.dll.AU3_Run(f'C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE "{path}"', "", 1):
