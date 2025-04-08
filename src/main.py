@@ -5,6 +5,8 @@ from activities.apps.browser_apps.google_forms import GoogleForms
 from activities.apps.browsers.google_chrome import GoogleChrome
 from activities.apps.browsers.mozilla_firefox import MozillaFirefox
 from activities.apps.native_apps.microsoft_word import MicrosoftWord
+from activities.files.command_prompt import CommandPrompt
+from activities.files.file_explorer import FileExplorer
 from configs.logger import logger
 
 def load_config(file_path="configs/scenario.yaml"):
@@ -16,6 +18,8 @@ activity_map = {
     "Google Chrome": GoogleChrome,
     "Mozilla Firefox": MozillaFirefox,
     "Microsoft Word": MicrosoftWord,
+    "Command Prompt": CommandPrompt,
+    "File Explorer": FileExplorer,
 }
 
 activity_instances = {}

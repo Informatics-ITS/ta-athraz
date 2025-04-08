@@ -1,6 +1,40 @@
 execution_mode: "random"
 # repeat: "true"
 scenario:
+  - name: "File Explorer"
+    methods:
+    - method: "create_window"
+      delay: 2
+    - method: "open_file"
+      delay: 2
+      args:
+        path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
+    - method: "change_directory"
+      delay: 2
+      args:
+        path: "C:\\Users\\ASUS\\Documents"
+    - method: "create_directory"
+      delay: 2
+      args:
+        parent_path: "C:\\Users\\ASUS\\Downloads"
+        dir_name: "testtt"
+  - name: "Command Prompt"
+    methods:
+    - method: "create_window"
+      delay: 2
+    - method: "open_file"
+      delay: 2
+      args:
+        path: "C:\\Users\\ASUS\\Downloads\\t.sql"
+    - method: "change_directory"
+      delay: 2
+      args:
+        path: "C:\\Users\\ASUS\\Documents\\Kuliah\\SEM 8"
+    - method: "create_directory"
+      delay: 2
+      args:
+        parent_path: "C:\\Users\\ASUS\\Downloads"
+        dir_name: "dummyyy"
   # - name: "Google Chrome"
   #   methods:
   #   - method: "create_window"
@@ -39,26 +73,26 @@ scenario:
   #       direction: "up"
   #       clicks: 15
   #       scroll_delay: 0.05
-  - name: "Microsoft Word"
-    methods:
+  # - name: "Microsoft Word"
+  #   methods:
     # - method: "create"
     #   delay: 2
-    - method: "open"
-      delay: 2
-      args:
-        path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
-    - method: "write"
-      delay: 2
-      args:
-        text: "haloooo, tes satu dua tiga!"
-    - method: "scroll"
-      delay: 2
-      args:
-        direction: "up"
-        clicks: 30
-        scroll_delay: 0.05
-    - method: "save"
-      delay: 2
+    # - method: "open"
+    #   delay: 2
+    #   args:
+    #     path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
+    # - method: "write"
+    #   delay: 2
+    #   args:
+    #     text: "haloooo, tes satu dua tiga!"
+    # - method: "scroll"
+    #   delay: 2
+    #   args:
+    #     direction: "up"
+    #     clicks: 30
+    #     scroll_delay: 0.05
+    # - method: "save"
+    #   delay: 2
   # - name: "Google Forms"
   #   browser: "Mozilla Firefox"
   #   methods:
