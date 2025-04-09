@@ -22,7 +22,7 @@ class MicrosoftWord(NativeApp):
         
         return None
         
-    def create(self):
+    def create_window(self):
         logger.info("Running Microsoft Word")
         if not self.dll.AU3_Run("C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "", 1):
             return "could not run Microsoft Word"
@@ -51,7 +51,7 @@ class MicrosoftWord(NativeApp):
         
         return None
         
-    def open(self, path):
+    def open_docx(self, path):
         if not path:
             return "path must be provided"
         
@@ -84,7 +84,7 @@ class MicrosoftWord(NativeApp):
 
         return None
     
-    def write(self, text = ""):
+    def write_docx(self, text = ""):
         err = self._check_existing_window()
         if err:
             return err
@@ -131,7 +131,7 @@ class MicrosoftWord(NativeApp):
         
         return None
     
-    def save(self):
+    def save_docx(self):
         err = self._check_existing_window()
         if err:
             return err

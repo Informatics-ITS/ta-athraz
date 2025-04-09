@@ -75,13 +75,13 @@ scenario:
   #       scroll_delay: 0.05
   # - name: "Microsoft Word"
   #   methods:
-    # - method: "create"
+    # - method: "create_window"
     #   delay: 2
-    # - method: "open"
+    # - method: "open_docx"
     #   delay: 2
     #   args:
     #     path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
-    # - method: "write"
+    # - method: "write_docx"
     #   delay: 2
     #   args:
     #     text: "haloooo, tes satu dua tiga!"
@@ -91,12 +91,12 @@ scenario:
     #     direction: "up"
     #     clicks: 30
     #     scroll_delay: 0.05
-    # - method: "save"
+    # - method: "save_docx"
     #   delay: 2
   # - name: "Google Forms"
   #   browser: "Mozilla Firefox"
   #   methods:
-  #   - method: "fill"
+  #   - method: "fill_form"
   #     delay: 2
   #     args:
   #       url: "https://forms.gle/1wCpoSWBjQqVvtVv5"
@@ -104,7 +104,7 @@ scenario:
   # - name: "Google Forms"
   #   browser: "Mozilla Firefox"
   #   methods:
-  #   - method: "create"
+  #   - method: "create_form"
   #     delay: 2
   #     args:
   #       title: "Form Testing"

@@ -5,7 +5,7 @@ from configs.logger import logger
 from activities.apps.browser_apps.base import BrowserApp
 
 class GoogleForms(BrowserApp):        
-    def fill(self, url, answers):
+    def fill_form(self, url, answers):
         if not url.startswith("https://forms.gle/") and not url.startswith("https://https://docs.google.com/forms/"):
             return "Invalid Google Forms URL"
         
@@ -57,7 +57,7 @@ class GoogleForms(BrowserApp):
                 
         return None
     
-    def create(self, title, description, questions):
+    def create_form(self, title, description, questions):
         logger.info("Creating new browser window")
         err = self.browser.create_window()
         if err:
