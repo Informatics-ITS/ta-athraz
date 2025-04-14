@@ -5,6 +5,7 @@ from activities.apps.browser_apps.google_forms import GoogleForms
 from activities.apps.browsers.google_chrome import GoogleChrome
 from activities.apps.browsers.mozilla_firefox import MozillaFirefox
 from activities.apps.native_apps.microsoft_word import MicrosoftWord
+from activities.apps.native_apps.notepad import Notepad
 from activities.files.command_prompt import CommandPrompt
 from activities.files.file_explorer import FileExplorer
 from configs.logger import logger
@@ -18,6 +19,7 @@ activity_map = {
     "Google Chrome": GoogleChrome,
     "Mozilla Firefox": MozillaFirefox,
     "Microsoft Word": MicrosoftWord,
+    "Notepad": Notepad,
     "Command Prompt": CommandPrompt,
     "File Explorer": FileExplorer,
 }
