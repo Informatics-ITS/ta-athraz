@@ -8,6 +8,8 @@ from activities.apps.native_apps.microsoft_word import MicrosoftWord
 from activities.apps.native_apps.notepad import Notepad
 from activities.files.command_prompt import CommandPrompt
 from activities.files.file_explorer import FileExplorer
+from activities.others.autoit_function import AutoItFunction
+from activities.others.selenium_script import SeleniumScript
 from configs.logger import logger
 
 def load_config(file_path="configs/scenario.yaml"):
@@ -22,6 +24,8 @@ activity_map = {
     "Notepad": Notepad,
     "Command Prompt": CommandPrompt,
     "File Explorer": FileExplorer,
+    "AutoItFunction": AutoItFunction,
+    "SeleniumScript": SeleniumScript,
 }
 
 activity_instances = {}

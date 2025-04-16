@@ -1,135 +1,149 @@
 execution_mode: "random"
 # repeat: "true"
 scenario:
-  - name: "Notepad"
+  - name: "SeleniumScript"
     methods:
-    - method: "create_window"
-      delay: 2
-    - method: "open_file"
-      delay: 2
-      args:
-        path: "C:\\Users\\ASUS\\Downloads\\credentials.json"
-    - method: "write_file"
-      delay: 2
-      args:
-        text: "test write file"
-    - method: "scroll"
-      delay: 2
-      args:
-        direction: "up"
-        clicks: 30
-        scroll_delay: 0.05
-    - method: "save_file"
-      delay: 2
-  - name: "File Explorer"
-    methods:
-    - method: "create_window"
-      delay: 2
-    - method: "open_file"
-      delay: 2
-      args:
-        path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
-    - method: "change_directory"
-      delay: 2
-      args:
-        path: "C:\\Users\\ASUS\\Documents"
-    - method: "create_directory"
-      delay: 2
-      args:
-        parent_path: "C:\\Users\\ASUS\\Downloads"
-        dir_name: "testtt"
-  - name: "Command Prompt"
-    methods:
-    - method: "create_window"
-      delay: 2
-    - method: "open_file"
-      delay: 2
-      args:
-        path: "C:\\Users\\ASUS\\Downloads\\t.sql"
-    - method: "change_directory"
-      delay: 2
-      args:
-        path: "C:\\Users\\ASUS\\Documents\\Kuliah\\SEM 8"
-    - method: "create_directory"
-      delay: 2
-      args:
-        parent_path: "C:\\Users\\ASUS\\Downloads"
-        dir_name: "dummyyy"
-  - name: "Google Chrome"
-    methods:
-    - method: "create_window"
-      delay: 2
-    - method: "create_tab"
-      delay: 2
-    - method: "browse"
-      delay: 2
-      args:
-        url: "www.python.org"
-    - method: "scroll"
-      delay: 2
-      args:
-        direction: "down"
-        clicks: 30
-        scroll_delay: 0.03
-  - name: "Mozilla Firefox"
-    methods:
-    - method: "create_window"
-      delay: 2
-    - method: "create_tab"
-      delay: 2
-    - method: "browse"
-      delay: 2
-      args:
-        url: "www.python.org"
-    - method: "scroll"
-      delay: 0.5
-      args:
-        direction: "down"
-        clicks: 30
-        scroll_delay: 0.07
-    - method: "scroll"
-      delay: 2
-      args:
-        direction: "up"
-        clicks: 15
-        scroll_delay: 0.05
-  - name: "Microsoft Word"
-    methods:
-    - method: "create_window"
-      delay: 2
-    - method: "open_docx"
-      delay: 2
-      args:
-        path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
-    - method: "write_docx"
-      delay: 2
-      args:
-        text: "haloooo, tes satu dua tiga!"
-    - method: "scroll"
-      delay: 2
-      args:
-        direction: "up"
-        clicks: 30
-        scroll_delay: 0.05
-    - method: "save_docx"
-      delay: 2
-  - name: "Google Forms"
-    browser: "Mozilla Firefox"
-    methods:
-    - method: "fill_form"
-      delay: 2
-      args:
-        url: "https://forms.gle/1wCpoSWBjQqVvtVv5"
-        answers: ["short answer", "lorem ipsum", "paragraph answer"]
-  - name: "Google Forms"
-    browser: "Mozilla Firefox"
-    methods:
-    - method: "create_form"
-      delay: 2
-      args:
-        title: "Form Testing"
-        description: "form ini digunakan untuk testing"
-        questions:
-          - ["Short answer", "question 1", true]
-          - ["Paragraph", "question 2", true]
-          - ["Short answer", "question 3", false]
+      - method: "run_pytest"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Documents\\Kuliah\\SEM 8\\TA\\user-activity-simulation\\suite1.py"
+  # - name: "AutoItFunction"
+  #   methods:
+  #   - method: "run"
+  #     delay: 2
+  #     args:
+  #       exe_path: 'C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE "C:\\Users\\ASUS\\Downloads\\dummy.docx"'
+  #       working_dir: ""
+  #       flag: 1
+  # - name: "Notepad"
+  #   methods:
+  #   - method: "create_window"
+  #     delay: 2
+  #   - method: "open_file"
+  #     delay: 2
+  #     args:
+  #       path: "C:\\Users\\ASUS\\Downloads\\credentials.json"
+  #   - method: "write_file"
+  #     delay: 2
+  #     args:
+  #       text: "test write file"
+  #   - method: "scroll"
+  #     delay: 2
+  #     args:
+  #       direction: "up"
+  #       clicks: 30
+  #       scroll_delay: 0.05
+  #   - method: "save_file"
+  #     delay: 2
+  # - name: "File Explorer"
+  #   methods:
+  #   - method: "create_window"
+  #     delay: 2
+  #   - method: "open_file"
+  #     delay: 2
+  #     args:
+  #       path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
+  #   - method: "change_directory"
+  #     delay: 2
+  #     args:
+  #       path: "C:\\Users\\ASUS\\Documents"
+  #   - method: "create_directory"
+  #     delay: 2
+  #     args:
+  #       parent_path: "C:\\Users\\ASUS\\Downloads"
+  #       dir_name: "testtt"
+  # - name: "Command Prompt"
+  #   methods:
+  #   - method: "create_window"
+  #     delay: 2
+  #   - method: "open_file"
+  #     delay: 2
+  #     args:
+  #       path: "C:\\Users\\ASUS\\Downloads\\t.sql"
+  #   - method: "change_directory"
+  #     delay: 2
+  #     args:
+  #       path: "C:\\Users\\ASUS\\Documents\\Kuliah\\SEM 8"
+  #   - method: "create_directory"
+  #     delay: 2
+  #     args:
+  #       parent_path: "C:\\Users\\ASUS\\Downloads"
+  #       dir_name: "dummyyy"
+  # - name: "Google Chrome"
+  #   methods:
+  #   - method: "create_window"
+  #     delay: 2
+  #   - method: "create_tab"
+  #     delay: 2
+  #   - method: "browse"
+  #     delay: 2
+  #     args:
+  #       url: "www.python.org"
+  #   - method: "scroll"
+  #     delay: 2
+  #     args:
+  #       direction: "down"
+  #       clicks: 30
+  #       scroll_delay: 0.03
+  # - name: "Mozilla Firefox"
+  #   methods:
+  #   - method: "create_window"
+  #     delay: 2
+  #   - method: "create_tab"
+  #     delay: 2
+  #   - method: "browse"
+  #     delay: 2
+  #     args:
+  #       url: "www.python.org"
+  #   - method: "scroll"
+  #     delay: 0.5
+  #     args:
+  #       direction: "down"
+  #       clicks: 30
+  #       scroll_delay: 0.07
+  #   - method: "scroll"
+  #     delay: 2
+  #     args:
+  #       direction: "up"
+  #       clicks: 15
+  #       scroll_delay: 0.05
+  # - name: "Microsoft Word"
+  #   methods:
+  #   - method: "create_window"
+  #     delay: 2
+  #   - method: "open_docx"
+  #     delay: 2
+  #     args:
+  #       path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
+  #   - method: "write_docx"
+  #     delay: 2
+  #     args:
+  #       text: "haloooo, tes satu dua tiga!"
+  #   - method: "scroll"
+  #     delay: 2
+  #     args:
+  #       direction: "up"
+  #       clicks: 30
+  #       scroll_delay: 0.05
+  #   - method: "save_docx"
+  #     delay: 2
+  # - name: "Google Forms"
+  #   browser: "Mozilla Firefox"
+  #   methods:
+  #   - method: "fill_form"
+  #     delay: 2
+  #     args:
+  #       url: "https://forms.gle/1wCpoSWBjQqVvtVv5"
+  #       answers: ["short answer", "lorem ipsum", "paragraph answer"]
+  # - name: "Google Forms"
+  #   browser: "Mozilla Firefox"
+  #   methods:
+  #   - method: "create_form"
+  #     delay: 2
+  #     args:
+  #       title: "Form Testing"
+  #       description: "form ini digunakan untuk testing"
+  #       questions:
+  #         - ["Short answer", "question 1", true]
+  #         - ["Paragraph", "question 2", true]
+  #         - ["Short answer", "question 3", false]
