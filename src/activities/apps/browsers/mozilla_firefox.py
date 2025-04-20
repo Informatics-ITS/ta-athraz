@@ -101,3 +101,32 @@ class MozillaFirefox(Browser):
                 return "Cannot scroll mouse wheel"
         
         return None
+    
+    def zoom_in(self, count = 1):
+        err = self._check_existing_window()
+        if err:
+            return err
+
+        time.sleep(2)
+        for _ in range(count):
+            logger.info("Sending keys to zoom in Mozilla Firefox")
+            if not self.dll.AU3_Send("^{+}", 0):
+                return "Could not send keys to zoom in"
+            time.sleep(0.2)
+
+        return None
+
+        
+    def zoom_out(self, count = 1):
+        err = self._check_existing_window()
+        if err:
+            return err
+
+        time.sleep(2)
+        for _ in range(count):
+            logger.info("Sending keys to zoom out Mozilla Firefox")
+            if not self.dll.AU3_Send("^{-}", 0):
+                return "Could not send keys to zoom out"
+            time.sleep(0.2)
+
+        return None

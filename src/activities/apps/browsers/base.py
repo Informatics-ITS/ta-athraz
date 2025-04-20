@@ -24,3 +24,11 @@ class Browser(ABC):
     @abstractmethod
     def scroll(self, direction: str, clicks: int, scroll_delay: float):
         pass
+    
+    @abstractmethod
+    def zoom_in(self, count: int):
+        pass
+    
+    @abstractmethod
+    def zoom_out(self, count: int):
+        pass
