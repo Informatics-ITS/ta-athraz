@@ -42,6 +42,11 @@ class MozillaFirefox(Browser):
                 return "could not activate Mozilla Firefox"
         else:
             return "Mozilla Firefox window didn't exist"
+        
+        time.sleep(2)
+        logger.info("Maximizing Mozilla Firefox window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize Mozilla Firefox window"
 
         return None
     

@@ -42,6 +42,11 @@ class GoogleChrome(Browser):
                 return "could not activate Google Chrome"
         else:
             return "Google Chrome window didn't exist"
+        
+        time.sleep(2)
+        logger.info("Maximizing Google Chrome window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize Google Chrome window"
 
         return None
     

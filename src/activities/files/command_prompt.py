@@ -44,6 +44,11 @@ class CommandPrompt(File):
         else:
             return "Command Prompt window didn't exist"
         
+        time.sleep(2)
+        logger.info("Maximizing Command Prompt window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize Command Prompt window"
+        
         return None
 
     def open_file(self, path):

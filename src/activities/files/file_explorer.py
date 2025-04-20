@@ -44,6 +44,11 @@ class FileExplorer(File):
         else:
             return "File Explorer window didn't exist"
         
+        time.sleep(2)
+        logger.info("Maximizing File Explorer window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize File Explorer window"
+        
         return None
     
     def open_file(self, path):

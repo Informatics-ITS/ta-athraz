@@ -45,6 +45,11 @@ class MicrosoftWord(NativeApp):
             return "Microsoft Word window didn't exist"
 
         time.sleep(2)
+        logger.info("Maximizing Microsoft Word window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize Microsoft Word window"
+        
+        time.sleep(2)
         logger.info("Sending enter to Microsoft Word window")
         if not self.dll.AU3_Send("{ENTER}", 0):
             return "could not send Enter key to create new docx"
@@ -81,6 +86,11 @@ class MicrosoftWord(NativeApp):
                 return "could not activate Microsoft Word"
         else:
             return "Microsoft Word window didn't exist"
+        
+        time.sleep(2)
+        logger.info("Maximizing Microsoft Word window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize Microsoft Word window"
 
         return None
     
