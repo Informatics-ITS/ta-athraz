@@ -6,6 +6,8 @@ import sys
 from activities.apps.browser_apps.google_forms import GoogleForms
 from activities.apps.browsers.google_chrome import GoogleChrome
 from activities.apps.browsers.mozilla_firefox import MozillaFirefox
+from activities.apps.native_apps.microsoft_excel import MicrosoftExcel
+from activities.apps.native_apps.microsoft_paint import MicrosoftPaint
 from activities.apps.native_apps.microsoft_word import MicrosoftWord
 from activities.apps.native_apps.notepad import Notepad
 from activities.files.command_prompt import CommandPrompt
@@ -18,6 +20,8 @@ activity_map = {
     "Google Forms": GoogleForms,
     "Google Chrome": GoogleChrome,
     "Mozilla Firefox": MozillaFirefox,
+    "Microsoft Excel": MicrosoftExcel,
+    "Microsoft Paint": MicrosoftPaint,
     "Microsoft Word": MicrosoftWord,
     "Notepad": Notepad,
     "Command Prompt": CommandPrompt,

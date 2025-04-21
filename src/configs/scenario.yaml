@@ -1,14 +1,112 @@
 execution_mode: "random"
 # repeat: "true"
 scenario:
-  - name: "SeleniumScript"
+  - name: "Microsoft Paint"
     methods:
-      - method: "run_pytest"
+      - method: "create_window"
+        delay: 2
+      - method: "draw"
+        delay: 2
+        args: 
+          points: 
+            - [1110, 625]
+            - [1102, 675]
+            - [1079, 721]
+            - [1043, 760]
+            - [997, 787]
+            - [945, 798]
+            - [892, 793]
+            - [844, 770]
+            - [808, 735]
+            - [787, 690]
+            - [780, 640]
+            - [788, 590]
+            - [811, 544]
+            - [847, 505]
+            - [893, 478]
+            - [945, 467]
+            - [998, 472]
+            - [1046, 495]
+            - [1082, 530]
+            - [1103, 575]
+            - [1110, 625]
+          speed: 1
+      - method: "change_thickness"
         delay: 2
         args:
-          path: "C:\\Users\\ASUS\\Documents\\Kuliah\\SEM 8\\TA\\user-activity-simulation\\suite1.py"
-  # - name: "AutoItFunction"
+          direction: "up"
+          count: 10
+      - method: "draw_random"
+        delay: 2
+        args:
+          count: 30
+          speed: 1
+  # - name: "Microsoft Excel"
   #   methods:
+  #   - method: "create_window"
+  #     delay: 2
+  #   - method: "open_xlsx"
+  #     delay: 2
+  #     args:
+  #       path: "C:\\Users\\ASUS\\Downloads\\dummy.xlsx"
+  #   - method: "change_cell"
+  #     delay: 2
+  #     args:
+  #       target_cell: "F5"
+  #   - method: "create_sheet"
+  #     delay: 2
+  #   - method: "rename_sheet"
+  #     delay: 2
+  #     args:
+  #       new_name: "Dummy"
+  #   - method: "create_sheet"
+  #     delay: 2
+  #   - method: "rename_sheet"
+  #     delay: 2
+  #     args:
+  #       new_name: "Test"
+  #   - method: "change_sheet"
+  #     delay: 2
+  #     args:
+  #       direction: "right"
+  #       count: 2
+  #   - method: "change_sheet"
+  #     delay: 2
+  #     args:
+  #       direction: "left"
+  #       count: 1
+  #   - method: "write_cell"
+  #     delay: 2
+  #     args:
+  #       text: "haloooo, tes satu dua tiga!"
+  #   - method: "scroll"
+  #     delay: 2
+  #     args:
+  #       direction: "down"
+  #       clicks: 30
+  #       scroll_delay: 0.05
+  #   - method: "save_xlsx"
+  #     delay: 2
+  # - name: "Selenium Script"
+  #   methods:
+  #     - method: "run_pytest"
+  #       delay: 2
+  #       args:
+  #         path: "C:\\Users\\ASUS\\Documents\\Kuliah\\SEM 8\\TA\\user-activity-simulation\\testcase1.py"
+  # - name: "AutoIt Function"
+  #   methods:
+  #     - method: "mouse_move"
+  #       delay: 2
+  #       args:
+  #         x: 768
+  #         y: 432
+  #         speed: 10
+  #     - method: "mouse_move"
+  #       delay: 2
+  #       args:
+  #         x: 960
+  #         y: 540
+  #         speed: 10
   #   - method: "run"
   #     delay: 2
   #     args:
@@ -71,8 +169,16 @@ scenario:
   #       dir_name: "dummyyy"
   # - name: "Google Chrome"
   #   methods:
-  #   - method: "create_window"
-  #     delay: 2
+  #     - method: "create_window"
+  #       delay: 2
+  #     - method: "zoom_in"
+  #       delay: 2
+  #       args:
+  #         count: 10
+  #     - method: "zoom_out"
+  #       delay: 2
+  #       args:
+  #         count: 12
   #   - method: "create_tab"
   #     delay: 2
   #   - method: "browse"
