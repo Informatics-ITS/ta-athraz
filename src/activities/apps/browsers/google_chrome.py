@@ -57,7 +57,7 @@ class GoogleChrome(Browser):
 
         logger.info("Creating new Google Chrome tab")
         if not self.dll.AU3_Send("^t", 0):
-            return "Could not send keys to create new tab"
+            return "could not send keys to create new tab"
 
         return None
 
@@ -102,7 +102,7 @@ class GoogleChrome(Browser):
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)
             if not self.dll.AU3_MouseWheel(direction, 1):
-                return "Cannot scroll mouse wheel"
+                return "could not scroll mouse wheel"
         
         return None
     
@@ -115,7 +115,7 @@ class GoogleChrome(Browser):
         for _ in range(count):
             logger.info("Sending keys to zoom in Google Chrome")
             if not self.dll.AU3_Send("^{+}", 0):
-                return "Could not send keys to zoom in"
+                return "could not send keys to zoom in"
             time.sleep(0.2)
 
         return None
@@ -130,7 +130,7 @@ class GoogleChrome(Browser):
         for _ in range(count):
             logger.info("Sending keys to zoom out Google Chrome")
             if not self.dll.AU3_Send("^{-}", 0):
-                return "Could not send keys to zoom out"
+                return "could not send keys to zoom out"
             time.sleep(0.2)
 
         return None

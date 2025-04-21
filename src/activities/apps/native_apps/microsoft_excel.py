@@ -103,7 +103,7 @@ class MicrosoftExcel(NativeApp):
         time.sleep(2)
         logger.info("Sending keys to open Go To window")
         if not self.dll.AU3_Send("^g", 0):
-            return "Could not send keys to open Go To window"
+            return "could not send keys to open Go To window"
         
         time.sleep(1)
         logger.info("Checking existing Go To window")
@@ -189,10 +189,10 @@ class MicrosoftExcel(NativeApp):
             logger.info("Sending keys to change sheets")
             if direction == "left":
                 if not self.dll.AU3_Send("^{PGUP}", 0):
-                    return "Cannot send keys to change sheets"
+                    return "could not send keys to change sheets"
             else:
                 if not self.dll.AU3_Send("^{PGDN}", 0):
-                    return "Cannot send keys to change sheets"
+                    return "could not send keys to change sheets"
             rand = random.uniform(0.05, 0.15)
             time.sleep(rand)
         
@@ -237,7 +237,7 @@ class MicrosoftExcel(NativeApp):
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)
             if not self.dll.AU3_MouseWheel(direction, 1):
-                return "Cannot scroll mouse wheel"
+                return "could not scroll mouse wheel"
         
         return None
     

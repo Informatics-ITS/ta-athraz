@@ -127,7 +127,7 @@ class Notepad(NativeApp):
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)
             if not self.dll.AU3_MouseWheel(direction, 1):
-                return "Cannot scroll mouse wheel"
+                return "could not scroll mouse wheel"
         
         return None
     
