@@ -1,8 +1,8 @@
 import yaml
 import time
 import random
-import ctypes
 import sys
+from ctypes import windll
 from activities.apps.browser_apps.google_forms import GoogleForms
 from activities.apps.browsers.google_chrome import GoogleChrome
 from activities.apps.browsers.mozilla_firefox import MozillaFirefox
@@ -32,15 +32,19 @@ activity_map = {
 
 activity_instances = {}
 
-def get_native_screen_resolution():
-    logger.info("Checking native screen resolution")
-    user32 = ctypes.windll.user32
+def get_display_resolution_and_scale():
+    logger.info("Checking display resolution and scale")
+    user32 = windll.user32
+    gdi32 = windll.gdi32
     logger.info("Setting process to DPI aware")
     user32.SetProcessDPIAware()
     screen_width = user32.GetSystemMetrics(0)
     screen_height = user32.GetSystemMetrics(1)
-    return screen_width, screen_height
-    
+    hdc = user32.GetDC(0)
+    dpi = gdi32.GetDeviceCaps(hdc, 88)
+    user32.ReleaseDC(0, hdc)
+    scale = int((dpi / 96) * 100)
+    return screen_width, screen_height, scale
 
 def load_config(file_path="configs/scenario.yaml"):
     logger.info("Loading config file scenario.yaml")
@@ -48,9 +52,12 @@ def load_config(file_path="configs/scenario.yaml"):
         return yaml.safe_load(file)
 
 if __name__ == "__main__":
-    screen_width, screen_height = get_native_screen_resolution()
+    screen_width, screen_height, scale = get_display_resolution_and_scale()
     if screen_width != 1920 or screen_height != 1080:
-        logger.error("Native screen resolution is not 1920x1080")
+        logger.error("Display resolution is not 1920x1080")
+        sys.exit(1)
+    if scale != 125:
+        logger.error("Scale is not 125%")
         sys.exit(1)
 
     config = load_config()
