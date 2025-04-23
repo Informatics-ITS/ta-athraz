@@ -8,7 +8,7 @@ class MozillaFirefox(Browser):
         super().__init__()
         self.window_info = "[CLASS:MozillaWindowClass]"
         
-    def _check_existing_window(self):
+    def check_existing_window(self):
         logger.info("Checking existing Mozilla Firefox window")
         if self.dll.AU3_WinExists(self.window_info, ""):
             logger.info("Activating Mozilla Firefox window")
@@ -51,7 +51,7 @@ class MozillaFirefox(Browser):
         return None
     
     def create_tab(self):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -63,7 +63,7 @@ class MozillaFirefox(Browser):
 
     
     def browse(self, url = "www.python.org"):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -90,7 +90,7 @@ class MozillaFirefox(Browser):
         if direction != "up" and direction != "down":
             return "invalid scroll direction"
         
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -108,7 +108,7 @@ class MozillaFirefox(Browser):
         return None
     
     def zoom_in(self, count = 1):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -123,7 +123,7 @@ class MozillaFirefox(Browser):
 
         
     def zoom_out(self, count = 1):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 

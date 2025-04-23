@@ -9,7 +9,7 @@ class MicrosoftWord(NativeApp):
         super().__init__()
         self.window_info = "[CLASS:OpusApp]"
         
-    def _check_existing_window(self):
+    def check_existing_window(self):
         logger.info("Checking existing Microsoft Word window")
         if self.dll.AU3_WinExists(self.window_info, ""):
             logger.info("Activating Microsoft Word window")
@@ -95,7 +95,7 @@ class MicrosoftWord(NativeApp):
         return None
     
     def write_docx(self, text = ""):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
             
@@ -124,7 +124,7 @@ class MicrosoftWord(NativeApp):
         if direction != "up" and direction != "down":
             return "invalid scroll direction"
         
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -142,7 +142,7 @@ class MicrosoftWord(NativeApp):
         return None
     
     def save_docx(self):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         

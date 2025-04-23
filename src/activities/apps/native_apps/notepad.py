@@ -9,7 +9,7 @@ class Notepad(NativeApp):
         super().__init__()
         self.window_info = "[CLASS:Notepad]"
         
-    def _check_existing_window(self):
+    def check_existing_window(self):
         logger.info("Checking existing Notepad window")
         if self.dll.AU3_WinExists(self.window_info, ""):
             logger.info("Activating Notepad window")
@@ -85,7 +85,7 @@ class Notepad(NativeApp):
         return None
     
     def write_file(self, text = ""):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         
@@ -114,7 +114,7 @@ class Notepad(NativeApp):
         if direction != "up" and direction != "down":
             return "invalid scroll direction"
         
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -132,7 +132,7 @@ class Notepad(NativeApp):
         return None
     
     def save_file(self):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         

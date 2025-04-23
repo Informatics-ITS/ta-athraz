@@ -9,7 +9,7 @@ class MicrosoftPaint(NativeApp):
         super().__init__()
         self.window_info = "[CLASS:MSPaintApp]"
         
-    def _check_existing_window(self):
+    def check_existing_window(self):
         logger.info("Checking existing Microsoft Paint window")
         if self.dll.AU3_WinExists(self.window_info, ""):
             logger.info("Activating Microsoft Paint window")
@@ -90,7 +90,7 @@ class MicrosoftPaint(NativeApp):
         return None
     
     def draw(self, points=[], speed = 10):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -120,7 +120,7 @@ class MicrosoftPaint(NativeApp):
         return None 
     
     def draw_random(self, count = 5, speed = 10):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         
@@ -158,7 +158,7 @@ class MicrosoftPaint(NativeApp):
         if direction != "up" and direction != "down":
             return "invalid change thickness direction"
         
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         

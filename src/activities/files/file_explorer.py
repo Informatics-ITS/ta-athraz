@@ -9,7 +9,7 @@ class FileExplorer(File):
         super().__init__()
         self.window_info = "[TITLE:Home - File Explorer; CLASS:CabinetWClass]"
         
-    def _check_existing_window(self):
+    def check_existing_window(self):
         logger.info("Checking existing File Explorer window")
         if self.dll.AU3_WinExists(self.window_info, ""):
             logger.info("Activating File Explorer window")
@@ -61,7 +61,7 @@ class FileExplorer(File):
         if not os.path.isfile(path):
             return f"path '{path}' is not a file"
     
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         
@@ -99,7 +99,7 @@ class FileExplorer(File):
         if not os.path.isdir(path):
             return f"path '{path}' is not a directory"
         
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         

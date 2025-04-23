@@ -6,5 +6,5 @@ class NativeApp(ABC):
         self.dll = AutoItDLL().dll
         
     @abstractmethod
-    def _check_existing_window(self):
+    def check_existing_window(self):
         pass

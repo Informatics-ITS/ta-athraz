@@ -8,7 +8,7 @@ class GoogleChrome(Browser):
         super().__init__()
         self.window_info = "[TITLE:New Tab - Google Chrome; CLASS:Chrome_WidgetWin_1]"
         
-    def _check_existing_window(self):
+    def check_existing_window(self):
         logger.info("Checking existing Google Chrome window")
         if self.dll.AU3_WinExists(self.window_info, ""):
             logger.info("Activating Google Chrome window")
@@ -51,7 +51,7 @@ class GoogleChrome(Browser):
         return None
     
     def create_tab(self):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -62,7 +62,7 @@ class GoogleChrome(Browser):
         return None
 
     def browse(self, url = "www.python.org"):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -89,7 +89,7 @@ class GoogleChrome(Browser):
         if direction != "up" and direction != "down":
             return "invalid scroll direction"
         
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -107,7 +107,7 @@ class GoogleChrome(Browser):
         return None
     
     def zoom_in(self, count = 1):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -122,7 +122,7 @@ class GoogleChrome(Browser):
 
         
     def zoom_out(self, count = 1):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 

@@ -10,7 +10,7 @@ class MicrosoftExcel(NativeApp):
         self.window_info = "[CLASS:XLMAIN]"
         self.goto_window_info = "[TITLE:Go To; CLASS:bosa_sdm_XL9]"
         
-    def _check_existing_window(self):
+    def check_existing_window(self):
         logger.info("Checking existing Microsoft Excel window")
         if self.dll.AU3_WinExists(self.window_info, ""):
             logger.info("Activating Microsoft Excel window")
@@ -96,7 +96,7 @@ class MicrosoftExcel(NativeApp):
         return None
         
     def change_cell(self, target_cell = "A1"):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         
@@ -129,7 +129,7 @@ class MicrosoftExcel(NativeApp):
         return None
 
     def create_sheet(self):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         
@@ -144,7 +144,7 @@ class MicrosoftExcel(NativeApp):
         if new_name == "":
             return "new name must be provided"
         
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         
@@ -176,7 +176,7 @@ class MicrosoftExcel(NativeApp):
         if direction != "left" and direction != "right":
             return "invalid change sheet direction"
         
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         
@@ -199,7 +199,7 @@ class MicrosoftExcel(NativeApp):
         return None
         
     def write_cell(self, text = ""):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
             
@@ -224,7 +224,7 @@ class MicrosoftExcel(NativeApp):
         if direction != "up" and direction != "down":
             return "invalid scroll direction"
         
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
 
@@ -242,7 +242,7 @@ class MicrosoftExcel(NativeApp):
         return None
     
     def save_xlsx(self):
-        err = self._check_existing_window()
+        err = self.check_existing_window()
         if err:
             return err
         
