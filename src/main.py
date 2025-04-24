@@ -4,6 +4,7 @@ import random
 import sys
 from ctypes import windll
 from activities.apps.browser_apps.google_forms import GoogleForms
+from activities.apps.browser_apps.youtube import YouTube
 from activities.apps.browsers.google_chrome import GoogleChrome
 from activities.apps.browsers.mozilla_firefox import MozillaFirefox
 from activities.apps.native_apps.microsoft_excel import MicrosoftExcel
@@ -18,6 +19,7 @@ from configs.logger import logger
 
 activity_map = {
     "Google Forms": GoogleForms,
+    "YouTube": YouTube,
     "Google Chrome": GoogleChrome,
     "Mozilla Firefox": MozillaFirefox,
     "Microsoft Excel": MicrosoftExcel,
@@ -46,8 +48,8 @@ def get_display_resolution_and_scale():
     scale = int((dpi / 96) * 100)
     return screen_width, screen_height, scale
 
-def load_config(file_path="configs/scenario.yaml"):
-    logger.info("Loading config file scenario.yaml")
+def load_config(file_path="configs/scenarios.yaml"):
+    logger.info("Loading config file scenarios.yaml")
     with open(file_path, "r") as file:
         return yaml.safe_load(file)
 
@@ -64,51 +66,54 @@ if __name__ == "__main__":
 
     execution_mode = config.get("execution_mode", "sequential")
     repeat = config.get("repeat", False)
-    scenarios = config.get("scenario", [])
+    scenarios = config.get("scenarios", [])
 
     while True:
         if execution_mode == "random":
             random.shuffle(scenarios)
 
-        for s in scenarios:
-            name = s["name"]
-            browser = s.get("browser", None)
-            methods = s.get("methods", [])
+        for scenario in scenarios:
+            scenario = scenario.get("scenario", [])
 
-            if name not in activity_instances:
-                if browser:
-                    if browser not in activity_instances:
-                        activity_instances[browser] = activity_map[browser]()
-                    activity_instances[name] = activity_map[name](activity_instances[browser])
-                else:
-                    activity_instances[name] = activity_map[name]()
+            for s in scenario:
+                name = s["name"]
+                browser = s.get("browser", None)
+                methods = s.get("methods", [])
 
-            activity_instance = activity_instances[name]
+                if name not in activity_instances:
+                    if browser:
+                        if browser not in activity_instances:
+                            activity_instances[browser] = activity_map[browser]()
+                        activity_instances[name] = activity_map[name](activity_instances[browser])
+                    else:
+                        activity_instances[name] = activity_map[name]()
 
-            for m in methods:
-                method = m.get("method")
-                delay = m.get("delay", 0)
-                args = m.get("args", {})
+                activity_instance = activity_instances[name]
 
-                run_method = getattr(activity_instance, method, None)
-                if run_method:
-                    logger.info(f"Running method '{method}' on activity '{name}' with args: {args}")
-                    try:
-                        if isinstance(args, dict):
-                            err = run_method(**args)
-                        elif isinstance(args, list):
-                            err = run_method(*args)
-                        else:
-                            err = run_method()
+                for m in methods:
+                    method = m.get("method")
+                    delay = m.get("delay", 0)
+                    args = m.get("args", {})
 
-                        if err:
-                            logger.error(f"Error running method {method} on {name}: {err}")
-                    except Exception as e:
-                        logger.error(f"Exception while running {method} on {name}: {e}")
-                else:
-                    logger.error(f"Method '{method}' not found on '{name}'")
+                    run_method = getattr(activity_instance, method, None)
+                    if run_method:
+                        logger.info(f"Running method '{method}' on activity '{name}' with args: {args}")
+                        try:
+                            if isinstance(args, dict):
+                                err = run_method(**args)
+                            elif isinstance(args, list):
+                                err = run_method(*args)
+                            else:
+                                err = run_method()
 
-                time.sleep(delay)
+                            if err:
+                                logger.error(f"Error running method {method} on {name}: {err}")
+                        except Exception as e:
+                            logger.error(f"Exception while running {method} on {name}: {e}")
+                    else:
+                        logger.error(f"Method '{method}' not found on '{name}'")
+
+                    time.sleep(delay)
 
         if not repeat:
             break
