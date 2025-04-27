@@ -116,28 +116,32 @@ class YouTube(BrowserApp):
         
         return None
         
-    def next_video(self):
+    def next_video(self, count = 1):
         logger.info("Checking browser window")
         err = self.browser.check_existing_window()
         if err:
             return err
         
         time.sleep(1)
-        logger.info("Sending keys to move to next video")
-        if not self.dll.AU3_Send("+n", 0):
-            return "could not send keys to move to next video"
+        for _ in range(count):
+            logger.info("Sending keys to move to next video")
+            if not self.dll.AU3_Send("+n", 0):
+                return "could not send keys to move to next video"
+            time.sleep(0.2)
         
         return None
         
-    def previous_video(self):
+    def previous_video(self, count = 1):
         logger.info("Checking browser window")
         err = self.browser.check_existing_window()
         if err:
             return err
         
         time.sleep(1)
-        logger.info("Sending keys to move to previous video")
-        if not self.dll.AU3_Send("+p", 0):
-            return "could not send keys to move to previous video"
+        for _ in range(count):
+            logger.info("Sending keys to move to previous video")
+            if not self.dll.AU3_Send("+p", 0):
+                return "could not send keys to move to previous video"
+            time.sleep(0.2)
         
         return None
