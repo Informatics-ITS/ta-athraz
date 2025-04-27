@@ -136,29 +136,45 @@ class MozillaFirefox(Browser):
 
         return None
     
-    def previous_page(self):
+    def previous_page(self, count = 1):
         err = self.check_existing_window()
         if err:
             return err
 
         time.sleep(2)
-        logger.info("Sending keys to go to previous Mozilla Firefox page")
-        if not self.dll.AU3_Send("!{LEFT}", 0):
-            return "could not send keys to go to previous page"
-        time.sleep(0.2)
+        for _ in range(count):
+            logger.info("Sending keys to go to previous Mozilla Firefox page")
+            if not self.dll.AU3_Send("!{LEFT}", 0):
+                return "could not send keys to go to previous page"
+            time.sleep(0.2)
 
         return None
     
     
-    def next_page(self):
+    def next_page(self, count = 1):
         err = self.check_existing_window()
         if err:
             return err
 
         time.sleep(2)
-        logger.info("Sending keys to go to next Mozilla Firefox page")
-        if not self.dll.AU3_Send("!{RIGHT}", 0):
-            return "could not send keys to go to next page"
-        time.sleep(0.2)
+        for _ in range(count):
+            logger.info("Sending keys to go to next Mozilla Firefox page")
+            if not self.dll.AU3_Send("!{RIGHT}", 0):
+                return "could not send keys to go to next page"
+            time.sleep(0.2)
 
         return None
+    
+    def toggle_fullscreen(self, count = 1):
+        err = self.check_existing_window()
+        if err:
+            return err
+
+        time.sleep(2)
+        for _ in range(count):
+            logger.info("Sending key to toggle fullscreen")
+            if not self.dll.AU3_Send("{F11}", 0):
+                return "could not send key to toggle fullscreen"
+            time.sleep(0.2)
+
+        return None   

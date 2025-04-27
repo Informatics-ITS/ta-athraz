@@ -40,3 +40,7 @@ class Browser(ABC):
     @abstractmethod
     def next_page(self):
         pass
+    
+    @abstractmethod
+    def toggle_fullscreen(self):
+        pass
