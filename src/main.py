@@ -3,6 +3,7 @@ import time
 import random
 import sys
 from ctypes import windll
+from activities.apps.browser_apps.gmail import Gmail
 from activities.apps.browser_apps.google_forms import GoogleForms
 from activities.apps.browser_apps.youtube import YouTube
 from activities.apps.browsers.google_chrome import GoogleChrome
@@ -18,6 +19,7 @@ from activities.others.selenium_script import SeleniumScript
 from configs.logger import logger
 
 activity_map = {
+    "Gmail": Gmail,
     "Google Forms": GoogleForms,
     "YouTube": YouTube,
     "Google Chrome": GoogleChrome,
