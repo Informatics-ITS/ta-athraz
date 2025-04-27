@@ -134,3 +134,30 @@ class GoogleChrome(Browser):
             time.sleep(0.2)
 
         return None
+
+    def previous_page(self):
+        err = self.check_existing_window()
+        if err:
+            return err
+
+        time.sleep(2)
+        logger.info("Sending keys to go to previous Google Chrome page")
+        if not self.dll.AU3_Send("!{LEFT}", 0):
+            return "could not send keys to go to previous page"
+        time.sleep(0.2)
+
+        return None
+    
+    
+    def next_page(self):
+        err = self.check_existing_window()
+        if err:
+            return err
+
+        time.sleep(2)
+        logger.info("Sending keys to go to next Google Chrome page")
+        if not self.dll.AU3_Send("!{RIGHT}", 0):
+            return "could not send keys to go to next page"
+        time.sleep(0.2)
+
+        return None

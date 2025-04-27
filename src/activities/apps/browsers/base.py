@@ -32,3 +32,11 @@ class Browser(ABC):
     @abstractmethod
     def zoom_out(self, count: int):
         pass
+    
+    @abstractmethod
+    def previous_page(self):
+        pass
+    
+    @abstractmethod
+    def next_page(self):
+        pass
