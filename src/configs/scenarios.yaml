@@ -2,52 +2,96 @@ execution_mode: "random"
 # repeat: "true"
 scenarios:
   - scenario:
-    - name: "Gmail"
-      browser: "Google Chrome"
+    - name: "Command Prompt"
       methods:
-        - method: "open"
+        - method: "create_window"
           delay: 2
-        - method: "next_email"
+        - method: "list"
           delay: 2
           args:
-            count: 5
-        - method: "previous_email"
+            path: "C:\\Users\\ASUS\\Downloads\\test"
+        - method: "move"
           delay: 2
           args:
-            count: 3
-        - method: "open_email"
-          delay: 2
-    - name: "Google Chrome"
-      methods:
-        - method: "previous_page"
-          delay: 2
-    - name: "Gmail"
-      browser: "Google Chrome"
-      methods:
-        - method: "go_to_drafts"
-          delay: 2
-        - method: "go_to_sent_messages"
-          delay: 2
-        - method: "go_to_inbox"
-          delay: 2
-        - method: "select_all"
-          delay: 2
-        - method: "deselect_all"
-          delay: 2
-        - method: "select_unread"
-          delay: 2
-        - method: "mark_as_read"
-          delay: 2
-        - method: "mark_as_unread"
-          delay: 2
-        - method: "archive_email"
-          delay: 2
-        - method: "compose_email"
+            source_path: "C:\\Users\\ASUS\\Downloads\\t.sql"
+            destination_path: "C:\\Users\\ASUS\\Downloads\\test"
+        - method: "list"
           delay: 2
           args:
-            recipients: ["athallahraz@gmail.com", "fugakamino@gmail.com"]
-            subject: "Tes Skenario Gmail"
-            body: "Halooo, tes tes, satu dua tiga tes kirim Gmail"
+            path: "C:\\Users\\ASUS\\Downloads\\test"
+        - method: "copy"
+          delay: 2
+          args:
+            source_path: "C:\\Users\\ASUS\\Downloads\\test\\t.sql"
+            destination_path: "C:\\Users\\ASUS\\Downloads\\test\\dup.sql"
+        - method: "list"
+          delay: 2
+          args:
+            path: "C:\\Users\\ASUS\\Downloads\\test"
+        - method: "rename"
+          delay: 2
+          args:
+            old_name: "C:\\Users\\ASUS\\Downloads\\test\\dup.sql"
+            new_name: "renamed.sql"
+        - method: "list"
+          delay: 2
+          args:
+            path: "C:\\Users\\ASUS\\Downloads\\test"
+        - method: "delete"
+          delay: 2
+          args:
+            path: "C:\\Users\\ASUS\\Downloads\\test\\renamed.sql"
+        - method: "list"
+          delay: 2
+          args:
+            path: "C:\\Users\\ASUS\\Downloads\\test"
+  # - scenario:
+  #   - name: "Gmail"
+  #     browser: "Google Chrome"
+  #     methods:
+  #       - method: "open"
+  #         delay: 2
+  #       - method: "next_email"
+  #         delay: 2
+  #         args:
+  #           count: 5
+  #       - method: "previous_email"
+  #         delay: 2
+  #         args:
+  #           count: 3
+  #       - method: "open_email"
+  #         delay: 2
+  #   - name: "Google Chrome"
+  #     methods:
+  #       - method: "previous_page"
+  #         delay: 2
+  #   - name: "Gmail"
+  #     browser: "Google Chrome"
+  #     methods:
+  #       - method: "go_to_drafts"
+  #         delay: 2
+  #       - method: "go_to_sent_messages"
+  #         delay: 2
+  #       - method: "go_to_inbox"
+  #         delay: 2
+  #       - method: "select_all"
+  #         delay: 2
+  #       - method: "deselect_all"
+  #         delay: 2
+  #       - method: "select_unread"
+  #         delay: 2
+  #       - method: "mark_as_read"
+  #         delay: 2
+  #       - method: "mark_as_unread"
+  #         delay: 2
+  #       - method: "archive_email"
+  #         delay: 2
+  #       - method: "compose_email"
+  #         delay: 2
+  #         args:
+  #           recipients: ["athallahraz@gmail.com", "fugakamino@gmail.com"]
+  #           subject: "Tes Skenario Gmail"
+  #           body: "Halooo, tes tes, satu dua tiga tes kirim Gmail"
   # - scenario:
   #   - name: "YouTube"
   #     browser: "Mozilla Firefox"

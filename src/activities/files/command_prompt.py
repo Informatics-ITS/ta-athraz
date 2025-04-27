@@ -150,3 +150,172 @@ class CommandPrompt(File):
             return "could not send enter key to execute command"
         
         return None
+    
+    def copy(self, source_path, destination_path):
+        if not source_path or not destination_path:
+            return "source path and destination path must be provided"
+        
+        if not os.path.exists(source_path):
+            return f"source path '{source_path}' does not exist"
+        
+        err = self.check_existing_window()
+        if err:
+            return err
+
+        time.sleep(2)
+
+        if os.path.isdir(source_path):
+            cmdline = f'xcopy "{source_path}" "{destination_path}" /e /i /h'
+        else:
+            cmdline = f'copy "{source_path}" "{destination_path}"'
+
+        for letter in cmdline:
+            logger.info("Checking if Command Prompt window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                break
+            
+            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            if not self.dll.AU3_Send(letter, 1):
+                return f"could not send {letter} to Command Prompt"
+            rand = random.uniform(0.05, 0.15)
+            time.sleep(rand)
+        
+        time.sleep(1)
+        logger.info("Sending Enter key to execute command")
+        if not self.dll.AU3_Send("{ENTER}", 0):
+            return "could not send enter key to execute command"
+        
+        return None
+
+    def rename(self, old_name, new_name):
+        if not old_name or not new_name:
+            return "old name and new name must be provided"
+        
+        if not os.path.exists(old_name):
+            return f"'{old_name}' does not exist"
+        
+        err = self.check_existing_window()
+        if err:
+            return err
+        
+        time.sleep(2)
+        cmdline = f'ren "{old_name}" "{new_name}"'
+        for letter in cmdline:
+            logger.info("Checking if Command Prompt window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                break
+            
+            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            if not self.dll.AU3_Send(letter, 1):
+                return f"could not send {letter} to Command Prompt"
+            rand = random.uniform(0.05, 0.15)
+            time.sleep(rand)
+        
+        time.sleep(1)
+        logger.info("Sending Enter key to execute rename command")
+        if not self.dll.AU3_Send("{ENTER}", 0):
+            return "could not send enter key to execute command"
+        
+        return None
+
+    def delete(self, path):
+        if not path:
+            return "path must be provided"
+        
+        if not os.path.exists(path):
+            return f"path '{path}' does not exist"
+        
+        err = self.check_existing_window()
+        if err:
+            return err
+
+        time.sleep(2)
+
+        if os.path.isfile(path):
+            cmdline = f'del "{path}"'
+        elif os.path.isdir(path):
+            cmdline = f'rmdir /s /q "{path}"'
+        else:
+            return f"path '{path}' is neither a file nor a directory"
+
+        for letter in cmdline:
+            logger.info("Checking if Command Prompt window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                break
+            
+            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            if not self.dll.AU3_Send(letter, 1):
+                return f"could not send {letter} to Command Prompt"
+            rand = random.uniform(0.05, 0.15)
+            time.sleep(rand)
+        
+        time.sleep(1)
+        logger.info("Sending Enter key to execute delete command")
+        if not self.dll.AU3_Send("{ENTER}", 0):
+            return "could not send enter key to execute command"
+        
+        return None
+
+    def move(self, source_path, destination_path):
+        if not source_path or not destination_path:
+            return "source path and destination path must be provided"
+        
+        if not os.path.exists(source_path):
+            return f"source path '{source_path}' does not exist"
+        
+        err = self.check_existing_window()
+        if err:
+            return err
+
+        time.sleep(2)
+        cmdline = f'move "{source_path}" "{destination_path}"'
+
+        for letter in cmdline:
+            logger.info("Checking if Command Prompt window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                break
+            
+            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            if not self.dll.AU3_Send(letter, 1):
+                return f"could not send {letter} to Command Prompt"
+            rand = random.uniform(0.05, 0.15)
+            time.sleep(rand)
+        
+        time.sleep(1)
+        logger.info("Sending Enter key to execute move command")
+        if not self.dll.AU3_Send("{ENTER}", 0):
+            return "could not send enter key to execute command"
+        
+        return None
+    
+    def list(self, path=""):
+        err = self.check_existing_window()
+        if err:
+            return err
+        
+        time.sleep(2)
+
+        if path:
+            if not os.path.exists(path):
+                return f"path '{path}' does not exist"
+            cmdline = f'dir "{path}"'
+        else:
+            cmdline = "dir"
+        
+        for letter in cmdline:
+            logger.info("Checking if Command Prompt window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                break
+            
+            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            if not self.dll.AU3_Send(letter, 1):
+                return f"could not send {letter} to Command Prompt"
+            rand = random.uniform(0.05, 0.15)
+            time.sleep(rand)
+        
+        time.sleep(1)
+        logger.info("Sending Enter key to execute dir command")
+        if not self.dll.AU3_Send("{ENTER}", 0):
+            return "could not send enter key to execute command"
+        
+        return None
