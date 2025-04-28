@@ -1,6 +1,7 @@
 import time
 import random
 import os
+import winreg
 from configs.logger import logger
 from activities.apps.native_apps.base import NativeApp
 
@@ -8,6 +9,13 @@ class MicrosoftWord(NativeApp):
     def __init__(self):
         super().__init__()
         self.window_info = "[CLASS:OpusApp]"
+        
+    def _get_executable_path(self):
+        registry_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\winword.exe", 0, winreg.KEY_READ)
+        path, _ = winreg.QueryValueEx(registry_key, None)
+        if path:
+            return path
+        return None 
         
     def check_existing_window(self):
         logger.info("Checking existing Microsoft Word window")
@@ -23,8 +31,13 @@ class MicrosoftWord(NativeApp):
         return None
         
     def create_window(self):
-        logger.info("Running Microsoft Word")
-        if not self.dll.AU3_Run("C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE", "", 1):
+        logger.info("Getting Microsoft Word executable path")
+        executable_path = self._get_executable_path()
+        if not executable_path:
+            return "could not get Microsoft Word executable path"
+        
+        logger.info("Creating new Microsoft Word window")
+        if not self.dll.AU3_Run(executable_path, "", 1):
             return "could not run Microsoft Word"
 
         time.sleep(2)

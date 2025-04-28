@@ -6,6 +6,10 @@ class Browser(ABC):
         self.dll = AutoItDLL().dll
         
     @abstractmethod
+    def _get_executable_path(self):
+        pass
+        
+    @abstractmethod
     def check_existing_window(self):
         pass
         

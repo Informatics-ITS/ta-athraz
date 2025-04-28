@@ -1,6 +1,7 @@
 import time
 import random
 import os
+import winreg
 from configs.logger import logger
 from activities.apps.native_apps.base import NativeApp
 
@@ -8,6 +9,12 @@ class MicrosoftPaint(NativeApp):
     def __init__(self):
         super().__init__()
         self.window_info = "[CLASS:MSPaintApp]"
+
+    def _get_executable_path(self):
+        path = os.path.join(os.environ['USERPROFILE'], 'AppData', 'Local', 'Microsoft', 'WindowsApps', 'mspaint.exe')
+        if os.path.exists(path):
+            return path
+
         
     def check_existing_window(self):
         logger.info("Checking existing Microsoft Paint window")
@@ -23,8 +30,13 @@ class MicrosoftPaint(NativeApp):
         return None
         
     def create_window(self):
-        logger.info("Running Microsoft Paint")
-        if not self.dll.AU3_Run("C:\\Program Files\\WindowsApps\\Microsoft.Paint_11.2502.161.0_x64__8wekyb3d8bbwe\\PaintApp\\mspaint.exe", "", 1):
+        logger.info("Getting Microsoft Paint executable path")
+        executable_path = self._get_executable_path()
+        if not executable_path:
+            return "could not get Microsoft Paint executable path"
+        
+        logger.info("Creating new Microsoft Paint window")
+        if not self.dll.AU3_Run(executable_path, "", 1):
             return "could not run Microsoft Paint"
 
         time.sleep(2)

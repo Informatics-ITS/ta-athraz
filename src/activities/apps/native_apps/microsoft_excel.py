@@ -1,6 +1,7 @@
 import time
 import random
 import os
+import winreg
 from configs.logger import logger
 from activities.apps.native_apps.base import NativeApp
 
@@ -9,6 +10,13 @@ class MicrosoftExcel(NativeApp):
         super().__init__()
         self.window_info = "[CLASS:XLMAIN]"
         self.goto_window_info = "[TITLE:Go To; CLASS:bosa_sdm_XL9]"
+        
+    def _get_executable_path(self):
+        registry_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\excel.exe", 0, winreg.KEY_READ)
+        path, _ = winreg.QueryValueEx(registry_key, None)
+        if path:
+            return path
+        return None 
         
     def check_existing_window(self):
         logger.info("Checking existing Microsoft Excel window")
@@ -24,8 +32,13 @@ class MicrosoftExcel(NativeApp):
         return None
     
     def create_window(self):
-        logger.info("Running Microsoft Excel")
-        if not self.dll.AU3_Run("C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE --start-maximized", "", 1):
+        logger.info("Getting Microsoft Excel executable path")
+        executable_path = self._get_executable_path()
+        if not executable_path:
+            return "could not get Microsoft Excel executable path"
+        
+        logger.info("Creating new Microsoft Excel window")
+        if not self.dll.AU3_Run(executable_path, "", 1):
             return "could not run Microsoft Excel"
 
         time.sleep(2)

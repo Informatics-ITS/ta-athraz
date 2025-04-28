@@ -2,49 +2,82 @@ execution_mode: "random"
 # repeat: "true"
 scenarios:
   - scenario:
+    - name: "Google Chrome"
+      methods:
+        - method: "create_window"
+          delay: 2
+    - name: "Mozilla Firefox"
+      methods:
+        - method: "create_window"
+          delay: 2
+    - name: "Microsoft Word"
+      methods:
+        - method: "create_window"
+          delay: 2
+    - name: "Microsoft Excel"
+      methods:
+        - method: "create_window"
+          delay: 2
+    - name: "Microsoft Paint"
+      methods:
+        - method: "create_window"
+          delay: 2
+    - name: "Notepad"
+      methods:
+        - method: "create_window"
+          delay: 2
     - name: "Command Prompt"
       methods:
         - method: "create_window"
           delay: 2
-        - method: "list"
+    - name: "File Explorer"
+      methods:
+        - method: "create_window"
           delay: 2
-          args:
-            path: "C:\\Users\\ASUS\\Downloads\\test"
-        - method: "move"
-          delay: 2
-          args:
-            source_path: "C:\\Users\\ASUS\\Downloads\\t.sql"
-            destination_path: "C:\\Users\\ASUS\\Downloads\\test"
-        - method: "list"
-          delay: 2
-          args:
-            path: "C:\\Users\\ASUS\\Downloads\\test"
-        - method: "copy"
-          delay: 2
-          args:
-            source_path: "C:\\Users\\ASUS\\Downloads\\test\\t.sql"
-            destination_path: "C:\\Users\\ASUS\\Downloads\\test\\dup.sql"
-        - method: "list"
-          delay: 2
-          args:
-            path: "C:\\Users\\ASUS\\Downloads\\test"
-        - method: "rename"
-          delay: 2
-          args:
-            old_name: "C:\\Users\\ASUS\\Downloads\\test\\dup.sql"
-            new_name: "renamed.sql"
-        - method: "list"
-          delay: 2
-          args:
-            path: "C:\\Users\\ASUS\\Downloads\\test"
-        - method: "delete"
-          delay: 2
-          args:
-            path: "C:\\Users\\ASUS\\Downloads\\test\\renamed.sql"
-        - method: "list"
-          delay: 2
-          args:
-            path: "C:\\Users\\ASUS\\Downloads\\test"
+  # - scenario:
+  #   - name: "Command Prompt"
+  #     methods:
+  #       - method: "create_window"
+  #         delay: 2
+  #       - method: "list"
+  #         delay: 2
+  #         args:
+  #           path: "C:\\Users\\ASUS\\Downloads\\test"
+  #       - method: "move"
+  #         delay: 2
+  #         args:
+  #           source_path: "C:\\Users\\ASUS\\Downloads\\t.sql"
+  #           destination_path: "C:\\Users\\ASUS\\Downloads\\test"
+  #       - method: "list"
+  #         delay: 2
+  #         args:
+  #           path: "C:\\Users\\ASUS\\Downloads\\test"
+  #       - method: "copy"
+  #         delay: 2
+  #         args:
+  #           source_path: "C:\\Users\\ASUS\\Downloads\\test\\t.sql"
+  #           destination_path: "C:\\Users\\ASUS\\Downloads\\test\\dup.sql"
+  #       - method: "list"
+  #         delay: 2
+  #         args:
+  #           path: "C:\\Users\\ASUS\\Downloads\\test"
+  #       - method: "rename"
+  #         delay: 2
+  #         args:
+  #           old_name: "C:\\Users\\ASUS\\Downloads\\test\\dup.sql"
+  #           new_name: "renamed.sql"
+  #       - method: "list"
+  #         delay: 2
+  #         args:
+  #           path: "C:\\Users\\ASUS\\Downloads\\test"
+  #       - method: "delete"
+  #         delay: 2
+  #         args:
+  #           path: "C:\\Users\\ASUS\\Downloads\\test\\renamed.sql"
+  #       - method: "list"
+  #         delay: 2
+  #         args:
+  #           path: "C:\\Users\\ASUS\\Downloads\\test"
   # - scenario:
   #   - name: "Gmail"
   #     browser: "Google Chrome"

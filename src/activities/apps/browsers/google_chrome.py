@@ -1,5 +1,6 @@
 import time
 import random
+import winreg
 from configs.logger import logger
 from activities.apps.browsers.base import Browser
 
@@ -8,6 +9,13 @@ class GoogleChrome(Browser):
         super().__init__()
         self.window_info = "[TITLE:New Tab - Google Chrome; CLASS:Chrome_WidgetWin_1]"
         
+    def _get_executable_path(self):
+        registry_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe", 0, winreg.KEY_READ)
+        path, _ = winreg.QueryValueEx(registry_key, None)
+        if path:
+            return path
+        return None 
+    
     def check_existing_window(self):
         logger.info("Checking existing Google Chrome window")
         if self.dll.AU3_WinExists(self.window_info, ""):
@@ -22,8 +30,13 @@ class GoogleChrome(Browser):
         return None
 
     def create_window(self):
+        logger.info("Getting Google Chrome executable path")
+        executable_path = self._get_executable_path()
+        if not executable_path:
+            return "could not get Google Chrome executable path"
+        
         logger.info("Creating new Google Chrome window")
-        if not self.dll.AU3_Run("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "", 1):
+        if not self.dll.AU3_Run(executable_path, "", 1):
             return "could not run Google Chrome"
                 
         time.sleep(2)

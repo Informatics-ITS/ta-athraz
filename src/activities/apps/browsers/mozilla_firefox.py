@@ -1,5 +1,6 @@
 import time
 import random
+import winreg
 from configs.logger import logger
 from activities.apps.browsers.base import Browser
 
@@ -7,6 +8,13 @@ class MozillaFirefox(Browser):
     def __init__(self):
         super().__init__()
         self.window_info = "[CLASS:MozillaWindowClass]"
+        
+    def _get_executable_path(self):
+        registry_key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE,  r"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\App Paths\firefox.exe", 0, winreg.KEY_READ)
+        path, _ = winreg.QueryValueEx(registry_key, None)
+        if path:
+            return path
+        return None 
         
     def check_existing_window(self):
         logger.info("Checking existing Mozilla Firefox window")
@@ -22,8 +30,13 @@ class MozillaFirefox(Browser):
         return None
     
     def create_window(self):
+        logger.info("Getting Mozilla Firefox executable path")
+        executable_path = self._get_executable_path()
+        if not executable_path:
+            return "could not get Mozilla Firefox executable path"
+        
         logger.info("Creating new Mozilla Firefox window")
-        if not self.dll.AU3_Run("C:\\Users\\ASUS\\AppData\\Local\\Mozilla Firefox\\firefox.exe", "", 1):
+        if not self.dll.AU3_Run(executable_path, "", 1):
             return "could not run Mozilla Firefox"
         
         time.sleep(2)

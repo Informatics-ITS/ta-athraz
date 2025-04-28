@@ -9,6 +9,12 @@ class Notepad(NativeApp):
         super().__init__()
         self.window_info = "[CLASS:Notepad]"
         
+    def _get_executable_path(self):
+        path = os.path.join(os.environ['WINDIR'], 'System32', 'notepad.exe')
+        if os.path.exists(path):
+            return path
+        return None
+        
     def check_existing_window(self):
         logger.info("Checking existing Notepad window")
         if self.dll.AU3_WinExists(self.window_info, ""):
@@ -23,8 +29,13 @@ class Notepad(NativeApp):
         return None
         
     def create_window(self):
-        logger.info("Running Notepad")
-        if not self.dll.AU3_Run("C:\\Windows\\System32\\notepad.exe", "", 1):
+        logger.info("Getting Notepad executable path")
+        executable_path = self._get_executable_path()
+        if not executable_path:
+            return "could not get Notepad executable path"
+        
+        logger.info("Creating new Notepad window")
+        if not self.dll.AU3_Run(executable_path, "", 1):
             return "could not run Notepad"
 
         time.sleep(2)
