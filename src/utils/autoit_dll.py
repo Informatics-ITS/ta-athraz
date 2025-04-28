@@ -1,6 +1,8 @@
 import ctypes
+import os
 
 class AutoItDLL():
     def __init__(self):
-        self.dll = ctypes.WinDLL(r"C:\Program Files (x86)\AutoIt3\AutoItX\AutoItX3_X64.dll")
+        dll_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "libs", "AutoItX3_X64.dll"))
+        self.dll = ctypes.WinDLL(dll_path)
         self.dll.AU3_Init()
