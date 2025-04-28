@@ -110,7 +110,7 @@ class MicrosoftWord(NativeApp):
         for letter in text:
             logger.info("Checking if Microsoft Word window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Microsoft Word window is inactive"
 
             logger.info("Sending letter to Microsoft Word window")
             if not self.dll.AU3_Send(letter, 1):
@@ -132,7 +132,7 @@ class MicrosoftWord(NativeApp):
         for _ in range(clicks):
             logger.info("Checking if Microsoft Word window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Microsoft Word window is inactive"
             
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)

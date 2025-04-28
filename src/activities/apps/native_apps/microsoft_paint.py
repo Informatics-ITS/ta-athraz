@@ -110,7 +110,7 @@ class MicrosoftPaint(NativeApp):
             
             logger.info("Checking if Microsoft Paint window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Microsoft Paint window is inactive"
             
             logger.info(f"Dragging mouse from ({x0}, {y0}) to ({x1}, {y1})")
             success = self.dll.AU3_MouseClickDrag("left", x0, y0, x1, y1, speed)
@@ -142,7 +142,7 @@ class MicrosoftPaint(NativeApp):
             
             logger.info("Checking if Microsoft Paint window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Microsoft Paint window is inactive"
             
             logger.info(f"Dragging mouse from ({x0}, {y0}) to ({x1}, {y1})")
             success = self.dll.AU3_MouseClickDrag("left", x0, y0, x1, y1, speed)
@@ -171,7 +171,7 @@ class MicrosoftPaint(NativeApp):
         for _ in range(count):
             logger.info("Checking if Microsoft Paint window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Microsoft Paint window is inactive"
             
             logger.info("Sending keys to change thickness")
             if direction == "up":

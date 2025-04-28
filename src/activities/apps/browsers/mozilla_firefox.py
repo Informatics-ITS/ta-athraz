@@ -24,7 +24,7 @@ class MozillaFirefox(Browser):
     def create_window(self):
         logger.info("Creating new Mozilla Firefox window")
         if not self.dll.AU3_Run("C:\\Users\\ASUS\\AppData\\Local\\Mozilla Firefox\\firefox.exe", "", 1):
-            return "could not run firefox.exe"
+            return "could not run Mozilla Firefox"
         
         time.sleep(2)
         logger.info("Checking existing Mozilla Firefox window")
@@ -71,7 +71,7 @@ class MozillaFirefox(Browser):
         for letter in url:
             logger.info("Checking if Mozilla Firefox window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Mozilla Firefox window is inactive"
 
             logger.info("Sending letter to Mozilla Firefox window")
             if not self.dll.AU3_Send(letter, 1):
@@ -98,7 +98,7 @@ class MozillaFirefox(Browser):
         for _ in range(clicks):
             logger.info("Checking if Mozilla Firefox window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Google chrome window is inactive"
             
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)

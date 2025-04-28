@@ -7,7 +7,7 @@ from activities.files.base import File
 class CommandPrompt(File):
     def __init__(self):
         super().__init__()
-        self.window_info = "[TITLE:C:\Windows\system32\cmd.exe; CLASS:CASCADIA_HOSTING_WINDOW_CLASS]"
+        self.window_info = "[TITLE:C:\\Windows\\system32\\cmd.exe; CLASS:CASCADIA_HOSTING_WINDOW_CLASS]"
     
     def check_existing_window(self):
         logger.info("Checking existing Command Prompt window")
@@ -70,7 +70,7 @@ class CommandPrompt(File):
         for letter in cmdline:
             logger.info("Checking if Command Prompt window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Command Prompt window is inactive"
 
             logger.info("Sending letter to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
@@ -104,7 +104,7 @@ class CommandPrompt(File):
         for letter in cmdline:
             logger.info("Checking if Command Prompt window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Command Prompt window is inactive"
 
             logger.info("Sending letter to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
@@ -136,7 +136,7 @@ class CommandPrompt(File):
         for letter in cmdline:
             logger.info("Checking if Command Prompt window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Command Prompt window is inactive"
 
             logger.info("Sending letter to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
@@ -172,7 +172,7 @@ class CommandPrompt(File):
         for letter in cmdline:
             logger.info("Checking if Command Prompt window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Command Prompt window is inactive"
             
             logger.info(f"Sending letter '{letter}' to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
@@ -203,7 +203,7 @@ class CommandPrompt(File):
         for letter in cmdline:
             logger.info("Checking if Command Prompt window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Command Prompt window is inactive"
             
             logger.info(f"Sending letter '{letter}' to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
@@ -241,7 +241,7 @@ class CommandPrompt(File):
         for letter in cmdline:
             logger.info("Checking if Command Prompt window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Command Prompt window is inactive"
             
             logger.info(f"Sending letter '{letter}' to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
@@ -273,7 +273,7 @@ class CommandPrompt(File):
         for letter in cmdline:
             logger.info("Checking if Command Prompt window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Command Prompt window is inactive"
             
             logger.info(f"Sending letter '{letter}' to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
@@ -305,7 +305,7 @@ class CommandPrompt(File):
         for letter in cmdline:
             logger.info("Checking if Command Prompt window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Command Prompt window is inactive"
             
             logger.info(f"Sending letter '{letter}' to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):

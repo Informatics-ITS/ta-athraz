@@ -23,8 +23,8 @@ class GoogleChrome(Browser):
 
     def create_window(self):
         logger.info("Creating new Google Chrome window")
-        if not self.dll.AU3_Run("C:\\Program Files\\Google\Chrome\\Application\\chrome.exe", "", 1):
-            return "could not run winword.exe"
+        if not self.dll.AU3_Run("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "", 1):
+            return "could not run Google Chrome"
                 
         time.sleep(2)
         logger.info("Checking existing Google Chrome window")
@@ -70,7 +70,7 @@ class GoogleChrome(Browser):
         for letter in url:
             logger.info("Checking if Google Chrome window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Google chrome window is inactive"
 
             logger.info("Sending letter to Google Chrome window")
             if not self.dll.AU3_Send(letter, 1):
@@ -97,7 +97,7 @@ class GoogleChrome(Browser):
         for _ in range(clicks):
             logger.info("Checking if Google Chrome window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Google chrome window is inactive"
             
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)

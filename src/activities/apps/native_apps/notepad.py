@@ -100,7 +100,7 @@ class Notepad(NativeApp):
         for letter in text:
             logger.info("Checking if Notepad window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Notepad window is inactive"
 
             logger.info("Sending letter to Notepad window")
             if not self.dll.AU3_Send(letter, 1):
@@ -122,7 +122,7 @@ class Notepad(NativeApp):
         for _ in range(clicks):
             logger.info("Checking if Notepad window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Notepad window is inactive"
             
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)

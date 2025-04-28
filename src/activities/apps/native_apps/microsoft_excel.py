@@ -157,7 +157,7 @@ class MicrosoftExcel(NativeApp):
         for letter in new_name:
             logger.info("Checking if Microsoft Excel window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Microsoft Excel window is inactive"
 
             logger.info("Sending letter to Microsoft Excel window")
             if not self.dll.AU3_Send(letter, 1):
@@ -184,7 +184,7 @@ class MicrosoftExcel(NativeApp):
         for _ in range(count):
             logger.info("Checking if Microsoft Excel window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Microsoft Excel window is inactive"
             
             logger.info("Sending keys to change sheets")
             if direction == "left":
@@ -210,7 +210,7 @@ class MicrosoftExcel(NativeApp):
         for letter in text:
             logger.info("Checking if Microsoft Excel window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Microsoft Excel window is inactive"
 
             logger.info("Sending letter to Microsoft Excel window")
             if not self.dll.AU3_Send(letter, 1):
@@ -232,7 +232,7 @@ class MicrosoftExcel(NativeApp):
         for _ in range(clicks):
             logger.info("Checking if Microsoft Excel window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "Microsoft Excel window is inactive"
             
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)

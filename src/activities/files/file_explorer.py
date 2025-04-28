@@ -74,7 +74,7 @@ class FileExplorer(File):
         for letter in path:
             logger.info("Checking if File Explorer window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "File Explorer window is inactive"
 
             logger.info("Sending letter to File Explorer window")
             if not self.dll.AU3_Send(letter, 1):
@@ -112,7 +112,7 @@ class FileExplorer(File):
         for letter in path:
             logger.info("Checking if File Explorer window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "File Explorer window is inactive"
 
             logger.info("Sending letter to File Explorer window")
             if not self.dll.AU3_Send(letter, 1):
@@ -148,7 +148,7 @@ class FileExplorer(File):
         for letter in dir_name:
             logger.info("Checking if File Explorer window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                break
+                return "File Explorer window is inactive"
 
             logger.info("Sending letter to File Explorer window")
             if not self.dll.AU3_Send(letter, 1):
