@@ -36,19 +36,10 @@ activity_map = {
 
 activity_instances = {}
 
-def get_display_resolution_and_scale():
-    logger.info("Checking display resolution and scale")
-    user32 = windll.user32
-    gdi32 = windll.gdi32
+def set_dpi_aware():
     logger.info("Setting process to DPI aware")
+    user32 = windll.user32
     user32.SetProcessDPIAware()
-    screen_width = user32.GetSystemMetrics(0)
-    screen_height = user32.GetSystemMetrics(1)
-    hdc = user32.GetDC(0)
-    dpi = gdi32.GetDeviceCaps(hdc, 88)
-    user32.ReleaseDC(0, hdc)
-    scale = int((dpi / 96) * 100)
-    return screen_width, screen_height, scale
 
 def load_config(file_path="configs/scenarios.yaml"):
     logger.info("Loading config file scenarios.yaml")
@@ -56,18 +47,12 @@ def load_config(file_path="configs/scenarios.yaml"):
         return yaml.safe_load(file)
 
 if __name__ == "__main__":
-    screen_width, screen_height, scale = get_display_resolution_and_scale()
-    if screen_width != 1920 or screen_height != 1080:
-        logger.error("Display resolution is not 1920x1080")
-        sys.exit(1)
-    if scale != 125:
-        logger.error("Scale is not 125%")
-        sys.exit(1)
-
+    set_dpi_aware()
     config = load_config()
 
     execution_mode = config.get("execution_mode", "sequential")
     repeat = config.get("repeat", False)
+    exit_on_error = config.get("exit_on_error", True)
     scenarios = config.get("scenarios", [])
 
     while True:
@@ -110,10 +95,16 @@ if __name__ == "__main__":
 
                             if err:
                                 logger.error(f"Error running method {method} on {name}: {err}")
+                                if exit_on_error:
+                                    sys.exit(1)
                         except Exception as e:
                             logger.error(f"Exception while running {method} on {name}: {e}")
+                            if exit_on_error:
+                                    sys.exit(1)
                     else:
                         logger.error(f"Method '{method}' not found on '{name}'")
+                        if exit_on_error:
+                            sys.exit(1)
 
                     time.sleep(delay)
 

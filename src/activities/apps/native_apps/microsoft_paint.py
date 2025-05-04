@@ -1,7 +1,7 @@
 import time
 import random
 import os
-import winreg
+from ctypes import windll
 from configs.logger import logger
 from activities.apps.native_apps.base import NativeApp
 
@@ -9,6 +9,9 @@ class MicrosoftPaint(NativeApp):
     def __init__(self):
         super().__init__()
         self.window_info = "[CLASS:MSPaintApp]"
+        self.image_properties_window_info = "[CLASS:XAMLModalWindow]"
+        self.image_width = 0
+        self.image_height = 0
 
     def _get_executable_path(self):
         path = os.path.join(os.environ['USERPROFILE'], 'AppData', 'Local', 'Microsoft', 'WindowsApps', 'mspaint.exe')
@@ -101,7 +104,7 @@ class MicrosoftPaint(NativeApp):
 
         return None
     
-    def draw(self, points=[], speed = 10):
+    def draw(self, points=[], mouse_speed = 10):
         err = self.check_existing_window()
         if err:
             return err
@@ -109,7 +112,7 @@ class MicrosoftPaint(NativeApp):
         if len(points) < 2:
             return "Need at least two points to draw"
         
-        left, top, right, bottom = (32, 250, 1875, 1000)
+        left, top, right, bottom = self._calculate_image_ltrb()
 
         for i in range(len(points) - 1):
             x0, y0 = points[i]
@@ -125,13 +128,35 @@ class MicrosoftPaint(NativeApp):
                 return "Microsoft Paint window is inactive"
             
             logger.info(f"Dragging mouse from ({x0}, {y0}) to ({x1}, {y1})")
-            success = self.dll.AU3_MouseClickDrag("left", x0, y0, x1, y1, speed)
+            success = self.dll.AU3_MouseClickDrag("left", x0, y0, x1, y1, mouse_speed)
             if not success:
                 return f"Failed to drag from ({x0}, {y0}) to ({x1}, {y1})"
 
-        return None 
+        return None
     
-    def draw_random(self, count = 5, speed = 10):
+    def _calculate_image_ltrb(self):
+        user32 = windll.user32
+        user32.SetProcessDPIAware()
+        screen_width = user32.GetSystemMetrics(0)
+        screen_height = user32.GetSystemMetrics(1)
+
+        left = (screen_width - self.image_width) / 2
+        top = (screen_height - self.image_height) / 2 + (screen_height / 20 * 4.5)
+        right = left + self.image_width - 20
+        bottom = top + self.image_height - 20
+        
+        if left < (screen_width / 35):
+            left = (screen_width / 35)
+        if top < (screen_height / 20 * 4.5):
+            top = (screen_height / 20 * 4.5)
+        if right > screen_width - (screen_width / 35):
+            right = screen_width - (screen_width / 35)
+        if bottom > screen_height - (screen_height / 20 * 1.5):
+            bottom = screen_height - (screen_height / 20 * 1.5)
+            
+        return int(left), int(top), int(right), int(bottom)
+    
+    def draw_random(self, count = 5, mouse_speed = 10):
         err = self.check_existing_window()
         if err:
             return err
@@ -139,7 +164,7 @@ class MicrosoftPaint(NativeApp):
         if count < 2:
             return "Need at least two points to draw"
         
-        left, top, right, bottom = (32, 250, 1875, 1000)
+        left, top, right, bottom = self._calculate_image_ltrb()
         x0 = random.randint(left, right)
         y0 = random.randint(top, bottom)
         
@@ -157,7 +182,7 @@ class MicrosoftPaint(NativeApp):
                 return "Microsoft Paint window is inactive"
             
             logger.info(f"Dragging mouse from ({x0}, {y0}) to ({x1}, {y1})")
-            success = self.dll.AU3_MouseClickDrag("left", x0, y0, x1, y1, speed)
+            success = self.dll.AU3_MouseClickDrag("left", x0, y0, x1, y1, mouse_speed)
             if not success:
                 return f"Failed to drag from ({x0}, {y0}) to ({x1}, {y1})"
             
@@ -194,5 +219,65 @@ class MicrosoftPaint(NativeApp):
                     return "could not send keys to change thickness"
             rand = random.uniform(0.05, 0.15)
             time.sleep(rand)
+        
+        return None
+    
+    def change_image_size(self, width, height):
+        if not width or not height:
+            return "image width and height must be provided"
+        
+        err = self.check_existing_window()
+        if err:
+            return err
+        
+        time.sleep(2)
+        logger.info("Sending keys to activate image properties modal")
+        if not self.dll.AU3_Send("^e", 0):
+            return "could not send keys to activate image properties modal"
+        
+        time.sleep(1)
+        logger.info("Checking existing image properties modal")
+        if self.dll.AU3_WinExists(self.image_properties_window_info, ""):
+            logger.info("Activating image properties modal")
+            self.dll.AU3_WinActivate(self.image_properties_window_info, "")
+            logger.info("Waiting image properties modal to be active")
+            if not self.dll.AU3_WinWaitActive(self.image_properties_window_info, "", 10):
+                return "could not activate image properties modal"
+        else:
+            return "image properties modal didn't exist"
+        
+        time.sleep(2)
+        logger.info("Sending image width to image properties modal")
+        if not self.dll.AU3_Send(str(width), 1):
+            return "could not send image width to image properties modal"
+        
+        time.sleep(2)
+        logger.info("Sending tab to image properties modal")
+        if not self.dll.AU3_Send("{TAB}", 0):
+            return "could not send tab to image properties modal"
+        
+        time.sleep(2)
+        logger.info("Sending image height to image properties modal")
+        if not self.dll.AU3_Send(str(height), 1):
+            return "could not send image height to image properties modal"
+        
+        time.sleep(1)
+        logger.info("Sending enter to image properties modal")
+        if not self.dll.AU3_Send("{ENTER}", 0):
+            return "could not send Enter key to change image size"
+        
+        self.image_width = width
+        self.image_height = height
+        
+        return None
+    
+    def save_file(self):
+        err = self.check_existing_window()
+        if err:
+            return err
+        
+        logger.info("Saving Paint file")
+        if not self.dll.AU3_Send("^s", 0):
+            return "could not send ctrl+s to save file"
         
         return None
