@@ -74,7 +74,6 @@ class MozillaFirefox(Browser):
 
         return None
 
-    
     def browse(self, url = "www.python.org"):
         err = self.check_existing_window()
         if err:
@@ -134,7 +133,6 @@ class MozillaFirefox(Browser):
 
         return None
 
-        
     def zoom_out(self, count = 1):
         err = self.check_existing_window()
         if err:
@@ -162,7 +160,6 @@ class MozillaFirefox(Browser):
             time.sleep(0.2)
 
         return None
-    
     
     def next_page(self, count = 1):
         err = self.check_existing_window()

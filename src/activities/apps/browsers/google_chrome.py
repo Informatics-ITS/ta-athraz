@@ -162,7 +162,6 @@ class GoogleChrome(Browser):
 
         return None
     
-    
     def next_page(self, count = 1):
         err = self.check_existing_window()
         if err:
