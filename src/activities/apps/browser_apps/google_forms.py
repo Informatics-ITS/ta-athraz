@@ -9,10 +9,18 @@ class GoogleForms(BrowserApp):
         if not url.startswith("https://forms.gle/") and not url.startswith("https://https://docs.google.com/forms/"):
             return "Invalid Google Forms URL"
         
-        logger.info("Creating new browser window")
-        err = self.browser.create_window()
+        logger.info("Checking browser window")
+        err = self.browser.check_existing_window()
         if err:
-            return err
+            logger.info("Creating new browser window")
+            err = self.browser.create_window()
+            if err:
+                return err
+        else:
+            logger.info("Creating new browser tab")
+            err = self.browser.create_tab()
+            if err:
+                return err
         
         logger.info("Browsing Google Forms URL")
         err = self.browser.browse(url)
@@ -57,20 +65,58 @@ class GoogleForms(BrowserApp):
                 
         return None
     
-    def create_form(self, title, description, questions):
-        logger.info("Creating new browser window")
-        err = self.browser.create_window()
+    def create_form(self, name, title, description, questions):
+        logger.info("Checking browser window")
+        err = self.browser.check_existing_window()
         if err:
-            return err
+            logger.info("Creating new browser window")
+            err = self.browser.create_window()
+            if err:
+                return err
+        else:
+            logger.info("Creating new browser tab")
+            err = self.browser.create_tab()
+            if err:
+                return err
         
         logger.info("Browsing Google Forms create")
         err = self.browser.browse("https://forms.google.com/create")
         if err:
             return err
+        
+        time.sleep(2)
+        logger.info("Toggling browser window fullscreen")
+        err = self.browser.toggle_fullscreen()
+        if err:
+            return err
+        
+        time.sleep(2)
+        logger.info("Clicking on top left")
+        if not self.dll.AU3_MouseClick("left", 0, 0, 1, 10):
+            return "failed to click on top left"
 
-        time.sleep(6)
+        time.sleep(2)
+        logger.info("Moving to Google Forms name")
+        for _ in range(2):
+            time.sleep(0.5)
+            if not self.dll.AU3_Send("{TAB}", 0):
+                return "could not send tab key to move to Google Forms name"
+        
+        time.sleep(1)
+        for letter in name:
+            logger.info("Checking if browser window is active")
+            if not self.dll.AU3_WinActive(self.browser.window_info, ""):
+                return "browser window is inactive while filling Google Forms name"
+
+            logger.info("Sending name letter to Google Forms window")
+            if not self.dll.AU3_Send(letter, 1):
+                return f"could not send {letter} to Google Forms"
+            rand = random.uniform(0.05, 0.1)
+            time.sleep(rand)
+            
+        time.sleep(2)
         logger.info("Moving to Google Forms title")
-        for _ in range(10):
+        for _ in range(18):
             time.sleep(0.5)
             if not self.dll.AU3_Send("{TAB}", 0):
                 return "could not send tab key to move to Google Forms title"
@@ -240,5 +286,11 @@ class GoogleForms(BrowserApp):
         
         time.sleep(0.5)
         logger.info(f"Form created at {pyperclip.paste()}")
+        
+        time.sleep(2)
+        logger.info("Toggling browser window fullscreen")
+        err = self.browser.toggle_fullscreen()
+        if err:
+            return err
         
         return None

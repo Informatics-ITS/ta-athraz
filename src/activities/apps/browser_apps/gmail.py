@@ -5,10 +5,18 @@ from activities.apps.browser_apps.base import BrowserApp
 
 class Gmail(BrowserApp):
     def open(self):
-        logger.info("Creating new browser window")
-        err = self.browser.create_window()
+        logger.info("Checking browser window")
+        err = self.browser.check_existing_window()
         if err:
-            return err
+            logger.info("Creating new browser window")
+            err = self.browser.create_window()
+            if err:
+                return err
+        else:
+            logger.info("Creating new browser tab")
+            err = self.browser.create_tab()
+            if err:
+                return err
         
         logger.info("Browsing Gmail")
         err = self.browser.browse("https://mail.google.com")
