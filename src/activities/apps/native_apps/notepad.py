@@ -62,6 +62,22 @@ class Notepad(NativeApp):
         
         return None
     
+    def create_tab(self):
+        err = self.check_existing_window()
+        if err:
+            return err
+        
+        time.sleep(2)
+        logger.info("Maximizing Notepad window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize Notepad window"
+
+        logger.info("Creating new Notepad tab")
+        if not self.dll.AU3_Send("^t", 0):
+            return "could not send keys to create new tab"
+
+        return None
+    
     def open_file(self, path):
         if not path:
             return "path must be provided"
@@ -92,7 +108,12 @@ class Notepad(NativeApp):
                 return "could not activate Notepad"
         else:
             return "Notepad window didn't exist"
-        
+             
+        time.sleep(2)
+        logger.info("Maximizing Notepad window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize Notepad window"
+           
         return None
     
     def write_file(self, text = ""):

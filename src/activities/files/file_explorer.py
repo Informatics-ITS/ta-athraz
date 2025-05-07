@@ -51,6 +51,22 @@ class FileExplorer(File):
         
         return None
     
+    def create_tab(self):
+        err = self.check_existing_window()
+        if err:
+            return err
+        
+        time.sleep(2)
+        logger.info("Maximizing File Explorer window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize File Explorer window"
+
+        logger.info("Creating new File Explorer tab")
+        if not self.dll.AU3_Send("^t", 0):
+            return "could not send keys to create new tab"
+
+        return None
+    
     def open_file(self, path):
         if not path:
             return "file path must be provided"
