@@ -2,7 +2,7 @@ import yaml
 import time
 import random
 import sys
-from ctypes import windll
+import ctypes
 from activities.apps.browser_apps.gmail import Gmail
 from activities.apps.browser_apps.google_forms import GoogleForms
 from activities.apps.browser_apps.youtube import YouTube
@@ -38,16 +38,53 @@ activity_instances = {}
 
 def set_dpi_aware():
     logger.info("Setting process to DPI aware")
-    user32 = windll.user32
-    user32.SetProcessDPIAware()
+    user32 = ctypes.windll.user32
+    result = user32.SetProcessDPIAware()
+    if result == 0:
+        logger.error("Failed to set process to DPI aware")
+    else:
+        logger.info("Process set to DPI aware successfully")
+    
+def set_taskbar_autohide():
+    logger.info("Setting taskbar to auto-hide")
+    class APPBARDATA(ctypes.Structure):
+        _fields_ = [
+            ("cbSize", ctypes.c_uint),
+            ("hWnd", ctypes.c_void_p),
+            ("uCallbackMessage", ctypes.c_uint),
+            ("uEdge", ctypes.c_uint),
+            ("rc", ctypes.c_int * 4),
+            ("lParam", ctypes.c_int)
+        ]
+
+    appbar_data = APPBARDATA()
+    appbar_data.cbSize = ctypes.sizeof(APPBARDATA)
+    appbar_data.lParam = 0x1
+
+    result = ctypes.windll.shell32.SHAppBarMessage(0x0000000a, ctypes.byref(appbar_data))
+    if result == 0:
+        logger.error("Failed to set taskbar to auto-hide using SHAppBarMessage")
+    else:
+        logger.info("Taskbar auto-hide successfully enabled")
 
 def load_config(file_path="configs/scenarios.yaml"):
-    logger.info("Loading config file scenarios.yaml")
-    with open(file_path, "r") as file:
-        return yaml.safe_load(file)
+    logger.info(f"Loading config file: {file_path}")
+    
+    try:
+        with open(file_path, "r") as file:
+            config = yaml.safe_load(file)
+            logger.info("Scenarios file loaded successfully")
+            return config
+    except FileNotFoundError:
+        logger.error(f"Scenarios file not found: {file_path}")
+    except yaml.YAMLError as e:
+        logger.error(f"Error parsing YAML file {file_path}: {e}")
+    except Exception as e:
+        logger.error(f"Unexpected error while loading scenarios file {file_path}: {e}")
 
 if __name__ == "__main__":
     set_dpi_aware()
+    set_taskbar_autohide()
     config = load_config()
 
     execution_mode = config.get("execution_mode", "sequential")
@@ -55,6 +92,7 @@ if __name__ == "__main__":
     exit_on_error = config.get("exit_on_error", True)
     scenarios = config.get("scenarios", [])
 
+    time.sleep(1)
     while True:
         if execution_mode == "random":
             random.shuffle(scenarios)
