@@ -231,6 +231,11 @@ class MicrosoftExcel(NativeApp):
             rand = random.uniform(0.05, 0.15)
             time.sleep(rand)
             
+        time.sleep(1)
+        logger.info("Sending enter key to write cell")
+        if not self.dll.AU3_Send("{ENTER}", 0):
+            return "could not send enter key to write cell"
+            
         return None
         
     def scroll(self, direction = "down", clicks = 10, scroll_delay = 0.05):
