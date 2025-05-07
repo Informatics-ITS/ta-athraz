@@ -67,6 +67,11 @@ class MozillaFirefox(Browser):
         err = self.check_existing_window()
         if err:
             return err
+        
+        time.sleep(2)
+        logger.info("Maximizing Mozilla Firefox window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize Mozilla Firefox window"
 
         logger.info("Creating new Mozilla Firefox tab")
         if not self.dll.AU3_Send("^t", 0):

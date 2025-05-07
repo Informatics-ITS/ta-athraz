@@ -68,6 +68,11 @@ class GoogleChrome(Browser):
         if err:
             return err
 
+        time.sleep(2)
+        logger.info("Maximizing Google Chrome window")
+        if not self.dll.AU3_WinSetState(self.window_info, "", 3):
+            return "could not maximize Google Chrome window"
+        
         logger.info("Creating new Google Chrome tab")
         if not self.dll.AU3_Send("^t", 0):
             return "could not send keys to create new tab"
