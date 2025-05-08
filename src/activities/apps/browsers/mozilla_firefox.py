@@ -26,9 +26,9 @@ class MozillaFirefox(Browser):
                 return "could not activate Mozilla Firefox window"
         else:
             return "Mozilla Firefox window didn't exist"
-
+        
         return None
-    
+
     def create_window(self):
         logger.info("Getting Mozilla Firefox executable path")
         executable_path = self._get_executable_path()
@@ -38,7 +38,7 @@ class MozillaFirefox(Browser):
         logger.info("Creating new Mozilla Firefox window")
         if not self.dll.AU3_Run(executable_path, "", 1):
             return "could not run Mozilla Firefox"
-        
+                
         time.sleep(2)
         logger.info("Checking existing Mozilla Firefox window")
         if self.dll.AU3_WinExists(self.window_info, ""):
@@ -67,12 +67,12 @@ class MozillaFirefox(Browser):
         err = self.check_existing_window()
         if err:
             return err
-        
+
         time.sleep(2)
         logger.info("Maximizing Mozilla Firefox window")
         if not self.dll.AU3_WinSetState(self.window_info, "", 3):
             return "could not maximize Mozilla Firefox window"
-
+        
         logger.info("Creating new Mozilla Firefox tab")
         if not self.dll.AU3_Send("^t", 0):
             return "could not send keys to create new tab"
@@ -115,7 +115,7 @@ class MozillaFirefox(Browser):
         for _ in range(clicks):
             logger.info("Checking if Mozilla Firefox window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                return "Google chrome window is inactive"
+                return "Mozilla Firefox window is inactive"
             
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)
@@ -131,6 +131,10 @@ class MozillaFirefox(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Mozilla Firefox window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Mozilla Firefox window is inactive"
+            
             logger.info("Sending keys to zoom in Mozilla Firefox")
             if not self.dll.AU3_Send("^{+}", 0):
                 return "could not send keys to zoom in"
@@ -138,6 +142,7 @@ class MozillaFirefox(Browser):
 
         return None
 
+        
     def zoom_out(self, count = 1):
         err = self.check_existing_window()
         if err:
@@ -145,13 +150,17 @@ class MozillaFirefox(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Mozilla Firefox window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Mozilla Firefox window is inactive"
+            
             logger.info("Sending keys to zoom out Mozilla Firefox")
             if not self.dll.AU3_Send("^{-}", 0):
                 return "could not send keys to zoom out"
             time.sleep(0.2)
 
         return None
-    
+
     def previous_page(self, count = 1):
         err = self.check_existing_window()
         if err:
@@ -159,6 +168,10 @@ class MozillaFirefox(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Mozilla Firefox window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Mozilla Firefox window is inactive"
+            
             logger.info("Sending keys to go to previous Mozilla Firefox page")
             if not self.dll.AU3_Send("!{LEFT}", 0):
                 return "could not send keys to go to previous page"
@@ -173,6 +186,10 @@ class MozillaFirefox(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Mozilla Firefox window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Mozilla Firefox window is inactive"
+            
             logger.info("Sending keys to go to next Mozilla Firefox page")
             if not self.dll.AU3_Send("!{RIGHT}", 0):
                 return "could not send keys to go to next page"
@@ -187,6 +204,10 @@ class MozillaFirefox(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Mozilla Firefox window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Mozilla Firefox window is inactive"
+            
             logger.info("Sending key to toggle fullscreen")
             if not self.dll.AU3_Send("{F11}", 0):
                 return "could not send key to toggle fullscreen"

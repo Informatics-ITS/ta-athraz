@@ -88,7 +88,7 @@ class GoogleChrome(Browser):
         for letter in url:
             logger.info("Checking if Google Chrome window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                return "Google chrome window is inactive"
+                return "Google Chrome window is inactive"
 
             logger.info("Sending letter to Google Chrome window")
             if not self.dll.AU3_Send(letter, 1):
@@ -115,7 +115,7 @@ class GoogleChrome(Browser):
         for _ in range(clicks):
             logger.info("Checking if Google Chrome window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
-                return "Google chrome window is inactive"
+                return "Google Chrome window is inactive"
             
             logger.info("Scrolling Mouse wheel")
             time.sleep(scroll_delay)
@@ -131,6 +131,10 @@ class GoogleChrome(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Google Chrome window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Google Chrome window is inactive"
+            
             logger.info("Sending keys to zoom in Google Chrome")
             if not self.dll.AU3_Send("^{+}", 0):
                 return "could not send keys to zoom in"
@@ -146,6 +150,10 @@ class GoogleChrome(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Google Chrome window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Google Chrome window is inactive"
+            
             logger.info("Sending keys to zoom out Google Chrome")
             if not self.dll.AU3_Send("^{-}", 0):
                 return "could not send keys to zoom out"
@@ -160,6 +168,10 @@ class GoogleChrome(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Google Chrome window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Google Chrome window is inactive"
+            
             logger.info("Sending keys to go to previous Google Chrome page")
             if not self.dll.AU3_Send("!{LEFT}", 0):
                 return "could not send keys to go to previous page"
@@ -174,6 +186,10 @@ class GoogleChrome(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Google Chrome window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Google Chrome window is inactive"
+            
             logger.info("Sending keys to go to next Google Chrome page")
             if not self.dll.AU3_Send("!{RIGHT}", 0):
                 return "could not send keys to go to next page"
@@ -188,6 +204,10 @@ class GoogleChrome(Browser):
 
         time.sleep(2)
         for _ in range(count):
+            logger.info("Checking if Google Chrome window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Google Chrome window is inactive"
+            
             logger.info("Sending key to toggle fullscreen")
             if not self.dll.AU3_Send("{F11}", 0):
                 return "could not send key to toggle fullscreen"
