@@ -136,24 +136,30 @@ class MicrosoftPaint(NativeApp):
     
     def _calculate_image_ltrb(self):
         user32 = windll.user32
+        gdi32 = windll.gdi32
         user32.SetProcessDPIAware()
         screen_width = user32.GetSystemMetrics(0)
         screen_height = user32.GetSystemMetrics(1)
+        hdc = user32.GetDC(0)
+        dpi = gdi32.GetDeviceCaps(hdc, 88)
+        user32.ReleaseDC(0, hdc)
+        scale = int((dpi / 96) * 100)
 
         left = (screen_width - self.image_width) / 2
-        top = (screen_height - self.image_height) / 2 + (screen_height / 20 * 4.5)
-        right = left + self.image_width - 20
-        bottom = top + self.image_height - 20
+        top = (screen_height - (scale * 2.15) - self.image_height) / 2 + (scale * 1.75)
+        right = left + self.image_width
+        bottom = top + self.image_height
         
-        if left < (screen_width / 35):
-            left = (screen_width / 35)
-        if top < (screen_height / 20 * 4.5):
-            top = (screen_height / 20 * 4.5)
-        if right > screen_width - (screen_width / 35):
-            right = screen_width - (screen_width / 35)
-        if bottom > screen_height - (screen_height / 20 * 1.5):
-            bottom = screen_height - (screen_height / 20 * 1.5)
-            
+        if left < 37:
+            left = 37
+        if top < (scale * 1.75 + 37):
+            top = (scale * 1.75 + 37)
+        if right > screen_width - 37:
+            right = screen_width - 37
+        if bottom > screen_height - (scale * 0.4):
+            bottom = screen_height - (scale * 0.4)
+        
+        print(int(left), int(top), int(right), int(bottom))  
         return int(left), int(top), int(right), int(bottom)
     
     def draw_random(self, count = 5, mouse_speed = 10):
