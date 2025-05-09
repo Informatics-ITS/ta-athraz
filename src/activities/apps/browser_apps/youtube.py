@@ -132,6 +132,10 @@ class YouTube(BrowserApp):
         
         time.sleep(1)
         for _ in range(count):
+            logger.info("Checking if browser window is active")
+            if not self.dll.AU3_WinActive(self.browser.window_info, ""):
+                return "browser window is inactive"
+            
             logger.info("Sending keys to move to next video")
             if not self.dll.AU3_Send("+n", 0):
                 return "could not send keys to move to next video"
@@ -147,6 +151,10 @@ class YouTube(BrowserApp):
         
         time.sleep(1)
         for _ in range(count):
+            logger.info("Checking if browser window is active")
+            if not self.dll.AU3_WinActive(self.browser.window_info, ""):
+                return "browser window is inactive"
+            
             logger.info("Sending keys to move to previous video")
             if not self.dll.AU3_Send("+p", 0):
                 return "could not send keys to move to previous video"

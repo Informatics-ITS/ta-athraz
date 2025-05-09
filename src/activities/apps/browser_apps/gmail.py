@@ -46,6 +46,10 @@ class Gmail(BrowserApp):
         
         time.sleep(1)
         for _ in range(count):
+            logger.info("Checking if browser window is active")
+            if not self.dll.AU3_WinActive(self.browser.window_info, ""):
+                return "browser window is inactive"
+            
             logger.info("Sending key to go to next email")
             if not self.dll.AU3_Send("j", 0):
                 return "could not send key to go to next email"
@@ -61,6 +65,10 @@ class Gmail(BrowserApp):
         
         time.sleep(1)
         for _ in range(count):
+            logger.info("Checking if browser window is active")
+            if not self.dll.AU3_WinActive(self.browser.window_info, ""):
+                return "browser window is inactive"
+            
             logger.info("Sending key to go to previous email")
             if not self.dll.AU3_Send("k", 0):
                 return "could not send key to go to previous email"
@@ -159,9 +167,9 @@ class Gmail(BrowserApp):
             return err
         
         time.sleep(1)
-        logger.info("Sending keys to go to inbox")
+        logger.info("Sending keys to go to drafts")
         if not self.dll.AU3_Send("gd", 0):
-            return "could not send keys to go to inbox"
+            return "could not send keys to go to drafts"
         
         return None
     
@@ -172,9 +180,9 @@ class Gmail(BrowserApp):
             return err
         
         time.sleep(1)
-        logger.info("Sending keys to go to inbox")
+        logger.info("Sending keys to go to sent messages")
         if not self.dll.AU3_Send("gt", 0):
-            return "could not send keys to go to inbox"
+            return "could not send keys to go to sent messages"
         
         return None
     
