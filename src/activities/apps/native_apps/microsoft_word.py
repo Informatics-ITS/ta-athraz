@@ -79,8 +79,13 @@ class MicrosoftWord(NativeApp):
         if not os.path.isfile(path):
             return f"path '{path}' is not a file"
         
+        logger.info("Getting Microsoft Word executable path")
+        executable_path = self._get_executable_path()
+        if not executable_path:
+            return "could not get Microsoft Word executable path"
+        
         logger.info("Opening docx file")
-        if not self.dll.AU3_Run(f'C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE "{path}"', "", 1):
+        if not self.dll.AU3_Run(f'{executable_path} "{path}"', "", 1):
             return "could not open docx file"
 
         time.sleep(2)

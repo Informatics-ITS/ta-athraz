@@ -17,7 +17,6 @@ class MicrosoftPaint(NativeApp):
         path = os.path.join(os.environ['USERPROFILE'], 'AppData', 'Local', 'Microsoft', 'WindowsApps', 'mspaint.exe')
         if os.path.exists(path):
             return path
-
         
     def check_existing_window(self):
         logger.info("Checking existing Microsoft Paint window")
@@ -76,8 +75,13 @@ class MicrosoftPaint(NativeApp):
         if not os.path.isfile(path):
             return f"path '{path}' is not a file"
         
+        logger.info("Getting Microsoft Paint executable path")
+        executable_path = self._get_executable_path()
+        if not executable_path:
+            return "could not get Microsoft Paint executable path"
+        
         logger.info("Opening paint file")
-        if not self.dll.AU3_Run(f'C:\\Program Files\\WindowsApps\\Microsoft.Paint_11.2502.161.0_x64__8wekyb3d8bbwe\\PaintApp\\mspaint.exe "{path}"', "", 1):
+        if not self.dll.AU3_Run(f'{executable_path} "{path}"', "", 1):
             return "could not open paint file"
 
         time.sleep(2)
@@ -101,36 +105,6 @@ class MicrosoftPaint(NativeApp):
         logger.info("Maximizing Microsoft Paint window")
         if not self.dll.AU3_WinSetState(self.window_info, "", 3):
             return "could not maximize Microsoft Paint window"
-
-        return None
-    
-    def draw(self, points=[], mouse_speed = 10):
-        err = self.check_existing_window()
-        if err:
-            return err
-
-        if len(points) < 2:
-            return "Need at least two points to draw"
-        
-        left, top, right, bottom = self._calculate_image_ltrb()
-
-        for i in range(len(points) - 1):
-            x0, y0 = points[i]
-            x1, y1 = points[i + 1]
-            
-            if not (left <= x0 <= right and top <= y0 <= bottom):
-                return f"Point ({x0}, {y0}) is outside the canvas"
-            if not (left <= x1 <= right and top <= y1 <= bottom):
-                return f"Point ({x1}, {y1}) is outside the canvas"
-            
-            logger.info("Checking if Microsoft Paint window is active")
-            if not self.dll.AU3_WinActive(self.window_info, ""):
-                return "Microsoft Paint window is inactive"
-            
-            logger.info(f"Dragging mouse from ({x0}, {y0}) to ({x1}, {y1})")
-            success = self.dll.AU3_MouseClickDrag("left", x0, y0, x1, y1, mouse_speed)
-            if not success:
-                return f"Failed to drag from ({x0}, {y0}) to ({x1}, {y1})"
 
         return None
     
@@ -158,9 +132,41 @@ class MicrosoftPaint(NativeApp):
             right = screen_width - 37
         if bottom > screen_height - (scale * 0.4):
             bottom = screen_height - (scale * 0.4)
-        
-        print(int(left), int(top), int(right), int(bottom))  
+
         return int(left), int(top), int(right), int(bottom)
+    
+    def draw(self, points=[], mouse_speed = 10):
+        err = self.check_existing_window()
+        if err:
+            return err
+
+        if len(points) < 2:
+            return "Need at least two points to draw"
+        
+        ltrb = self._calculate_image_ltrb()
+        if ltrb == None:
+            return "failed to calculate image left, top, right, and bottom"
+        left, top, right, bottom = ltrb
+
+        for i in range(len(points) - 1):
+            x0, y0 = points[i]
+            x1, y1 = points[i + 1]
+            
+            if not (left <= x0 <= right and top <= y0 <= bottom):
+                return f"Point ({x0}, {y0}) is outside the canvas"
+            if not (left <= x1 <= right and top <= y1 <= bottom):
+                return f"Point ({x1}, {y1}) is outside the canvas"
+            
+            logger.info("Checking if Microsoft Paint window is active")
+            if not self.dll.AU3_WinActive(self.window_info, ""):
+                return "Microsoft Paint window is inactive"
+            
+            logger.info(f"Dragging mouse from ({x0}, {y0}) to ({x1}, {y1})")
+            success = self.dll.AU3_MouseClickDrag("left", x0, y0, x1, y1, mouse_speed)
+            if not success:
+                return f"Failed to drag from ({x0}, {y0}) to ({x1}, {y1})"
+
+        return None
     
     def draw_random(self, count = 5, mouse_speed = 10):
         err = self.check_existing_window()
@@ -170,18 +176,17 @@ class MicrosoftPaint(NativeApp):
         if count < 2:
             return "Need at least two points to draw"
         
-        left, top, right, bottom = self._calculate_image_ltrb()
-        x0 = random.randint(left, right)
-        y0 = random.randint(top, bottom)
+        ltrb = self._calculate_image_ltrb()
+        if ltrb == None:
+            return "failed to calculate image left, top, right, and bottom"
+        left, top, right, bottom = ltrb
+        
+        x0 = random.randint(left + 1, right - 1)
+        y0 = random.randint(top + 1, bottom - 1)
         
         for i in range(count - 1):
-            x1 = random.randint(left, right)
-            y1 = random.randint(top, bottom)
-            
-            if not (left <= x0 <= right and top <= y0 <= bottom):
-                return f"Point ({x0}, {y0}) is outside the canvas"
-            if not (left <= x1 <= right and top <= y1 <= bottom):
-                return f"Point ({x1}, {y1}) is outside the canvas"
+            x1 = random.randint(left + 1, right - 1)
+            y1 = random.randint(top + 1, bottom - 1)
             
             logger.info("Checking if Microsoft Paint window is active")
             if not self.dll.AU3_WinActive(self.window_info, ""):
@@ -229,8 +234,10 @@ class MicrosoftPaint(NativeApp):
         return None
     
     def change_image_size(self, width, height):
-        if not width or not height:
-            return "image width and height must be provided"
+        if not width:
+            return "image width must be provided"
+        if not height:
+            return "image height must be provided"
         
         err = self.check_existing_window()
         if err:

@@ -88,8 +88,13 @@ class Notepad(NativeApp):
         if not os.path.isfile(path):
             return f"path '{path}' is not a file"
         
+        logger.info("Getting Notepad executable path")
+        executable_path = self._get_executable_path()
+        if not executable_path:
+            return "could not get Notepad executable path"
+        
         logger.info("Opening file with notepad")
-        if not self.dll.AU3_Run(f'C:\\Windows\\System32\\notepad.exe "{path}"', "", 1):
+        if not self.dll.AU3_Run(f'{executable_path} "{path}"', "", 1):
             return "could not open file with notepad"
                 
         time.sleep(2)
