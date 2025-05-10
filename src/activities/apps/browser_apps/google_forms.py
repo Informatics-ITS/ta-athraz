@@ -6,7 +6,7 @@ from activities.apps.browser_apps.base import BrowserApp
 
 class GoogleForms(BrowserApp):        
     def fill_form(self, url, answers):
-        if not url.startswith("https://forms.gle/") and not url.startswith("https://https://docs.google.com/forms/"):
+        if not url.startswith("https://forms.gle/") and not url.startswith("https://docs.google.com/forms/"):
             return "Invalid Google Forms URL"
         
         logger.info("Checking browser window")
@@ -206,7 +206,7 @@ class GoogleForms(BrowserApp):
                     return "could not send tab key to move to question type dropdown"
             time.sleep(0.5)
             if not self.dll.AU3_Send("{ENTER}", 0):
-                return "could not send enter key to appear question type dropdown"
+                return "could not send the Enter key to make the question type dropdown appear"
                 
             logger.info("Choosing question type")
             if question_type == "Short answer":
