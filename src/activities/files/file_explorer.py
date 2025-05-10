@@ -144,8 +144,11 @@ class FileExplorer(File):
         return None
     
     def create_directory(self, parent_path, dir_name):
-        if not parent_path or not dir_name:
-            return "parent path and directory name must be provided"
+        if not parent_path:
+            return "parent path must be provided"
+        
+        if not dir_name:
+            return "directory name must be provided"
         
         full_path = os.path.join(parent_path, dir_name)
         if os.path.exists(full_path):

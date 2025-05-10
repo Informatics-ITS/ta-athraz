@@ -120,8 +120,11 @@ class CommandPrompt(File):
         return None
     
     def create_directory(self, parent_path, dir_name):
-        if not parent_path or not dir_name:
-            return "parent path and directory name must be provided"
+        if not parent_path:
+            return "parent path must be provided"
+        
+        if not dir_name:
+            return "directory name must be provided"
         
         full_path = os.path.join(parent_path, dir_name)
         if os.path.exists(full_path):
@@ -152,8 +155,11 @@ class CommandPrompt(File):
         return None
     
     def copy(self, source_path, destination_path):
-        if not source_path or not destination_path:
-            return "source path and destination path must be provided"
+        if not source_path:
+            return "source path must be provided"
+        
+        if not destination_path:
+            return "destination path must be provided"
         
         if not os.path.exists(source_path):
             return f"source path '{source_path}' does not exist"
@@ -188,8 +194,11 @@ class CommandPrompt(File):
         return None
 
     def rename(self, old_name, new_name):
-        if not old_name or not new_name:
-            return "old name and new name must be provided"
+        if not old_name:
+            return "old name must be provided"
+        
+        if not new_name:
+            return "new name must be provided"
         
         if not os.path.exists(old_name):
             return f"'{old_name}' does not exist"
@@ -231,12 +240,10 @@ class CommandPrompt(File):
 
         time.sleep(2)
 
-        if os.path.isfile(path):
-            cmdline = f'del "{path}"'
-        elif os.path.isdir(path):
+        if os.path.isdir(path):
             cmdline = f'rmdir /s /q "{path}"'
         else:
-            return f"path '{path}' is neither a file nor a directory"
+            cmdline = f'del "{path}"'
 
         for letter in cmdline:
             logger.info("Checking if Command Prompt window is active")
@@ -257,8 +264,11 @@ class CommandPrompt(File):
         return None
 
     def move(self, source_path, destination_path):
-        if not source_path or not destination_path:
-            return "source path and destination path must be provided"
+        if not source_path:
+            return "source path must be provided"
+        
+        if not destination_path:
+            return "destination path must be provided"
         
         if not os.path.exists(source_path):
             return f"source path '{source_path}' does not exist"
