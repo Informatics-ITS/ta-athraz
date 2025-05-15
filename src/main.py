@@ -36,15 +36,32 @@ activity_map = {
 
 activity_instances = {}
 
-def set_dpi_aware():
-    logger.info("Setting process to DPI aware")
+def get_display_resolution_and_scale():
+    logger.info("Getting display resolution and scale")
     user32 = ctypes.windll.user32
+    gdi32 = ctypes.windll.gdi32
+
+    logger.info("Setting process to DPI aware")
     result = user32.SetProcessDPIAware()
     if result == 0:
         logger.error("Failed to set process to DPI aware")
+        sys.exit(1)
     else:
         logger.info("Process set to DPI aware successfully")
+        
+    screen_width = user32.GetSystemMetrics(0)
+    screen_height = user32.GetSystemMetrics(1)
+    hdc = user32.GetDC(0)
+    if not hdc:
+        logger.error("Failed to get device context for screen")
+        sys.exit(1)
+        
+    dpi = gdi32.GetDeviceCaps(hdc, 88)
+    user32.ReleaseDC(0, hdc)
+    scale = int((dpi / 96) * 100)
     
+    return screen_width, screen_height, scale
+
 def set_taskbar_autohide():
     logger.info("Setting taskbar to auto-hide")
     class APPBARDATA(ctypes.Structure):
@@ -64,6 +81,7 @@ def set_taskbar_autohide():
     result = ctypes.windll.shell32.SHAppBarMessage(0x0000000a, ctypes.byref(appbar_data))
     if result == 0:
         logger.error("Failed to set taskbar to auto-hide using SHAppBarMessage")
+        sys.exit(1)
     else:
         logger.info("Taskbar auto-hide successfully enabled")
 
@@ -83,7 +101,9 @@ def load_config(file_path="configs/scenarios.yaml"):
         logger.error(f"Unexpected error while loading scenarios file {file_path}: {e}")
 
 if __name__ == "__main__":
-    set_dpi_aware()
+    screen_width, screen_height, scale = get_display_resolution_and_scale()
+    logger.info(f"Running script on {screen_width}x{screen_height} resolution with {scale}% scale")
+
     set_taskbar_autohide()
     config = load_config()
 
