@@ -83,7 +83,12 @@ class MozillaFirefox(Browser):
         err = self.check_existing_window()
         if err:
             return err
-
+        
+        time.sleep(2)
+        logger.info("Sending keys to open search bar")
+        if not self.dll.AU3_Send("^e", 0):
+            return "could not send keys to open search bar"
+        
         time.sleep(2)
         for letter in url:
             logger.info("Checking if Mozilla Firefox window is active")
