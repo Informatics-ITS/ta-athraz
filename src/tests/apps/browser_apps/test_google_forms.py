@@ -269,7 +269,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -309,7 +309,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -352,7 +352,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -392,7 +392,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -608,7 +608,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + 20) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + 19) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -622,7 +622,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)]
         )
         self.gforms.dll.AU3_Send.assert_has_calls(expected_send_calls)
@@ -630,7 +630,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1
+            18 + 1
         )
         self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
         self.assertEqual(res, "could not send keys to delete template Google Forms title")
@@ -664,7 +664,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in "Examp"]
         )
@@ -673,7 +673,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + 5
+            18 + 1 + 5
         )
         self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
         self.assertEqual(res, "browser window is inactive while filling Google Forms title")
@@ -693,7 +693,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + 25) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + 24) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -707,7 +707,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in "Examp"]
         )
@@ -716,7 +716,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + 4
+            18 + 1 + 4
         )
         self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
         self.assertEqual(res, "could not send p to Google Forms")
@@ -736,7 +736,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + 22) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + 21) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -750,7 +750,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2
@@ -760,7 +760,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3
         )
         self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
@@ -795,7 +795,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -806,7 +806,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + 5
         )
         self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
@@ -827,7 +827,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + 27) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + 26) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -841,7 +841,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -852,7 +852,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + 4
         )
         self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
@@ -887,7 +887,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -899,7 +899,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + 8
         )
@@ -921,7 +921,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + 27) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + 26) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -935,7 +935,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -947,7 +947,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + 5
         )
@@ -969,7 +969,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + 36) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + 35) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -983,7 +983,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -996,7 +996,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + 8 + 5
         )
@@ -1018,7 +1018,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 24) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 23) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1032,7 +1032,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1047,7 +1047,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0)
         )
@@ -1083,7 +1083,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1099,7 +1099,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1 + 1 + 1 + 3 + 2
         )
@@ -1121,7 +1121,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 24) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 23) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1135,7 +1135,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1151,7 +1151,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) - 1
         )
@@ -1160,6 +1160,61 @@ class TestGoogleForms(unittest.TestCase):
         
     @patch("time.sleep", return_value=None)
     def test_create_form_failed_to_send_key_to_move_to_question_type_dropdown(self, mock_sleep):
+        name = "Example Form Name"
+        title = "Example Form Title"
+        description = "Example form description"
+        questions = [
+            ["Short answer", "question 1", True],
+            ["Paragraph", "question 2", True],
+            ["Short answer", "question 3", False]
+        ]
+        self.gforms.browser.check_existing_window.return_value = "Browser window didn't exist"
+        self.gforms.browser.create_window.return_value = None
+        self.gforms.browser.browse.return_value = None
+        self.gforms.browser.toggle_fullscreen.return_value = None
+        self.gforms.dll.AU3_MouseClick.return_value = 1
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 26) + [0]
+        self.gforms.dll.AU3_WinActive.return_value = 1
+
+        res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
+        
+        self.gforms.browser.check_existing_window.assert_called_once()
+        self.gforms.browser.create_window.assert_called_once()
+        self.gforms.browser.create_tab.assert_not_called()
+        self.gforms.browser.browse.assert_called_once_with("https://forms.google.com/create")
+        self.gforms.browser.toggle_fullscreen.assert_called_once()
+        self.gforms.dll.AU3_MouseClick.assert_called_once_with("left", 0, 0, 1, 10)
+        expected_send_calls = (
+            [call("{TAB}", 0)] * 2 +
+            [call(char, 1) for char in name] +
+            [call("{TAB}", 0)] * 17 +
+            [call("^a{BACKSPACE}", 0)] +
+            [call(char, 1) for char in title] +
+            [call("{TAB}", 0)] * 2 +
+            [call(char, 1) for char in description]
+        )   
+        if len(questions) > 1:
+            expected_send_calls += [call("+{TAB}", 0)] * 8 + [call("{ENTER}", 0)]
+        if len(questions) > 2:
+            expected_send_calls += ([call("+{TAB}", 0)] * 10 + [call("{ENTER}", 0)]) * (len(questions) - 2)
+        expected_send_calls += (
+            [call(char, 1) for char in questions[0][1]] +
+            [call("{TAB}", 0)]
+        )
+        self.gforms.dll.AU3_Send.assert_has_calls(expected_send_calls)
+        self.gforms.dll.AU3_WinActive.assert_has_calls([call(self.gforms.browser.window_info, "")] * (len(name) + len(title) + len(description) + len(questions) - 1 + len(questions[0][1])))
+        
+        expected_sleep_calls = (
+            5 + 1 + len(name) +
+            18 + 1 + len(title) +
+            3 + 1 + len(description) +
+            1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3
+        )
+        self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
+        self.assertEqual(res, "could not send tab key to move to question type dropdown")
+        
+    @patch("time.sleep", return_value=None)
+    def test_create_form_failed_to_send_key_to_make_question_type_dropdown_appear(self, mock_sleep):
         name = "Example Form Name"
         title = "Example Form Title"
         description = "Example form description"
@@ -1187,7 +1242,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1199,22 +1254,23 @@ class TestGoogleForms(unittest.TestCase):
             expected_send_calls += ([call("+{TAB}", 0)] * 10 + [call("{ENTER}", 0)]) * (len(questions) - 2)
         expected_send_calls += (
             [call(char, 1) for char in questions[0][1]] +
-            [call("{TAB}", 0)]
+            [call("{TAB}", 0)] * 3 +
+            [call("{ENTER}", 0)]
         )
         self.gforms.dll.AU3_Send.assert_has_calls(expected_send_calls)
         self.gforms.dll.AU3_WinActive.assert_has_calls([call(self.gforms.browser.window_info, "")] * (len(name) + len(title) + len(description) + len(questions) - 1 + len(questions[0][1])))
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
-            1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3
+            1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1
         )
         self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
-        self.assertEqual(res, "could not send tab key to move to question type dropdown")
+        self.assertEqual(res, "could not send the Enter key to make the question type dropdown appear")
         
     @patch("time.sleep", return_value=None)
-    def test_create_form_failed_to_send_key_to_make_question_type_dropdown_appear(self, mock_sleep):
+    def test_create_form_failed_to_send_key_to_move_to_question_type_short_answer(self, mock_sleep):
         name = "Example Form Name"
         title = "Example Form Title"
         description = "Example form description"
@@ -1242,63 +1298,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
-            [call("^a{BACKSPACE}", 0)] +
-            [call(char, 1) for char in title] +
-            [call("{TAB}", 0)] * 2 +
-            [call(char, 1) for char in description]
-        )   
-        if len(questions) > 1:
-            expected_send_calls += [call("+{TAB}", 0)] * 8 + [call("{ENTER}", 0)]
-        if len(questions) > 2:
-            expected_send_calls += ([call("+{TAB}", 0)] * 10 + [call("{ENTER}", 0)]) * (len(questions) - 2)
-        expected_send_calls += (
-            [call(char, 1) for char in questions[0][1]] +
-            [call("{TAB}", 0)] * 3 +
-            [call("{ENTER}", 0)]
-        )
-        self.gforms.dll.AU3_Send.assert_has_calls(expected_send_calls)
-        self.gforms.dll.AU3_WinActive.assert_has_calls([call(self.gforms.browser.window_info, "")] * (len(name) + len(title) + len(description) + len(questions) - 1 + len(questions[0][1])))
-        
-        expected_sleep_calls = (
-            5 + 1 + len(name) +
-            19 + 1 + len(title) +
-            3 + 1 + len(description) +
-            1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1
-        )
-        self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
-        self.assertEqual(res, "could not send the Enter key to make the question type dropdown appear")
-        
-    @patch("time.sleep", return_value=None)
-    def test_create_form_failed_to_send_key_to_move_to_question_type_short_answer(self, mock_sleep):
-        name = "Example Form Name"
-        title = "Example Form Title"
-        description = "Example form description"
-        questions = [
-            ["Short answer", "question 1", True],
-            ["Paragraph", "question 2", True],
-            ["Short answer", "question 3", False]
-        ]
-        self.gforms.browser.check_existing_window.return_value = "Browser window didn't exist"
-        self.gforms.browser.create_window.return_value = None
-        self.gforms.browser.browse.return_value = None
-        self.gforms.browser.toggle_fullscreen.return_value = None
-        self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 29) + [0]
-        self.gforms.dll.AU3_WinActive.return_value = 1
-
-        res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
-        
-        self.gforms.browser.check_existing_window.assert_called_once()
-        self.gforms.browser.create_window.assert_called_once()
-        self.gforms.browser.create_tab.assert_not_called()
-        self.gforms.browser.browse.assert_called_once_with("https://forms.google.com/create")
-        self.gforms.browser.toggle_fullscreen.assert_called_once()
-        self.gforms.dll.AU3_MouseClick.assert_called_once_with("left", 0, 0, 1, 10)
-        expected_send_calls = (
-            [call("{TAB}", 0)] * 2 +
-            [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1319,7 +1319,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1 + 1
         )
@@ -1341,7 +1341,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 29) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 28) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1355,7 +1355,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1376,7 +1376,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1 + 1
         )
@@ -1398,7 +1398,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 30) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 29) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1412,7 +1412,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1434,7 +1434,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1 + 1 + 1
         )
@@ -1443,6 +1443,65 @@ class TestGoogleForms(unittest.TestCase):
     
     @patch("time.sleep", return_value=None)
     def test_create_form_failed_to_send_keys_to_move_to_required_toggle(self, mock_sleep):
+        name = "Example Form Name"
+        title = "Example Form Title"
+        description = "Example form description"
+        questions = [
+            ["Short answer", "question 1", True],
+            ["Paragraph", "question 2", True],
+            ["Short answer", "question 3", False]
+        ]
+        self.gforms.browser.check_existing_window.return_value = "Browser window didn't exist"
+        self.gforms.browser.create_window.return_value = None
+        self.gforms.browser.browse.return_value = None
+        self.gforms.browser.toggle_fullscreen.return_value = None
+        self.gforms.dll.AU3_MouseClick.return_value = 1
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 32) + [0]
+        self.gforms.dll.AU3_WinActive.return_value = 1
+
+        res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
+        
+        self.gforms.browser.check_existing_window.assert_called_once()
+        self.gforms.browser.create_window.assert_called_once()
+        self.gforms.browser.create_tab.assert_not_called()
+        self.gforms.browser.browse.assert_called_once_with("https://forms.google.com/create")
+        self.gforms.browser.toggle_fullscreen.assert_called_once()
+        self.gforms.dll.AU3_MouseClick.assert_called_once_with("left", 0, 0, 1, 10)
+        expected_send_calls = (
+            [call("{TAB}", 0)] * 2 +
+            [call(char, 1) for char in name] +
+            [call("{TAB}", 0)] * 17 +
+            [call("^a{BACKSPACE}", 0)] +
+            [call(char, 1) for char in title] +
+            [call("{TAB}", 0)] * 2 +
+            [call(char, 1) for char in description]
+        )   
+        if len(questions) > 1:
+            expected_send_calls += [call("+{TAB}", 0)] * 8 + [call("{ENTER}", 0)]
+        if len(questions) > 2:
+            expected_send_calls += ([call("+{TAB}", 0)] * 10 + [call("{ENTER}", 0)]) * (len(questions) - 2)
+        expected_send_calls += (
+            [call(char, 1) for char in questions[0][1]] +
+            [call("{TAB}", 0)] * 3 +
+            [call("{ENTER}", 0)] +
+            [call("{UP}{UP}", 0)] +
+            [call("{ENTER}", 0)] +
+            [call("{TAB}", 0)] * 3
+        )
+        self.gforms.dll.AU3_Send.assert_has_calls(expected_send_calls)
+        self.gforms.dll.AU3_WinActive.assert_has_calls([call(self.gforms.browser.window_info, "")] * (len(name) + len(title) + len(description) + len(questions) - 1 + len(questions[0][1])))
+        
+        expected_sleep_calls = (
+            5 + 1 + len(name) +
+            18 + 1 + len(title) +
+            3 + 1 + len(description) +
+            1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1 + 1 + 1 + 3
+        )
+        self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
+        self.assertEqual(res, "could not move to required toggle")
+        
+    @patch("time.sleep", return_value=None)
+    def test_create_form_failed_to_send_key_to_toggle_required(self, mock_sleep):
         name = "Example Form Name"
         title = "Example Form Title"
         description = "Example form description"
@@ -1470,66 +1529,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
-            [call("^a{BACKSPACE}", 0)] +
-            [call(char, 1) for char in title] +
-            [call("{TAB}", 0)] * 2 +
-            [call(char, 1) for char in description]
-        )   
-        if len(questions) > 1:
-            expected_send_calls += [call("+{TAB}", 0)] * 8 + [call("{ENTER}", 0)]
-        if len(questions) > 2:
-            expected_send_calls += ([call("+{TAB}", 0)] * 10 + [call("{ENTER}", 0)]) * (len(questions) - 2)
-        expected_send_calls += (
-            [call(char, 1) for char in questions[0][1]] +
-            [call("{TAB}", 0)] * 3 +
-            [call("{ENTER}", 0)] +
-            [call("{UP}{UP}", 0)] +
-            [call("{ENTER}", 0)] +
-            [call("{TAB}", 0)] * 3
-        )
-        self.gforms.dll.AU3_Send.assert_has_calls(expected_send_calls)
-        self.gforms.dll.AU3_WinActive.assert_has_calls([call(self.gforms.browser.window_info, "")] * (len(name) + len(title) + len(description) + len(questions) - 1 + len(questions[0][1])))
-        
-        expected_sleep_calls = (
-            5 + 1 + len(name) +
-            19 + 1 + len(title) +
-            3 + 1 + len(description) +
-            1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1 + 1 + 1 + 3
-        )
-        self.assertEqual(mock_sleep.call_count, expected_sleep_calls)
-        self.assertEqual(res, "could not move to required toggle")
-        
-    @patch("time.sleep", return_value=None)
-    def test_create_form_failed_to_send_key_to_toggle_required(self, mock_sleep):
-        name = "Example Form Name"
-        title = "Example Form Title"
-        description = "Example form description"
-        questions = [
-            ["Short answer", "question 1", True],
-            ["Paragraph", "question 2", True],
-            ["Short answer", "question 3", False]
-        ]
-        self.gforms.browser.check_existing_window.return_value = "Browser window didn't exist"
-        self.gforms.browser.create_window.return_value = None
-        self.gforms.browser.browse.return_value = None
-        self.gforms.browser.toggle_fullscreen.return_value = None
-        self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 34) + [0]
-        self.gforms.dll.AU3_WinActive.return_value = 1
-
-        res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
-        
-        self.gforms.browser.check_existing_window.assert_called_once()
-        self.gforms.browser.create_window.assert_called_once()
-        self.gforms.browser.create_tab.assert_not_called()
-        self.gforms.browser.browse.assert_called_once_with("https://forms.google.com/create")
-        self.gforms.browser.toggle_fullscreen.assert_called_once()
-        self.gforms.dll.AU3_MouseClick.assert_called_once_with("left", 0, 0, 1, 10)
-        expected_send_calls = (
-            [call("{TAB}", 0)] * 2 +
-            [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1553,7 +1553,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1 + 1 + 1 + 3
         )
@@ -1575,7 +1575,7 @@ class TestGoogleForms(unittest.TestCase):
         self.gforms.browser.browse.return_value = None
         self.gforms.browser.toggle_fullscreen.return_value = None
         self.gforms.dll.AU3_MouseClick.return_value = 1
-        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 36) + [0]
+        self.gforms.dll.AU3_Send.side_effect = [1] * (len(name) + len(title) + len(description) + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + len(questions[0][1]) + 35) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1589,7 +1589,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1614,7 +1614,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 + len(questions[0][1]) + 3 + 1 + 1 + 1 + 3 + 2
         )
@@ -1642,7 +1642,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 12) + [0]
+        ]) + 11) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1656,7 +1656,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1685,7 +1685,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -1719,7 +1719,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 13) + [0]
+        ]) + 12) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1733,7 +1733,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1763,7 +1763,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -1797,7 +1797,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 14) + [0]
+        ]) + 13) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1811,7 +1811,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1842,7 +1842,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -1876,7 +1876,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 15) + [0]
+        ]) + 14) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1890,7 +1890,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -1922,7 +1922,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -1956,7 +1956,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 17) + [0]
+        ]) + 16) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -1970,7 +1970,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -2003,7 +2003,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -2038,7 +2038,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 18) + [0]
+        ]) + 17) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -2052,7 +2052,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -2086,7 +2086,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -2121,7 +2121,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 19) + [0]
+        ]) + 18) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -2135,7 +2135,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -2170,7 +2170,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -2205,7 +2205,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 20) + [0]
+        ]) + 19) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -2219,7 +2219,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -2255,7 +2255,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -2290,7 +2290,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 22) + [0]
+        ]) + 21) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -2304,7 +2304,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -2341,7 +2341,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
@@ -2376,7 +2376,7 @@ class TestGoogleForms(unittest.TestCase):
             3 + 1 + 1 + 1 + 3 +
             (2 if i < len(questions) - 1 else (20 + (len(questions) - 1) * 2 + 1 + 2 + 1))
             for i, (_, q_title, _) in enumerate(questions)
-        ]) + 23) + [0]
+        ]) + 22) + [0]
         self.gforms.dll.AU3_WinActive.return_value = 1
 
         res = self.gforms.create_form(name=name, title=title, description=description, questions=questions)
@@ -2390,7 +2390,7 @@ class TestGoogleForms(unittest.TestCase):
         expected_send_calls = (
             [call("{TAB}", 0)] * 2 +
             [call(char, 1) for char in name] +
-            [call("{TAB}", 0)] * 18 +
+            [call("{TAB}", 0)] * 17 +
             [call("^a{BACKSPACE}", 0)] +
             [call(char, 1) for char in title] +
             [call("{TAB}", 0)] * 2 +
@@ -2428,7 +2428,7 @@ class TestGoogleForms(unittest.TestCase):
         
         expected_sleep_calls = (
             5 + 1 + len(name) +
-            19 + 1 + len(title) +
+            18 + 1 + len(title) +
             3 + 1 + len(description) +
             1 + (8 if len(questions) > 1 else 0) + (10 * (len(questions) - 2) if len(questions) > 2 else 0) + 1 +
             sum([
