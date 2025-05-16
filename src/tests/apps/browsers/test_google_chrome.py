@@ -236,7 +236,7 @@ class TestGoogleChrome(unittest.TestCase):
         mock_check_existing_window.assert_called_once()
         self.chrome.dll.AU3_WinActive.assert_has_calls([call(self.chrome.window_info, "")] * len(url))
         self.chrome.dll.AU3_Send.assert_has_calls([
-            call("^e", 0),
+            call("!d", 0),
             *[call(char, 1) for char in url],
             call("{ENTER}", 0)
         ])
@@ -256,7 +256,7 @@ class TestGoogleChrome(unittest.TestCase):
         
         mock_check_existing_window.assert_called_once()
         self.chrome.dll.AU3_WinActive.assert_not_called()
-        self.chrome.dll.AU3_Send.assert_called_once_with("^e", 0)
+        self.chrome.dll.AU3_Send.assert_called_once_with("!d", 0)
         
         self.assertEqual(self.chrome.dll.AU3_Send.call_count, 1)
         self.assertEqual(mock_sleep.call_count, 1)
@@ -274,7 +274,7 @@ class TestGoogleChrome(unittest.TestCase):
         mock_check_existing_window.assert_called_once()
         self.chrome.dll.AU3_WinActive.assert_has_calls([call(self.chrome.window_info, "")] * 6)
         self.chrome.dll.AU3_Send.assert_has_calls([
-            call("^e", 0),
+            call("!d", 0),
             *[call(char, 1) for char in "www.p"],
         ])
         
@@ -295,7 +295,7 @@ class TestGoogleChrome(unittest.TestCase):
         mock_check_existing_window.assert_called_once()
         self.chrome.dll.AU3_WinActive.assert_has_calls([call(self.chrome.window_info, "")] * 5)
         self.chrome.dll.AU3_Send.assert_has_calls([
-            call("^e", 0),
+            call("!d", 0),
             *[call(char, 1) for char in "www.p"],
         ])
         
@@ -316,7 +316,7 @@ class TestGoogleChrome(unittest.TestCase):
         mock_check_existing_window.assert_called_once()
         self.chrome.dll.AU3_WinActive.assert_has_calls([call(self.chrome.window_info, "")] * len(url))
         self.chrome.dll.AU3_Send.assert_has_calls([
-            call("^e", 0),
+            call("!d", 0),
             *[call(char, 1) for char in url],
             call("{ENTER}", 0)
         ])

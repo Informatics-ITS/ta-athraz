@@ -86,7 +86,7 @@ class GoogleChrome(Browser):
         
         time.sleep(2)
         logger.info("Sending keys to open search bar")
-        if not self.dll.AU3_Send("^e", 0):
+        if not self.dll.AU3_Send("!d", 0):
             return "could not send keys to open search bar"
 
         time.sleep(2)
