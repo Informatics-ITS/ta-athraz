@@ -116,7 +116,7 @@ class GoogleForms(BrowserApp):
             
         time.sleep(2)
         logger.info("Moving to Google Forms title")
-        for _ in range(18):
+        for _ in range(17):
             time.sleep(0.5)
             if not self.dll.AU3_Send("{TAB}", 0):
                 return "could not send tab key to move to Google Forms title"
