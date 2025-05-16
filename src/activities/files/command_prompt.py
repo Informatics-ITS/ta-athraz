@@ -7,7 +7,7 @@ from activities.files.base import File
 class CommandPrompt(File):
     def __init__(self):
         super().__init__()
-        self.window_info = "[TITLE:C:\\Windows\\system32\\cmd.exe; CLASS:CASCADIA_HOSTING_WINDOW_CLASS]"
+        self.window_info = "[TITLE:Command Prompt; CLASS:CASCADIA_HOSTING_WINDOW_CLASS]"
     
     def check_existing_window(self):
         logger.info("Checking existing Command Prompt window")
@@ -24,7 +24,7 @@ class CommandPrompt(File):
     
     def create_window(self):
         logger.info("Running Command Prompt")
-        if not self.dll.AU3_Run("cmd.exe /c start", "", 1):
+        if not self.dll.AU3_Run('cmd.exe /c start "Command Prompt"', '', 1):
             return "could not run Command Prompt"
 
         time.sleep(2)
