@@ -53,7 +53,7 @@ class TestCommandPrompt(unittest.TestCase):
 
         res = self.cmd.create_window()
 
-        self.cmd.dll.AU3_Run.assert_called_once_with("cmd.exe /c start", "", 1)
+        self.cmd.dll.AU3_Run.assert_called_once_with('cmd.exe /c start "Command Prompt"', "", 1)
         self.cmd.dll.AU3_WinExists.assert_called_once()
         self.cmd.dll.AU3_WinGetHandle.assert_called_once()
         self.cmd.dll.AU3_WinActivate.assert_called_once_with(self.cmd.window_info, "")
@@ -68,7 +68,7 @@ class TestCommandPrompt(unittest.TestCase):
         self.cmd.dll.AU3_Run.return_value = 0
         res = self.cmd.create_window()
 
-        self.cmd.dll.AU3_Run.assert_called_once_with("cmd.exe /c start", "", 1)
+        self.cmd.dll.AU3_Run.assert_called_once_with('cmd.exe /c start "Command Prompt"', "", 1)
         self.cmd.dll.AU3_WinExists.assert_not_called()
         self.cmd.dll.AU3_WinGetHandle.assert_not_called()
         self.cmd.dll.AU3_WinActivate.assert_not_called()
@@ -84,7 +84,7 @@ class TestCommandPrompt(unittest.TestCase):
 
         res = self.cmd.create_window()
 
-        self.cmd.dll.AU3_Run.assert_called_once_with("cmd.exe /c start", "", 1)
+        self.cmd.dll.AU3_Run.assert_called_once_with('cmd.exe /c start "Command Prompt"', "", 1)
         self.cmd.dll.AU3_WinExists.assert_called_once()
         self.cmd.dll.AU3_WinGetHandle.assert_not_called()
         self.cmd.dll.AU3_WinActivate.assert_not_called()
@@ -102,7 +102,7 @@ class TestCommandPrompt(unittest.TestCase):
 
         res = self.cmd.create_window()
 
-        self.cmd.dll.AU3_Run.assert_called_once_with("cmd.exe /c start", "", 1)
+        self.cmd.dll.AU3_Run.assert_called_once_with('cmd.exe /c start "Command Prompt"', "", 1)
         self.cmd.dll.AU3_WinExists.assert_called_once()
         self.cmd.dll.AU3_WinGetHandle.assert_called_once()
         self.cmd.dll.AU3_WinActivate.assert_not_called()
@@ -122,7 +122,7 @@ class TestCommandPrompt(unittest.TestCase):
 
         res = self.cmd.create_window()
 
-        self.cmd.dll.AU3_Run.assert_called_once_with("cmd.exe /c start", "", 1)
+        self.cmd.dll.AU3_Run.assert_called_once_with('cmd.exe /c start "Command Prompt"', "", 1)
         self.cmd.dll.AU3_WinExists.assert_called_once()
         self.cmd.dll.AU3_WinGetHandle.assert_called_once()
         self.cmd.dll.AU3_WinActivate.assert_called_once_with(self.cmd.window_info, "")
@@ -143,7 +143,7 @@ class TestCommandPrompt(unittest.TestCase):
 
         res = self.cmd.create_window()
 
-        self.cmd.dll.AU3_Run.assert_called_once_with("cmd.exe /c start", "", 1)
+        self.cmd.dll.AU3_Run.assert_called_once_with('cmd.exe /c start "Command Prompt"', "", 1)
         self.cmd.dll.AU3_WinExists.assert_called_once()
         self.cmd.dll.AU3_WinGetHandle.assert_called_once()
         self.cmd.dll.AU3_WinActivate.assert_called_once_with(self.cmd.window_info, "")

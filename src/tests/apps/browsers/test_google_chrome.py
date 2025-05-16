@@ -236,14 +236,31 @@ class TestGoogleChrome(unittest.TestCase):
         mock_check_existing_window.assert_called_once()
         self.chrome.dll.AU3_WinActive.assert_has_calls([call(self.chrome.window_info, "")] * len(url))
         self.chrome.dll.AU3_Send.assert_has_calls([
+            call("^e", 0),
             *[call(char, 1) for char in url],
             call("{ENTER}", 0)
-        ], 0)
+        ])
         
         self.assertEqual(self.chrome.dll.AU3_WinActive.call_count, len(url))
-        self.assertEqual(self.chrome.dll.AU3_Send.call_count, len(url) + 1)
-        self.assertEqual(mock_sleep.call_count, len(url) + 2)
+        self.assertEqual(self.chrome.dll.AU3_Send.call_count, len(url) + 2)
+        self.assertEqual(mock_sleep.call_count, len(url) + 3)
         self.assertIsNone(res)
+        
+    @patch("time.sleep", return_value=None)
+    @patch.object(GoogleChrome, "check_existing_window", return_value=None)
+    def test_browse_failed_to_send_keys_to_open_search_bar(self, mock_check_existing_window, mock_sleep):
+        url = "www.python.org"
+        self.chrome.dll.AU3_Send.return_value = 0
+        
+        res = self.chrome.browse(url=url)
+        
+        mock_check_existing_window.assert_called_once()
+        self.chrome.dll.AU3_WinActive.assert_not_called()
+        self.chrome.dll.AU3_Send.assert_called_once_with("^e", 0)
+        
+        self.assertEqual(self.chrome.dll.AU3_Send.call_count, 1)
+        self.assertEqual(mock_sleep.call_count, 1)
+        self.assertEqual(res, "could not send keys to open search bar")
     
     @patch("time.sleep", return_value=None)
     @patch.object(GoogleChrome, "check_existing_window", return_value=None)
@@ -256,11 +273,14 @@ class TestGoogleChrome(unittest.TestCase):
         
         mock_check_existing_window.assert_called_once()
         self.chrome.dll.AU3_WinActive.assert_has_calls([call(self.chrome.window_info, "")] * 6)
-        self.chrome.dll.AU3_Send.assert_has_calls([*[call(char, 1) for char in "www.p"]])
+        self.chrome.dll.AU3_Send.assert_has_calls([
+            call("^e", 0),
+            *[call(char, 1) for char in "www.p"],
+        ])
         
         self.assertEqual(self.chrome.dll.AU3_WinActive.call_count, 6)
-        self.assertEqual(self.chrome.dll.AU3_Send.call_count, 5)
-        self.assertEqual(mock_sleep.call_count, 6)
+        self.assertEqual(self.chrome.dll.AU3_Send.call_count, 6)
+        self.assertEqual(mock_sleep.call_count, 7)
         self.assertEqual(res, "Google Chrome window is inactive")
         
     @patch("time.sleep", return_value=None)
@@ -268,40 +288,42 @@ class TestGoogleChrome(unittest.TestCase):
     def test_browse_failed_to_send_letter(self, mock_check_existing_window, mock_sleep):
         url = "www.python.org"
         self.chrome.dll.AU3_WinActive.return_value = 1
-        def send_side_effect(char, _):
-            return False if char == "y" else True
-        self.chrome.dll.AU3_Send.side_effect = send_side_effect
+        self.chrome.dll.AU3_Send.side_effect = [1] * 5 + [0]
         
         res = self.chrome.browse(url=url)
         
         mock_check_existing_window.assert_called_once()
-        self.chrome.dll.AU3_WinActive.assert_has_calls([call(self.chrome.window_info, "")] * 6)
-        self.chrome.dll.AU3_Send.assert_has_calls([*[call(char, 1) for char in "www.py"]])
+        self.chrome.dll.AU3_WinActive.assert_has_calls([call(self.chrome.window_info, "")] * 5)
+        self.chrome.dll.AU3_Send.assert_has_calls([
+            call("^e", 0),
+            *[call(char, 1) for char in "www.p"],
+        ])
         
-        self.assertEqual(self.chrome.dll.AU3_WinActive.call_count, 6)
+        self.assertEqual(self.chrome.dll.AU3_WinActive.call_count, 5)
         self.assertEqual(self.chrome.dll.AU3_Send.call_count, 6)
         self.assertEqual(mock_sleep.call_count, 6)
-        self.assertEqual(res, "could not send y to Google Chrome")
+        self.assertEqual(res, "could not send p to Google Chrome")
         
     @patch("time.sleep", return_value=None)
     @patch.object(GoogleChrome, "check_existing_window", return_value=None)
     def test_browse_failed_to_send_enter(self, mock_check_existing_window, mock_sleep):
         url = "www.python.org"
         self.chrome.dll.AU3_WinActive.return_value = 1
-        self.chrome.dll.AU3_Send.side_effect = [1] * len(url) + [0]
+        self.chrome.dll.AU3_Send.side_effect = [1] * len(url) + [1, 0]
         
         res = self.chrome.browse(url=url)
         
         mock_check_existing_window.assert_called_once()
         self.chrome.dll.AU3_WinActive.assert_has_calls([call(self.chrome.window_info, "")] * len(url))
         self.chrome.dll.AU3_Send.assert_has_calls([
+            call("^e", 0),
             *[call(char, 1) for char in url],
             call("{ENTER}", 0)
         ])
         
         self.assertEqual(self.chrome.dll.AU3_WinActive.call_count, len(url))
-        self.assertEqual(self.chrome.dll.AU3_Send.call_count, len(url) + 1)
-        self.assertEqual(mock_sleep.call_count, len(url) + 2)
+        self.assertEqual(self.chrome.dll.AU3_Send.call_count, len(url) + 2)
+        self.assertEqual(mock_sleep.call_count, len(url) + 3)
         self.assertEqual(res, "could not send Enter key")
         
     @patch("time.sleep", return_value=None)
