@@ -967,12 +967,12 @@ class TestMicrosoftExcel(unittest.TestCase):
         
         self.assertEqual(self.excel.dll.AU3_WinActive.call_count, 6)
         self.assertEqual(self.excel.dll.AU3_MouseWheel.call_count, 5)
-        self.assertEqual(mock_sleep.call_count, 5)
-        self.assertEqual(res, "Microsoft Word window is inactive")
+        self.assertEqual(mock_sleep.call_count, 6)
+        self.assertEqual(res, "Microsoft Excel window is inactive")
 
     @patch.object(MicrosoftExcel, "check_existing_window", return_value=None) 
     @patch("time.sleep", return_value=None)
-    def test_scroll_failed_window_inactive_while_scrolling(self, mock_sleep, mock_check_existing_window):
+    def test_scroll_failed_to_scroll_mouse_wheel(self, mock_sleep, mock_check_existing_window):
         direction = "down"
         clicks = 30
         scroll_delay = 0.07

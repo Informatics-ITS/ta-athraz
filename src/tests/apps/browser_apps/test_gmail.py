@@ -419,7 +419,7 @@ class TestGmail(unittest.TestCase):
         self.assertEqual(res, "could not send l to body field")
         
     @patch("time.sleep", return_value=None)
-    def test_compose_email_failed_to_send_letter_while_filling_body(self, mock_sleep):
+    def test_compose_email_failed_to_send_keys_to_send_email(self, mock_sleep):
         recipients = ["example1@mail.com", "example2@mail.com", "example3@mail.com"]
         subject = "Example Subject Gmail"
         body = "example body gmail"

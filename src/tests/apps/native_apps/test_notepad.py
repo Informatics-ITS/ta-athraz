@@ -607,12 +607,12 @@ class TestNotepad(unittest.TestCase):
         
         self.assertEqual(self.notepad.dll.AU3_WinActive.call_count, 6)
         self.assertEqual(self.notepad.dll.AU3_MouseWheel.call_count, 5)
-        self.assertEqual(mock_sleep.call_count, 5)
+        self.assertEqual(mock_sleep.call_count, 6)
         self.assertEqual(res, "Notepad window is inactive")
 
     @patch.object(Notepad, "check_existing_window", return_value=None) 
     @patch("time.sleep", return_value=None)
-    def test_scroll_failed_window_inactive_while_scrolling(self, mock_sleep, mock_check_existing_window):
+    def test_scroll_failed_to_scroll_mouse_wheel(self, mock_sleep, mock_check_existing_window):
         direction = "down"
         clicks = 30
         scroll_delay = 0.07
