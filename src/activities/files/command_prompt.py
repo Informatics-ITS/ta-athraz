@@ -180,7 +180,7 @@ class CommandPrompt(File):
             if not self.dll.AU3_WinActive(self.window_info, ""):
                 return "Command Prompt window is inactive"
             
-            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            logger.info(f"Sending letter to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
                 return f"could not send {letter} to Command Prompt"
             rand = random.uniform(0.05, 0.15)
@@ -214,7 +214,7 @@ class CommandPrompt(File):
             if not self.dll.AU3_WinActive(self.window_info, ""):
                 return "Command Prompt window is inactive"
             
-            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            logger.info(f"Sending letter to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
                 return f"could not send {letter} to Command Prompt"
             rand = random.uniform(0.05, 0.15)
@@ -250,7 +250,7 @@ class CommandPrompt(File):
             if not self.dll.AU3_WinActive(self.window_info, ""):
                 return "Command Prompt window is inactive"
             
-            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            logger.info(f"Sending letter to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
                 return f"could not send {letter} to Command Prompt"
             rand = random.uniform(0.05, 0.15)
@@ -285,7 +285,7 @@ class CommandPrompt(File):
             if not self.dll.AU3_WinActive(self.window_info, ""):
                 return "Command Prompt window is inactive"
             
-            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            logger.info(f"Sending letter to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
                 return f"could not send {letter} to Command Prompt"
             rand = random.uniform(0.05, 0.15)
@@ -317,7 +317,7 @@ class CommandPrompt(File):
             if not self.dll.AU3_WinActive(self.window_info, ""):
                 return "Command Prompt window is inactive"
             
-            logger.info(f"Sending letter '{letter}' to Command Prompt window")
+            logger.info(f"Sending letter to Command Prompt window")
             if not self.dll.AU3_Send(letter, 1):
                 return f"could not send {letter} to Command Prompt"
             rand = random.uniform(0.05, 0.15)
