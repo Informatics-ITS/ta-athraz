@@ -1,426 +1,411 @@
-execution_mode: "random"
-# repeat: "true"
+execution_mode: "sequential"
+repeat: false
+exit_on_error: true
 scenarios:
+  - scenario:
+    - name: "Gmail"
+      browser: "Google Chrome"
+      methods:
+        - method: "open"
+          delay: 2
+        - method: "next_email"
+          delay: 2
+          args:
+            count: 5
+        - method: "previous_email"
+          delay: 2
+          args:
+            count: 3
+        - method: "open_email"
+          delay: 2
+        - method: "go_to_drafts"
+          delay: 2
+        - method: "go_to_sent_messages"
+          delay: 2
+        - method: "go_to_inbox"
+          delay: 2
+        - method: "select_all"
+          delay: 2
+        - method: "deselect_all"
+          delay: 2
+        - method: "select_unread"
+          delay: 2
+        - method: "mark_as_read"
+          delay: 2
+        - method: "mark_as_unread"
+          delay: 2
+        - method: "archive_email"
+          delay: 2
+        - method: "compose_email"
+          delay: 2
+          args:
+            recipients: ["athallahraz@gmail.com", "ASUSkamino@gmail.com"]
+            subject: "Tes Aktivitas Gmail"
+            body: "Halooo, tes tes, satu dua tiga tes kirim Gmail"
+  - scenario:
+    - name: "Google Forms"
+      browser: "Google Chrome"
+      methods:
+        - method: "fill_form"
+          delay: 2
+          args:
+            url: "https://forms.gle/1wCpoSWBjQqVvtVv5"
+            answers: ["short answer", "lorem ipsum", "paragraph answer"]
+        - method: "create_form"
+          delay: 2
+          args:
+            name: "Form Testing TA"
+            title: "Form Testing"
+            description: "form ini digunakan untuk testing"
+            questions:
+              - ["Short answer", "question 1", true]
+              - ["Paragraph", "question 2", true]
+              - ["Short answer", "question 3", false]
+  - scenario:
+    - name: "YouTube"
+      browser: "Mozilla Firefox"
+      methods:
+        - method: "open"
+          delay: 2
+        - method: "search"
+          delay: 2
+          args:
+            text: "flutter tutorial net ninja"
+    - name: "Mozilla Firefox"
+      methods:
+        - method: "create_tab"
+          delay: 2
+        - method: "browse"
+          delay: 5
+          args:
+            url: "https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ"
+    - name: "YouTube"
+      browser: "Mozilla Firefox"
+      methods:
+        - method: "toggle_pause"
+          delay: 2
+        - method: "toggle_mute"
+          delay: 2
+        - method: "toggle_subtitle"
+          delay: 2
+        - method: "toggle_fullscreen"
+          delay: 2
+        - method: "toggle_cinema_mode"
+          delay: 2
+        - method: "next_video"
+          delay: 2
+        - method: "previous_video"
+          delay: 2
+        - method: "toggle_pause"
+          delay: 2
   - scenario:
     - name: "Google Chrome"
       methods:
-        - method: "create_window"
-          delay: 2
+      - method: "create_window"
+        delay: 2
+      - method: "create_tab"
+        delay: 2
+      - method: "browse"
+        delay: 2
+        args:
+          url: "www.python.org"
+      - method: "scroll"
+        delay: 0.5
+        args:
+          direction: "down"
+          clicks: 30
+          scroll_delay: 0.07
+      - method: "scroll"
+        delay: 2
+        args:
+          direction: "up"
+          clicks: 15
+          scroll_delay: 0.05
+      - method: "zoom_in"
+        delay: 2
+        args:
+          count: 10
+      - method: "zoom_out"
+        delay: 2
+        args:
+          count: 10
+      - method: "previous_page"
+        delay: 2
+      - method: "next_page"
+        delay: 2
+      - method: "toggle_fullscreen"
+        delay: 2
+      - method: "toggle_fullscreen"
+        delay: 2
+  - scenario:
     - name: "Mozilla Firefox"
       methods:
-        - method: "create_window"
-          delay: 2
-    - name: "Microsoft Word"
-      methods:
-        - method: "create_window"
-          delay: 2
+      - method: "create_window"
+        delay: 2
+      - method: "create_tab"
+        delay: 2
+      - method: "browse"
+        delay: 2
+        args:
+          url: "www.python.org"
+      - method: "scroll"
+        delay: 0.5
+        args:
+          direction: "down"
+          clicks: 30
+          scroll_delay: 0.07
+      - method: "scroll"
+        delay: 2
+        args:
+          direction: "up"
+          clicks: 15
+          scroll_delay: 0.05
+      - method: "zoom_in"
+        delay: 2
+        args:
+          count: 10
+      - method: "zoom_out"
+        delay: 2
+        args:
+          count: 10
+      - method: "previous_page"
+        delay: 2
+      - method: "next_page"
+        delay: 2
+      - method: "toggle_fullscreen"
+        delay: 2
+      - method: "toggle_fullscreen"
+        delay: 2
+  - scenario:
     - name: "Microsoft Excel"
       methods:
-        - method: "create_window"
-          delay: 2
+      - method: "open_xlsx"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Downloads\\test\\dummy.xlsx"
+      - method: "change_cell"
+        delay: 2
+        args:
+          target_cell: "F5"
+      - method: "create_sheet"
+        delay: 2
+      - method: "rename_sheet"
+        delay: 2
+        args:
+          new_name: "Dummy"
+      - method: "create_sheet"
+        delay: 2
+      - method: "rename_sheet"
+        delay: 2
+        args:
+          new_name: "Test"
+      - method: "change_sheet"
+        delay: 2
+        args:
+          direction: "right"
+          count: 2
+      - method: "change_sheet"
+        delay: 2
+        args:
+          direction: "left"
+          count: 1
+      - method: "write_cell"
+        delay: 2
+        args:
+          text: "haloooo, tes satu dua tiga!"
+      - method: "scroll"
+        delay: 2
+        args:
+          direction: "down"
+          clicks: 30
+          scroll_delay: 0.05
+      - method: "save_xlsx"
+        delay: 2
+  - scenario:
     - name: "Microsoft Paint"
       methods:
-        - method: "create_window"
+        - method: "open_file"
           delay: 2
+          args:
+            path: "C:\\Users\\ASUS\\Downloads\\test\\dummy.jpg"
+        - method: "change_image_size"
+          delay: 2
+          args:
+            width: 1440
+            height: 900
+        - method: "draw"
+          delay: 2
+          args: 
+            points: 
+              - [1110, 625]
+              - [1102, 675]
+              - [1079, 721]
+              - [1043, 760]
+              - [997, 787]
+              - [945, 798]
+              - [892, 793]
+              - [844, 770]
+              - [808, 735]
+              - [787, 690]
+              - [780, 640]
+              - [788, 590]
+              - [811, 544]
+              - [847, 505]
+              - [893, 478]
+              - [945, 467]
+              - [998, 472]
+              - [1046, 495]
+              - [1082, 530]
+              - [1103, 575]
+              - [1110, 625]
+            mouse_speed: 1
+        - method: "change_thickness"
+          delay: 2
+          args:
+            direction: "up"
+            count: 10
+        - method: "draw_random"
+          delay: 2
+          args:
+            count: 30
+            mouse_speed: 1
+        - method: "save_file"
+          delay: 2
+  - scenario:
+    - name: "Microsoft Word"
+      methods:
+      - method: "open_docx"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Downloads\\test\\dummy.docx"
+      - method: "write_docx"
+        delay: 2
+        args:
+          text: "haloooo, tes satu dua tiga!"
+      - method: "scroll"
+        delay: 2
+        args:
+          direction: "up"
+          clicks: 30
+          scroll_delay: 0.05
+      - method: "save_docx"
+        delay: 2
+  - scenario:
     - name: "Notepad"
       methods:
-        - method: "create_window"
-          delay: 2
+      - method: "open_file"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Downloads\\test\\dummy.json"
+      - method: "write_file"
+        delay: 2
+        args:
+          text: "test write file lalalala lalalala"
+      - method: "scroll"
+        delay: 2
+        args:
+          direction: "up"
+          clicks: 30
+          scroll_delay: 0.05
+      - method: "save_file"
+        delay: 2
+  - scenario:
     - name: "Command Prompt"
       methods:
-        - method: "create_window"
-          delay: 2
+      - method: "create_window"
+        delay: 2
+      - method: "open_file"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Downloads\\test\\dummy.txt"
+      - method: "change_directory"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Downloads"
+      - method: "create_directory"
+        delay: 2
+        args:
+          parent_path: "C:\\Users\\ASUS\\Downloads"
+          dir_name: "test2"
+      - method: "copy"
+        delay: 2
+        args:
+          source_path: "C:\\Users\\ASUS\\Downloads\\test\\dummy.txt"
+          destination_path: "C:\\Users\\ASUS\\Downloads\\test\\dup.txt"
+      - method: "move"
+        delay: 2
+        args:
+          source_path: "C:\\Users\\ASUS\\Downloads\\test\\dup.txt"
+          destination_path: "C:\\Users\\ASUS\\Downloads\\test2"
+      - method: "list"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Downloads\\test2"
+      - method: "rename"
+        delay: 2
+        args:
+          old_name: "C:\\Users\\ASUS\\Downloads\\test2\\dup.txt"
+          new_name: "renamed.txt"
+      - method: "delete"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Downloads\\test2\\renamed.txt"
+      - method: "list"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Downloads\\test2"
+  - scenario:
     - name: "File Explorer"
       methods:
-        - method: "create_window"
+      - method: "create_window"
+        delay: 2
+      - method: "open_file"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Downloads\\test\\dummy.docx"
+      - method: "change_directory"
+        delay: 2
+        args:
+          path: "C:\\Users\\ASUS\\Documents"
+      - method: "create_directory"
+        delay: 2
+        args:
+          parent_path: "C:\\Users\\ASUS\\Downloads"
+          dir_name: "testt"
+  - scenario:
+    - name: "AutoIt Function"
+      methods:
+        - method: "mouse_move"
           delay: 2
-  # - scenario:
-  #   - name: "Command Prompt"
-  #     methods:
-  #       - method: "create_window"
-  #         delay: 2
-  #       - method: "list"
-  #         delay: 2
-  #         args:
-  #           path: "C:\\Users\\ASUS\\Downloads\\test"
-  #       - method: "move"
-  #         delay: 2
-  #         args:
-  #           source_path: "C:\\Users\\ASUS\\Downloads\\t.sql"
-  #           destination_path: "C:\\Users\\ASUS\\Downloads\\test"
-  #       - method: "list"
-  #         delay: 2
-  #         args:
-  #           path: "C:\\Users\\ASUS\\Downloads\\test"
-  #       - method: "copy"
-  #         delay: 2
-  #         args:
-  #           source_path: "C:\\Users\\ASUS\\Downloads\\test\\t.sql"
-  #           destination_path: "C:\\Users\\ASUS\\Downloads\\test\\dup.sql"
-  #       - method: "list"
-  #         delay: 2
-  #         args:
-  #           path: "C:\\Users\\ASUS\\Downloads\\test"
-  #       - method: "rename"
-  #         delay: 2
-  #         args:
-  #           old_name: "C:\\Users\\ASUS\\Downloads\\test\\dup.sql"
-  #           new_name: "renamed.sql"
-  #       - method: "list"
-  #         delay: 2
-  #         args:
-  #           path: "C:\\Users\\ASUS\\Downloads\\test"
-  #       - method: "delete"
-  #         delay: 2
-  #         args:
-  #           path: "C:\\Users\\ASUS\\Downloads\\test\\renamed.sql"
-  #       - method: "list"
-  #         delay: 2
-  #         args:
-  #           path: "C:\\Users\\ASUS\\Downloads\\test"
-  # - scenario:
-  #   - name: "Gmail"
-  #     browser: "Google Chrome"
-  #     methods:
-  #       - method: "open"
-  #         delay: 2
-  #       - method: "next_email"
-  #         delay: 2
-  #         args:
-  #           count: 5
-  #       - method: "previous_email"
-  #         delay: 2
-  #         args:
-  #           count: 3
-  #       - method: "open_email"
-  #         delay: 2
-  #   - name: "Google Chrome"
-  #     methods:
-  #       - method: "previous_page"
-  #         delay: 2
-  #   - name: "Gmail"
-  #     browser: "Google Chrome"
-  #     methods:
-  #       - method: "go_to_drafts"
-  #         delay: 2
-  #       - method: "go_to_sent_messages"
-  #         delay: 2
-  #       - method: "go_to_inbox"
-  #         delay: 2
-  #       - method: "select_all"
-  #         delay: 2
-  #       - method: "deselect_all"
-  #         delay: 2
-  #       - method: "select_unread"
-  #         delay: 2
-  #       - method: "mark_as_read"
-  #         delay: 2
-  #       - method: "mark_as_unread"
-  #         delay: 2
-  #       - method: "archive_email"
-  #         delay: 2
-  #       - method: "compose_email"
-  #         delay: 2
-  #         args:
-  #           recipients: ["athallahraz@gmail.com", "fugakamino@gmail.com"]
-  #           subject: "Tes Skenario Gmail"
-  #           body: "Halooo, tes tes, satu dua tiga tes kirim Gmail"
-  # - scenario:
-  #   - name: "YouTube"
-  #     browser: "Mozilla Firefox"
-  #     methods:
-  #       - method: "open"
-  #         delay: 2
-  #       - method: "search"
-  #         delay: 2
-  #         args:
-  #           text: "flutter tutorial net ninja"
-  #   - name: "Mozilla Firefox"
-  #     methods:
-  #       - method: "create_tab"
-  #         delay: 2
-  #       - method: "browse"
-  #         delay: 5
-  #         args:
-  #           url: "https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ"
-  #   - name: "YouTube"
-  #     browser: "Mozilla Firefox"
-  #     methods:
-  #       - method: "toggle_pause"
-  #         delay: 2
-  #       - method: "toggle_pause"
-  #         delay: 2
-  #       - method: "toggle_mute"
-  #         delay: 2
-  #       - method: "toggle_mute"
-  #         delay: 2
-  #       - method: "toggle_subtitle"
-  #         delay: 2
-  #       - method: "toggle_fullscreen"
-  #         delay: 2
-  #       - method: "toggle_cinema_mode"
-  #         delay: 2
-  #       - method: "next_video"
-  #         delay: 2
-  #       - method: "previous_video"
-  #         delay: 2
-  # - scenario:
-  #   - name: "Microsoft Paint"
-  #     methods:
-  #       - method: "create_window"
-  #         delay: 2
-  #       - method: "draw"
-  #         delay: 2
-  #         args: 
-  #           points: 
-  #             - [1110, 625]
-  #             - [1102, 675]
-  #             - [1079, 721]
-  #             - [1043, 760]
-  #             - [997, 787]
-  #             - [945, 798]
-  #             - [892, 793]
-  #             - [844, 770]
-  #             - [808, 735]
-  #             - [787, 690]
-  #             - [780, 640]
-  #             - [788, 590]
-  #             - [811, 544]
-  #             - [847, 505]
-  #             - [893, 478]
-  #             - [945, 467]
-  #             - [998, 472]
-  #             - [1046, 495]
-  #             - [1082, 530]
-  #             - [1103, 575]
-  #             - [1110, 625]
-  #           speed: 1
-  #       - method: "change_thickness"
-  #         delay: 2
-  #         args:
-  #           direction: "up"
-  #           count: 10
-  #       - method: "draw_random"
-  #         delay: 2
-  #         args:
-  #           count: 30
-  #           speed: 1
-  # - scenario:
-  #   - name: "Microsoft Excel"
-  #     methods:
-  #     - method: "create_window"
-  #       delay: 2
-  #     - method: "open_xlsx"
-  #       delay: 2
-  #       args:
-  #         path: "C:\\Users\\ASUS\\Downloads\\dummy.xlsx"
-  #     - method: "change_cell"
-  #       delay: 2
-  #       args:
-  #         target_cell: "F5"
-  #     - method: "create_sheet"
-  #       delay: 2
-  #     - method: "rename_sheet"
-  #       delay: 2
-  #       args:
-  #         new_name: "Dummy"
-  #     - method: "create_sheet"
-  #       delay: 2
-  #     - method: "rename_sheet"
-  #       delay: 2
-  #       args:
-  #         new_name: "Test"
-  #     - method: "change_sheet"
-  #       delay: 2
-  #       args:
-  #         direction: "right"
-  #         count: 2
-  #     - method: "change_sheet"
-  #       delay: 2
-  #       args:
-  #         direction: "left"
-  #         count: 1
-  #     - method: "write_cell"
-  #       delay: 2
-  #       args:
-  #         text: "haloooo, tes satu dua tiga!"
-  #     - method: "scroll"
-  #       delay: 2
-  #       args:
-  #         direction: "down"
-  #         clicks: 30
-  #         scroll_delay: 0.05
-  #     - method: "save_xlsx"
-  #       delay: 2
-  # - scenario:
-  #   - name: "Selenium Script"
-  #     methods:
-  #       - method: "run_pytest"
-  #         delay: 2
-  #         args:
-  #           path: "C:\\Users\\ASUS\\Documents\\Kuliah\\SEM 8\\TA\\user-activity-simulation\\testcase1.py"
-  #   - name: "AutoIt Function"
-  #     methods:
-  #       - method: "mouse_move"
-  #         delay: 2
-  #         args:
-  #           x: 768
-  #           y: 432
-  #           speed: 10
-  #       - method: "mouse_move"
-  #         delay: 2
-  #         args:
-  #           x: 960
-  #           y: 540
-  #           speed: 10
-  #       - method: "run"
-  #         delay: 2
-  #         args:
-  #           exe_path: 'C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE "C:\\Users\\ASUS\\Downloads\\dummy.docx"'
-  #           working_dir: ""
-  #           flag: 1
-  # - scenario:
-  #   - name: "Notepad"
-  #     methods:
-  #     - method: "create_window"
-  #       delay: 2
-  #     - method: "open_file"
-  #       delay: 2
-  #       args:
-  #         path: "C:\\Users\\ASUS\\Downloads\\credentials.json"
-  #     - method: "write_file"
-  #       delay: 2
-  #       args:
-  #         text: "test write file"
-  #     - method: "scroll"
-  #       delay: 2
-  #       args:
-  #         direction: "up"
-  #         clicks: 30
-  #         scroll_delay: 0.05
-  #     - method: "save_file"
-  #       delay: 2
-  # - scenario:
-  #   - name: "File Explorer"
-  #     methods:
-  #     - method: "create_window"
-  #       delay: 2
-  #     - method: "open_file"
-  #       delay: 2
-  #       args:
-  #         path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
-  #     - method: "change_directory"
-  #       delay: 2
-  #       args:
-  #         path: "C:\\Users\\ASUS\\Documents"
-  #     - method: "create_directory"
-  #       delay: 2
-  #       args:
-  #         parent_path: "C:\\Users\\ASUS\\Downloads"
-  #         dir_name: "testtt"
-  #   - name: "Command Prompt"
-  #     methods:
-  #     - method: "create_window"
-  #       delay: 2
-  #     - method: "open_file"
-  #       delay: 2
-  #       args:
-  #         path: "C:\\Users\\ASUS\\Downloads\\t.sql"
-  #     - method: "change_directory"
-  #       delay: 2
-  #       args:
-  #         path: "C:\\Users\\ASUS\\Documents\\Kuliah\\SEM 8"
-  #     - method: "create_directory"
-  #       delay: 2
-  #       args:
-  #         parent_path: "C:\\Users\\ASUS\\Downloads"
-  #         dir_name: "dummyyy"
-  #   - name: "Google Chrome"
-  #     methods:
-  #       - method: "create_window"
-  #         delay: 2
-  #       - method: "zoom_in"
-  #         delay: 2
-  #         args:
-  #           count: 10
-  #       - method: "zoom_out"
-  #         delay: 2
-  #         args:
-  #           count: 12
-  #       - method: "create_tab"
-  #         delay: 2
-  #       - method: "browse"
-  #         delay: 2
-  #         args:
-  #           url: "www.python.org"
-  #       - method: "scroll"
-  #         delay: 2
-  #         args:
-  #           direction: "down"
-  #           clicks: 30
-  #           scroll_delay: 0.03
-  # - scenario:
-  #   - name: "Mozilla Firefox"
-  #     methods:
-  #     - method: "create_window"
-  #       delay: 2
-  #     - method: "create_tab"
-  #       delay: 2
-  #     - method: "browse"
-  #       delay: 2
-  #       args:
-  #         url: "www.python.org"
-  #     - method: "scroll"
-  #       delay: 0.5
-  #       args:
-  #         direction: "down"
-  #         clicks: 30
-  #         scroll_delay: 0.07
-  #     - method: "scroll"
-  #       delay: 2
-  #       args:
-  #         direction: "up"
-  #         clicks: 15
-  #         scroll_delay: 0.05
-  #   - name: "Microsoft Word"
-  #     methods:
-  #     - method: "create_window"
-  #       delay: 2
-  #     - method: "open_docx"
-  #       delay: 2
-  #       args:
-  #         path: "C:\\Users\\ASUS\\Downloads\\dummy.docx"
-  #     - method: "write_docx"
-  #       delay: 2
-  #       args:
-  #         text: "haloooo, tes satu dua tiga!"
-  #     - method: "scroll"
-  #       delay: 2
-  #       args:
-  #         direction: "up"
-  #         clicks: 30
-  #         scroll_delay: 0.05
-  #     - method: "save_docx"
-  #       delay: 2
-  # - scenario:
-  #   - name: "Google Forms"
-  #     browser: "Mozilla Firefox"
-  #     methods:
-  #     - method: "fill_form"
-  #       delay: 2
-  #       args:
-  #         url: "https://forms.gle/1wCpoSWBjQqVvtVv5"
-  #         answers: ["short answer", "lorem ipsum", "paragraph answer"]
-  # - scenario:
-  #   - name: "Google Forms"
-  #     browser: "Mozilla Firefox"
-  #     methods:
-  #     - method: "create_form"
-  #       delay: 2
-  #       args:
-  #         title: "Form Testing"
-  #         description: "form ini digunakan untuk testing"
-  #         questions:
-  #           - ["Short answer", "question 1", true]
-  #           - ["Paragraph", "question 2", true]
-  #           - ["Short answer", "question 3", false]
+          args:
+            x: 768
+            y: 432
+            speed: 10
+        - method: "mouse_move"
+          delay: 2
+          args:
+            x: 960
+            y: 540
+            speed: 10
+        - method: "run"
+          delay: 2
+          args:
+            exe_path: 'cmd.exe /c start'
+            working_dir: ""
+            flag: 1
+        - method: "send"
+          delay: 2
+          args:
+            text: "dir{ENTER}"
+            mode: 0
+  - scenario:
+    - name: "Selenium Script"
+      methods:
+        - method: "run_pytest"
+          delay: 2
+          args:
+            path: "C:\\Users\\ASUS\\Downloads\\test\\suite1.py"
+        - method: "run_pytest"
+          delay: 2
+          args:
+            path: "C:\\Users\\ASUS\\Downloads\\test\\testcase1.py"
