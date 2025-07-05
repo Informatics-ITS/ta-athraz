@@ -1,7 +1,6 @@
 import pandas as pd
 import re
 
-# --- Configuration ---
 input_files = [
     '0fad4bfb7d4697eaf966b88c9e623f454f843700195bb192cfcadcd256a4c431\\w-user-2min.csv',
     '0fad4bfb7d4697eaf966b88c9e623f454f843700195bb192cfcadcd256a4c431\\wo-user-2min.csv',
@@ -108,12 +107,18 @@ pid_regex = re.compile(r"ProcessID: (\d+)")
 
 def extract_pids(df):
     event1_rows = df[df['EventId'] == 1]
-    pids = set()
-    for val in event1_rows['PayloadData1'].dropna():
-        match = pid_regex.search(val)
-        if match:
-            pids.add(match.group(1))
-    return pids
+    pid_record_map = {}
+    for _, row in event1_rows.iterrows():
+        val = row['PayloadData1']
+        if pd.notna(val):
+            match = pid_regex.search(val)
+            if match:
+                pid = match.group(1)
+                record_number = row.get('RecordNumber', float('inf'))
+                if pid not in pid_record_map or record_number < pid_record_map[pid]:
+                    pid_record_map[pid] = record_number
+
+    return pid_record_map
 
 for input_file, output_file, search_string in zip(input_files, output_files, search_strings):
     df = pd.read_csv(input_file)
@@ -121,18 +126,19 @@ for input_file, output_file, search_string in zip(input_files, output_files, sea
     initial_df = df[df.apply(lambda row: row.astype(str).str.contains(search_string).any(), axis=1)]
     all_related_rows = initial_df.copy()
 
-    new_pids = extract_pids(initial_df)
-    
-    if new_pids:
+    new_pids_map = extract_pids(initial_df)
+
+    if new_pids_map:
         while True:
             new_rows = df[df.apply(
                 lambda row: any(
-                    f"SourceProcessID: {pid}" in str(row) or
-                    f"ParentProcessID: {pid}" in str(row) or
                     (
-                        f"ProcessID: {pid}" in str(row) and row.get('EventId') != 1
+                        (f"SourceProcessID: {pid}" in str(row) or
+                         f"ParentProcessID: {pid}" in str(row) or
+                         (f"ProcessID: {pid}" in str(row) and row.get('EventId') != 1))
+                        and row.get('RecordNumber', float('-inf')) > rec_num
                     )
-                    for pid in new_pids
+                    for pid, rec_num in new_pids_map.items()
                 ),
                 axis=1
             )]
@@ -142,8 +148,8 @@ for input_file, output_file, search_string in zip(input_files, output_files, sea
 
             all_related_rows = pd.concat([all_related_rows, new_rows], ignore_index=True)
 
-            new_pids = extract_pids(new_rows)
-            if not new_pids:
+            new_pids_map = extract_pids(new_rows)
+            if not new_pids_map:
                 break
 
     all_related_rows = all_related_rows.sort_values(by='TimeCreated')
