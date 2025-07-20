@@ -9,9 +9,8 @@
 ---
 
 ## 📺 Demo Program  
-Embed video demo di bawah ini (ganti `VIDEO_ID` dengan ID video YouTube Anda):  
 
-[![Demo Program](https://i.ytimg.com/vi/zIfRMTxRaIs/maxresdefault.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)  
+[![Demo Program](https://github.com/user-attachments/assets/0a9846ff-7b9d-4c73-a0e2-7c73a5ead899)](https://www.youtube.com/watch?v=Z1EMP3ihMXA)  
 *Klik gambar di atas untuk menonton demo*
 
 ---
